@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Purchase Order</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo {
+      width: 100px;
+      height: auto;
+      float: left;
+    }
+    .company-info {
+      float: left;
+      margin-left: 20px;
+    }
+    .purchase-info {
+      margin-top: 20px;
+      float: right;
+    }
+    .customer-info {
+      margin-top: 20px;
+    }
+    .terms {
+      margin-top: 20px;
+    }
+    .signature {
+      margin-top: 50px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="indokarya-logo.png" alt="Indokarya Logo" class="logo">
+    <div class="company-info">
+      <h1>PT. INDOKARYA JASA PRIMA</h1>
+      <p>CONTRACTOR, TRADING & SUPPLIER<br>
+        Office:Jin.Link Warungkara Rt/Rw 005/001 Randakari Ciwandan Kota Cilegon Provinsi Banten<br>
+        42446. Telp:087809374793 Email:Ptindokaryajasaprima18@Gmail.com
+      </p>
+    </div>
+    <div class="purchase-info">
+      <h2>PURCHASE ORDER-(PO)</h2>
+      <p>Purchase No: 009/DP/X/2623</p>
+    </div>
+  </div>
+  <div class="customer-info">
+    <p>Kepada/TO:<br>
+      <strong>PT. Ghana Petro Nusa</strong><br>
+      Date: 06 Desember 2023
+    </p>
+    <p>Berdasarkan permintaan pembelian: Basic of purchase requesition</p>
+    <p>Harap Kirim Barang Tersebut Di: Haka WP 9 Suralaya (8000 Ltr)</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>NO</th>
+        <th>BANYAK<br>QUANTITY</th>
+        <th>URAIAN<br>DESCRIPTION</th>
+        <th>HARGA SATUAN<br>UNIT PRICE (RP)</th>
+        <th>JUMLAH<br>AMOUNT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1.</td>
+        <td>8000 Ltr</td>
+        <td>Solar Industry<br>(Non Subsidi)</td>
+        <td>13.200</td>
+        <td>105.600.000</td>
+      </tr>
+      <tr>
+        <td colspan="4">Jumlah</td>
+        <td>95.135.135</td>
+      </tr>
+      <tr>
+        <td colspan="4">PPN 11%</td>
+        <td>10.464.865</td>
+      </tr>
+      <tr>
+        <td colspan="4"><strong>Total</strong></td>
+        <td><strong>105.600.000</strong></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="terms">
+    <p><strong>Terbilang:</strong> Seratus Lima Juta Enam Ratus Rupiah</p>
+    <p><strong>Lain-Lain / Miscellaneous</strong></p>
+    <p>A. Keterangan Harga&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Harga Franco Proyek</p>
+    <p>B. Waktu Penyerahan Barang&nbsp;&nbsp;: 07 Desember 2023</p>
+    <p>C. Cara Pembayaran&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Pembayaran Selama 15 Hari Kerja.Pembayaran tanggal 23
