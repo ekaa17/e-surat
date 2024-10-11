@@ -17,6 +17,8 @@ class StaffSeeder extends Seeder
         DB::table('staff')->insert([
             [
                 'name' => 'Eka',
+                'jabatan' => 'Sekertaris',
+                'no_telepon' => '0898766788',
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('123456'),
                 'role' => 'Admin',
@@ -26,6 +28,8 @@ class StaffSeeder extends Seeder
             ],
             [
                 'nama' => 'Miff',
+                'jabatan' => 'Direktur',
+                'no_telepon' => '0898766788',
                 'email' => 'Miff@gmail.com',
                 'password' => Hash::make('123456'),
                 'role' => 'Karyawan',

@@ -1,42 +1,76 @@
 <aside class="left-sidebar">
+  <!-- Sidebar scroll-->
   <div>
     <div class="brand-logo d-flex align-items-center justify-content-between">
-      <a href="{{ url('/') }}" class="text-nowrap logo-img">
-        <img src="{{ asset('assets/images/logos/logoicon.png') }}" width="180" alt="Logo" />
+      <a href="./index.html" class="text-nowrap logo-img">
+        <img src="../../dist/images/logos/dark-logo.svg" class="dark-logo" width="180" alt="" />
+        <img src="../../dist/images/logos/light-logo.svg" class="light-logo"  width="180" alt="" />
       </a>
-      <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-        <i class="ti ti-x fs-8"></i>
+      <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+        <i class="ti ti-x fs-8 text-muted"></i>
       </div>
     </div>
-
-    <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+    <!-- Sidebar navigation-->
+    <nav class="sidebar-nav scroll-sidebar" data-simplebar>
       <ul id="sidebarnav">
+        <!-- ============================= -->
+        <!-- Home -->
+        <!-- ============================= -->
         <li class="nav-small-cap">
           <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
           <span class="hide-menu">Home</span>
         </li>
+        <!-- =================== -->
+        <!-- Dashboard -->
+        <!-- =================== -->
         <li class="sidebar-item">
-          <a class="sidebar-link" href="{{ url('/dashboard') }}" aria-expanded="false">
-            <span><i class="ti ti-layout-dashboard"></i></span>
+          <a class="sidebar-link" href="./dashboard" aria-expanded="false">
+            <span>
+              <i class="bi bi-speedometer2"></i>
+            </span>
             <span class="hide-menu">Dashboard</span>
           </a>
-          @if (auth()->user()->role == 'Admin')
-          <a class="sidebar-link" href="{{ url('/data-staff') }}" aria-expanded="false">
-            <span><i class="ti ti-user"></i></span>
-            <span class="hide-menu">Data Karyawan</span>
-          </a>
-          @endif
-          <a class="sidebar-link dropdown-toggle" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            <i class="ti ti-mail"></i> Menu Surat
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="{{ url('/data-PO') }}">Penawaran Order</a></li>
-            <li><a class="dropdown-item" href="{{ url('/data-invoice') }}">Invoice</a></li>
-            <li><a class="dropdown-item" href="{{ url('/data-PH') }}">Penawaran Harga</a></li>
-          </ul>
         </li>
-      </ul>
-    </nav>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="./data-staff" aria-expanded="false">
+            <span>
+              <i class="bi-person-circle"></i>
+            </span>
+            <span class="hide-menu">Data Staff</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="./index3.html" aria-expanded="false">
+            <span>
+              <i class="ti ti-currency-dollar"></i>
+            </span>
+            <span class="hide-menu">NFT</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="./index4.html" aria-expanded="false">
+            <span>
+              <i class="ti ti-cpu"></i>
+            </span>
+            <span class="hide-menu">Crypto</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="./index5.html" aria-expanded="false">
+            <span>
+              <i class="ti ti-activity-heartbeat"></i>
+            </span>
+            <span class="hide-menu">General</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="./index6.html" aria-expanded="false">
+            <span>
+              <i class="ti ti-playlist"></i>
+            </span>
+            <span class="hide-menu">Music</span>
+          </a>
+        </li>
   </div>
+  <!-- End Sidebar scroll-->
 </aside>

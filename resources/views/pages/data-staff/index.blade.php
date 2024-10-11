@@ -35,7 +35,7 @@
                         <div class="d-flex align-items-center justify-content-between m-3">
                             <h5 class="card-title">Total : {{ $karyawan }} Karyawan | {{ $admin }} Admin</h5>
                             <a href="{{ route('data-staff.create') }}" class="btn btn-primary">
-                                <i class="bi bi-plus"></i> Data Baru
+                                <i class="fas fa-plus fa-sm text-white-50"></i> Data Baru
                             </a>
                         </div>
 
@@ -45,6 +45,8 @@
                                     <tr>
                                         <th>No.</th>
                                         <th>Nama</th>
+                                        <th>Jabatan</th>
+                                        <th>No Telpon</th>
                                         <th>Email</th>
                                         <th>Role</th>
                                         <th>Profile</th>
@@ -54,12 +56,14 @@
                                 <tbody>
                                     @foreach($data as $data)
                                     <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $data->name }}</td>
-                                        <td>{{ $data->email }}</td>
-                                        <td>{{ $data->role }}</td>
-                                        <td>{{ $data->profile }}</td>
-                                        <td>
+                                        <th>{{ $no++ }}</th>
+                                        <th>{{ $data->name }}</th>
+                                        <th>{{ $data->Jabatan }}</th>
+                                        <th>{{ $data->no_telepon }}</th>
+                                        <th>{{ $data->email }}</th>
+                                        <th>{{ $data->role }}</th>
+                                        <th>{{ $data->profile }}</th>
+                                        <th>
                                             <a href="{{ route('data-staff.edit', $data->id) }}" class="btn btn-primary btn-sm">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>
@@ -70,7 +74,7 @@
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
                                             </form>
-                                        </td>
+                                        </th>
                                     </tr>
                                     @endforeach
                                 </tbody>
