@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Perusahaan;
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use App\Models\Perusahaan;
 
 class PerusahaanSeeder extends Seeder
 {
