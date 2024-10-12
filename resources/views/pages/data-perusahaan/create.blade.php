@@ -13,50 +13,38 @@
     </div><!-- End Page Title -->
 
     <section class="section profile">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body pt-3">
-                        <form action="{{ route('data-staff.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-group p-2">
-                                <label for="name">Nama</label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Masukkan nama" required>
-                            </div>
-                        
-                            <div class="form-group p-2">
-                                <label for="email">Email</label>
-                                <input type="email" name="email" id="email" class="form-control" placeholder="Masukkan email" required>
-                            </div>
-                        
-                            <div class="form-group p-2">
-                                <label for="role">Role</label>
-                                <select name="role" id="role" class="form-control" required>
-                                    <option value="" disabled selected>Pilih role</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="karyawan">Karyawan</option>
-                                </select>
-                            </div>
-
-                             <div class="form-group p-2">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan password" required>
-                            </div>
-                        
-                            <div class="form-group p-2">
-                                <label for="profile">Profile</label>
-                                <input type="file" name="profile" id="profile" class="form-control">
-                            </div>
-
-                            <div class="m-2 d-flex justify-content-between align-items-center">
-                                <a href="{{ route('data-staff.index') }}" class="btn btn-secondary">Kembali</a>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
-                        
-                        </form>
+        <!-- Modal Tambah Data -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">Tambah Data Perusahaan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('data-perusahaan.store') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nama_perusahaan" class="form-label">Nama Perusahaan</label>
+                        <input type="text" class="form-control" id="nama_perusahaan" name="nama_perusahaan" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="alamat_perusahaan" class="form-label">Alamat Perusahaan</label>
+                        <input type="text" class="form-control" id="alamat_perusahaan" name="alamat_perusahaan" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="no_telpon" class="form-label">No Telpon</label>
+                        <input type="text" class="form-control" id="no_telpon" name="no_telpon" required>
                     </div>
                 </div>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
         </div>
+    </div>
+</div>
+
     </section>
 @endsection
