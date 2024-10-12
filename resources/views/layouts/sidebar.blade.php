@@ -40,35 +40,69 @@
           </a>
         </li>
         <li class="sidebar-item">
-          <a class="sidebar-link" href="./index3.html" aria-expanded="false">
+          <a class="sidebar-link" href="./data-perusahaan" aria-expanded="false">
             <span>
-              <i class="ti ti-currency-dollar"></i>
+              <i class="bi-person"></i>
             </span>
-            <span class="hide-menu">NFT</span>
+            <span class="hide-menu">Data Perusahaan</span>
           </a>
         </li>
         <li class="sidebar-item">
-          <a class="sidebar-link" href="./index4.html" aria-expanded="false">
+          <a class="sidebar-link" href="./data-produk" aria-expanded="false">
             <span>
-              <i class="ti ti-cpu"></i>
+              <i class="bi bi-cart"></i>
             </span>
-            <span class="hide-menu">Crypto</span>
+            <span class="hide-menu">Data Product</span>
           </a>
         </li>
         <li class="sidebar-item">
-          <a class="sidebar-link" href="./index5.html" aria-expanded="false">
+          <a class="sidebar-link" href="./data-pemesan" aria-expanded="false">
             <span>
-              <i class="ti ti-activity-heartbeat"></i>
+              <i class="bi-person-fill"></i>
             </span>
-            <span class="hide-menu">General</span>
+            <span class="hide-menu">Data Pemesan</span>
           </a>
         </li>
         <li class="sidebar-item">
-          <a class="sidebar-link" href="./index6.html" aria-expanded="false">
+          <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
             <span>
-              <i class="ti ti-playlist"></i>
+              <i class="bi bi-folder"></i>
             </span>
-            <span class="hide-menu">Music</span>
+            <span class="hide-menu">Data Dokumen</span>
+          </a>
+          <ul aria-expanded="false" class="collapse first-level">
+            <li class="sidebar-item">
+              <a href="./data-PH" class="sidebar-link">
+                <span>
+                  <i class="bi bi-file-earmark"></i>
+                </span>
+                <span class="hide-menu">Data Penawaran Harga</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="./data-PO" class="sidebar-link">
+                <span>
+                  <i class="bi bi-file-earmark"></i>
+                </span>
+                <span class="hide-menu">Data Pree Order</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="./data-invoice" class="sidebar-link">
+                <span>
+                  <i class="bi bi-file-earmark"></i>
+                </span>
+                <span class="hide-menu">Data Invoice</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="sidebar-item">
+          <a href="./data-setting" class="sidebar-link">
+            <span>
+              <i class="bi bi-gear"></i>
+            </span>
+            <span class="hide-menu">Bagian Seting</span>
           </a>
         </li>
   </div>

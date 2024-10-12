@@ -3,8 +3,12 @@
 use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PemesanController;
 use App\Http\Controllers\PenawaranHargaController;
 use App\Http\Controllers\PenawaranOrderController;
+use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StaffController;
 use App\Models\Invoice;
 use App\Models\PenawaranOrder;
@@ -39,6 +43,10 @@ Route::group(['middleware' => 'cekrole:Admin,Karyawan'], function() {
     Route::resource('/data-PO', PenawaranOrderController::class)->names('data-PO');
     Route::resource('/data-invoice', InvoiceController::class)->names('data-invoice');
     Route::resource('/data-PH', PenawaranHargaController::class)->names('data-PH');
+    Route::resource('/data-perusahaan', PerusahaanController::class)->names('data-perusahaan');
+    Route::resource('/data-produk', ProdukController::class)->names('data-produk');
+    Route::resource('/data-pemesan', PemesanController::class)->names('data-pemesan');
+    Route::resource('/data-setting', SettingController::class)->names('data-setting');
     
 });
 Route::group(['middleware' => 'cekrole:Karyawan'], function() {
