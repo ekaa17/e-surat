@@ -67,15 +67,34 @@
                                             <a href="{{ route('data-staff.edit', $data->id) }}" class="btn btn-primary btn-sm">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>
-                                            <form action="{{ route('data-staff.destroy', $data->id) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
-                                            </form>
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $data->id }}">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
                                         </th>
                                     </tr>
+                                     <!-- Modal Hapus data staff-->
+                                     <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $data->id }}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteModalLabel{{ $data->id }}">Hapus Data Perusahaan</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Apakah Anda yakin ingin menghapus perusahaan <strong>{{ $data->name }}</strong>?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="{{ route('data-staff.destroy', $data->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                    </form>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Modal Hapus Perusahaan -->
                                     @endforeach
                                 </tbody>
                             </table>

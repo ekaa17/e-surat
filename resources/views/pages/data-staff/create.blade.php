@@ -23,6 +23,16 @@
                                 <label for="name">Nama</label>
                                 <input type="text" name="name" id="name" class="form-control" placeholder="Masukkan nama" required>
                             </div>
+
+                            <div class="form-group p-2">
+                                <label for="Jabatan">Jabatan</label>
+                                <input type="text" name="Jabatan" id="Jabatan" class="form-control" placeholder="Masukkan Jabatan" required>
+                            </div>
+
+                            <div class="form-group p-2">
+                                <label for="no_telepon">No Telpon</label>
+                                <input type="text" name="no_telepon" id="no_telepon" class="form-control" placeholder="Masukkan No Telpon" required>
+                            </div>
                         
                             <div class="form-group p-2">
                                 <label for="email">Email</label>

@@ -26,8 +26,10 @@ class StaffController extends Controller
     {
         // dd($request);
         $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|unique:users',
+            'name' => 'required',
+            'Jabatan' => 'required',
+            'no_telepon' => 'required',
+            'email' => 'required',
             'role' => 'required',
             'password' => 'required'
         ]);
@@ -42,6 +44,8 @@ class StaffController extends Controller
 
         Staff::create([
             'name' => $request->name,
+            'Jabatan' => $request->Jabatan,
+            'no_telepon' => $request->no_telepon,
             'email' => $request->email,
             'role' => $request->role,
             'profile' => $imageName ,
@@ -57,16 +61,19 @@ class StaffController extends Controller
         $user = Staff::findOrFail($id);
     
         // Arahkan ke view form edit dan kirimkan data user yang ditemukan
-        return view('pages.data-staff.edit', compact('user'));
+        return view('pages.data-staff.edit');
     }
     
     public function update(Request $request, $id)
     {
         // Validasi input
         $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|unique:users,email,' . $id, // email harus unik kecuali user ini
+            'name' => 'required',
+            'Jabatan' => 'required',
+            'no_telepon' => 'required',
+            'email' => 'required',
             'role' => 'required',
+            'password' => 'required'
         ]);
     
         // Temukan user berdasarkan ID

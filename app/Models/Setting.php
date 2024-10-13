@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Setting extends Model
 {
     use HasFactory;
+
+    protected $table = 'settings';
+    
+    protected $fillable = [
+        'nama_perusahaan',
+        'bidang',
+        'alamat',
+        'no_telpon',
+        'fax',
+        'email',
+        'no_rek',
+        'jenis_bank',
+        'logo',
+    ];
 }

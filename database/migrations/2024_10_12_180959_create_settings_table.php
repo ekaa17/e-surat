@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_perusahaan');
+            $table->string('bidang');
+            $table->string('alamat');
+            $table->string('no_telpon');
+            $table->string('fax')->nullable();
+            $table->string('email')->unique();
+            $table->string('no_rek');
+            $table->string('jenis_bank');
+            $table->string('logo')->nullable();
             $table->timestamps();
         });
     }
