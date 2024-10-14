@@ -24,6 +24,16 @@
                                 <label for="name">Nama</label>
                                 <input type="text" name="name" id="name" class="form-control" placeholder="Masukkan nama" value="{{ $user->name }}" required>
                             </div>
+
+                            <div class="form-group p-2">
+                                <label for="jabatan">Jabatan</label>
+                                <input type="text" name="jabatan" id="jabatan" class="form-control" placeholder="Masukkan Jabatan" value="{{ $user->jabatan }}" required>
+                            </div>
+
+                            <div class="form-group p-2">
+                                <label for="no_telepon">No Telpon</label>
+                                <input type="text" name="no_telepon" id="no_telepon" class="form-control" placeholder="Masukkan nama" value="{{ $user->no_telepon }}" required>
+                            </div>
                         
                             <div class="form-group p-2">
                                 <label for="email">Email</label>

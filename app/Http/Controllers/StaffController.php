@@ -27,7 +27,7 @@ class StaffController extends Controller
         // dd($request);
         $request->validate([
             'name' => 'required',
-            'Jabatan' => 'required',
+            'jabatan' => 'required',
             'no_telepon' => 'required',
             'email' => 'required',
             'role' => 'required',
@@ -44,7 +44,7 @@ class StaffController extends Controller
 
         Staff::create([
             'name' => $request->name,
-            'Jabatan' => $request->Jabatan,
+            'jabatan' => $request->jabatan,
             'no_telepon' => $request->no_telepon,
             'email' => $request->email,
             'role' => $request->role,
@@ -52,28 +52,27 @@ class StaffController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        return redirect()->route('data-staff.index')->with('success', 'Produk berhasil ditambahkan.');
+        return redirect()->route('data-staff.index')->with('success', 'Staff berhasil ditambahkan.');
     }
 
     public function edit($id)
     {
         // Temukan user berdasarkan ID
         $user = Staff::findOrFail($id);
-    
         // Arahkan ke view form edit dan kirimkan data user yang ditemukan
-        return view('pages.data-staff.edit');
+        return view('pages.data-staff.edit', compact('user'));
     }
     
     public function update(Request $request, $id)
     {
+        // dd($request);
         // Validasi input
         $request->validate([
             'name' => 'required',
-            'Jabatan' => 'required',
+            'jabatan' => 'required',
             'no_telepon' => 'required',
             'email' => 'required',
             'role' => 'required',
-            'password' => 'required'
         ]);
     
         // Temukan user berdasarkan ID
@@ -101,9 +100,10 @@ class StaffController extends Controller
         // Update data user
         $user->update([
             'name' => $request->name,
+            'jabatan' => $request->jabatan,
+            'no_telepon' => $request->no_telepon,
             'email' => $request->email,
             'role' => $request->role,
-            'profile' => $imageName,
             // Hanya update password jika diisi
             'password' => $request->password ? Hash::make($request->password) : $user->password,
         ]);

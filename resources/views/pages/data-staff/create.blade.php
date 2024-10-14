@@ -25,8 +25,8 @@
                             </div>
 
                             <div class="form-group p-2">
-                                <label for="Jabatan">Jabatan</label>
-                                <input type="text" name="Jabatan" id="Jabatan" class="form-control" placeholder="Masukkan Jabatan" required>
+                                <label for="jabatan">Jabatan</label>
+                                 <input type="text" name="jabatan" id="jabatan" class="form-control" placeholder="Masukkan jabatan" required>
                             </div>
 
                             <div class="form-group p-2">
