@@ -17,7 +17,6 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body pt-3">
-                        <h5 class="card-title">Edit Data Penawaran</h5>
 
                         <!-- Form Edit -->
                         <form action="{{ route('data-PH.update', $penawaran->id) }}" method="POST">
