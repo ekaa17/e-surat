@@ -25,4 +25,9 @@ class Produk extends Model
     {
         return $this->belongsTo(Perusahaan::class, 'id_perusahaan');
     }
+
+    public function penawarans()
+    {
+        return $this->hasMany(PenawaranHarga::class, 'id_produk');
+    }
 }

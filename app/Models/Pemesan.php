@@ -16,4 +16,9 @@ class Pemesan extends Model
         'asal_pemesan',
         'tanggal_pemesan',
     ];
+
+    public function penawarans()
+    {
+        return $this->hasMany(PenawaranHarga::class, 'id_pemesan');
+    }
 }

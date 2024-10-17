@@ -13,9 +13,14 @@ return new class extends Migration
     {
         Schema::create('penawaran_hargas', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_pt');
-            $table->string('alamat_pt');
+            $table->unsignedBigInteger('id_pemesan');
+            $table->unsignedBigInteger('id_produk');
+            $table->integer('quantity');
+            $table->decimal('total', 10, 2);
+            $table->string('no_surat')->nullable();
             $table->timestamps();
+
+
         });
     }
 

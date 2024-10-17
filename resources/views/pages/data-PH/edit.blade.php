@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>Edit Staff</h1>
+        <h1>Edit Data Penawaran Harga</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('data-staff.index') }}">Staff</a></li>
-                <li class="breadcrumb-item active">Edit</li>
+                <li class="breadcrumb-item"><a href="{{ route('data-PH.index') }}">Data Penawaran Harga</a></li>
+                <li class="breadcrumb-item active">Edit Data</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -17,44 +17,93 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body pt-3">
-                        <form action="{{ route('data-staff.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                        <h5 class="card-title">Edit Data Penawaran</h5>
+
+                        <!-- Form Edit -->
+                        <form action="{{ route('data-PH.update', $penawaran->id) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            <div class="form-group p-2">
-                                <label for="name">Nama</label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Masukkan nama" value="{{ $user->name }}" required>
+                            
+                            <div class="row mb-3">
+                                <label for="id_pemesan" class="col-md-4 col-lg-3 col-form-label">Pemesan</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <select name="id_pemesan" id="id_pemesan" class="form-control @error('id_pemesan') is-invalid @enderror" required>
+                                        <option value="">Pilih Pemesan</option>
+                                        @foreach($pemesan as $p)
+                                            <option value="{{ $p->id }}" {{ $penawaran->id_pemesan == $p->id ? 'selected' : '' }}>
+                                                {{ $p->nama_pemesan }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_pemesan')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                        
-                            <div class="form-group p-2">
-                                <label for="email">Email</label>
-                                <input type="email" name="email" id="email" class="form-control" placeholder="Masukkan email" value="{{ $user->email }}" required>
+
+                            <div class="row mb-3">
+                                <label for="id_produk" class="col-md-4 col-lg-3 col-form-label">Produk</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <select name="id_produk" id="id_produk" class="form-control @error('id_produk') is-invalid @enderror" required>
+                                        <option value="">Pilih Produk</option>
+                                        @foreach($produk as $p)
+                                            <option value="{{ $p->id }}" {{ $penawaran->id_produk == $p->id ? 'selected' : '' }}>
+                                                {{ $p->nama_produk }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_produk')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                        
-                            <div class="form-group p-2">
-                                <label for="role">Role</label>
-                                <select name="role" id="role" class="form-control" required>
-                                    <option value="" disabled>Pilih role</option>
-                                    <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
-                                    <option value="karyawan" {{ $user->role == 'karyawan' ? 'selected' : '' }}>Karyawan</option>
-                                </select>
+
+                            <div class="row mb-3">
+                                <label for="quantity" class="col-md-4 col-lg-3 col-form-label">Quantity</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity', $penawaran->quantity) }}" required>
+                                    @error('quantity')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                        
-                            <div class="form-group p-2">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan password">
-                                <small class="text-muted">Kosongkan jika tidak ingin mengubah password</small>
+
+                            <div class="row mb-3">
+                                <label for="total" class="col-md-4 col-lg-3 col-form-label">Total Harga</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input type="number" class="form-control @error('total') is-invalid @enderror" id="total" name="total" value="{{ old('total', $penawaran->total) }}" required>
+                                    @error('total')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                        
-                            <div class="form-group p-2">
-                                <label for="profile">Profile</label>
-                                <input type="file" name="profile" id="profile" class="form-control">
-                                <small class="text-muted">Kosongkan jika tidak ingin mengubah foto profil</small>
+
+                            <div class="row mb-3">
+                                <label for="no_surat" class="col-md-4 col-lg-3 col-form-label">Nomor Surat</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input type="text" class="form-control @error('no_surat') is-invalid @enderror" id="no_surat" name="no_surat" value="{{ old('no_surat', $penawaran->no_surat) }}" required>
+                                    @error('no_surat')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                            <div class="m-2 d-flex justify-content-between align-items-center">
-                                <a href="{{ route('data-staff.index') }}" class="btn btn-secondary">Kembali</a>
-                                <button type="submit" class="btn btn-primary">Update</button>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                <a href="{{ route('data-PH.index') }}" class="btn btn-secondary">Batal</a>
                             </div>
-                        </form>
+                        </form><!-- End Form Edit -->
+
                     </div>
                 </div>
             </div>
