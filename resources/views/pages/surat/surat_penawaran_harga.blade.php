@@ -9,8 +9,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{{ asset('assets/img/logo.png') }}" rel="icon">
-  <link href="{{ asset('assets/img/logo.png') }}" rel="logo">
+  <link href="{{ asset('assets/img/profile/Logo.jpg') }}" rel="icon">
+  <link href="{{ asset('assets/img/profile/Logo.jpg') }}" rel="logo">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
@@ -20,15 +20,15 @@
     <table width=100%>
       <tr>
         <td width="20%" class="text-center">
-          <img src="./LogoIDKY.png" alt="Logo IndoKarya" width="175px">
+          <img src="{{ asset('assets/img/profile/Logo.jpg') }}" alt="Logo IndoKarya" width="175px">
         </td>
         <td width="80%" class="my-0 py-0">
-          <h6 class="text-primary">PT. INDOKARYA JASA PRIMA</h6>
+          <h6 class="text-primary">{{ $informasi_perusahaan->nama_perusahaan }}</h6>
           <p style="font-size: 12px; text-align: justify;" class="my-0 py-0">
             DISTRIBUTOR OF VALCE, PIPES & FITTING, ELECTRICAL, PNEUMTAUC, CONTRAKTOR & SAFETY EQUIPMENT (TRADING & SUPPLIER)
           </p>
           <p style="font-size: 10px" class="my-0 py-0">
-            Office : jln. raya cilegon (Pondok Cilegon Indah) Blok B.21 No.10 Kec.Cibeber kode pos 42423 tlp. 081903811118
+            Office : {{ $informasi_perusahaan->alamat }} kode pos 42423 tlp. {{ $informasi_perusahaan->no_telpon }}
           </p>
         </td>
       </tr>
@@ -39,19 +39,19 @@
     <div class="d-flex text-align-center justify-content-between">
         <div>
             <b style="font-size: 10px">
-                To : Pak Romaki <br>
-                PT. HUTAMAKARYA
+                To : {{ $data->pemesan->nama_pemesan }} <br>
+                {{-- PT. HUTAMAKARYA --}}
             </b>
         </div>
         <div class="m-0 p-0">
             <b style="font-size: 10px">
-                PT. INDOKARYA JASA PRIMA <br>
-                JL. RAYA PONDOK CILEGON INDAH <br>
-                (BLOK B.21 NO.10) CILEGON - BANTEN <br>
-                TELP : 081803811118 <br>
-                FAX : 087809374793 <br>
-                ATT : JO MIFTAH <br><br>
-                QTC :  001/IJP-HTMK/III/2024
+                {{ $informasi_perusahaan->nama_perusahaan }} <br>
+                {{ $informasi_perusahaan->alamat }}<br>
+                TELP : {{ $informasi_perusahaan->no_telpon }} <br>
+                FAX : {{ $informasi_perusahaan->fax }} <br>
+
+                ATT : {{ $direktur->name }} <br><br>
+                QTC :  {{ $data->no_surat }}
             </b>
         </div>
     </div>
@@ -69,43 +69,11 @@
         <tbody>
             <tr>
                 <td>1</td>
-                <td>Barang A</td>
-                <td>4</td>
-                <td>PC</td>
-                <td>150000</td>
-                <td>25000</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Barang A</td>
-                <td>4</td>
-                <td>PC</td>
-                <td>150000</td>
-                <td>25000</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Barang A</td>
-                <td>4</td>
-                <td>PC</td>
-                <td>150000</td>
-                <td>25000</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Barang A</td>
-                <td>4</td>
-                <td>PC</td>
-                <td>150000</td>
-                <td>25000</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Barang A</td>
-                <td>4</td>
-                <td>PC</td>
-                <td>150000</td>
-                <td>25000</td>
+                <td>{{ $data->produk->nama_produk }}</td>
+                <td>{{ $data->quantity }}</td>
+                <td>{{ $data->produk->unit }}</td>
+                <td>{{ number_format($data->produk->harga_produk, 0, ',', '.') }}</td>
+                <td>{{ number_format($data->total, 0, ',', '.') }}</td>
             </tr>
             <tr>
                 <td></td>
@@ -121,7 +89,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>25000000</td>
+                <td>{{ number_format($data->total, 0, ',', '.') }}</td>
             </tr>
         </tbody>
       </table>
@@ -135,7 +103,7 @@
                                     PELUNASAN CASH SEBELUM BARANG KAMI KONFIRMASI <br>
         VALIDITY : 1 MINGGU SETELAH TANGGAL PENAWARAN <br>
         HARGA BELUM TERMASUK TAX 11% <br> <br>
-        PEMBAYARAN :   1630007137998 ( INDOKARYA JASA PRIMA )
+        PEMBAYARAN :   {{ $informasi_perusahaan->no_rek }} ( INDOKARYA JASA PRIMA )
     </b>
 
     <br>
@@ -143,16 +111,16 @@
     <table style="font-size: 10px">
       <tr>
         <td>
-          CILEGON, 18 MARET 2024
+          CILEGON, {{ date('d M Y') }}
           <br><br><br>
           BEST REGARDS
           <br><br>
-          ttd
+          <img src="{{ asset('assets/img/ttd-staff/'.$direktur->tandatangan) }}" alt="{{ $direktur->tandatangan }}" class="img-fluid mb-2" style="max-width: 75px">
           <br><br>
           <p>
-              <u>PT. INDOKARYA JASA PRIMA</u> <br>
-              JO MIFTAH (082112345678) <br>
-              Email : ptindokaryajasaprima@Gmail.com
+              <u>{{ $informasi_perusahaan->nama_perusahaan }}</u> <br>
+              {{ $direktur->name }} ({{ $direktur->no_telepon }}) <br>
+              Email : {{ $informasi_perusahaan->email }}
           </p>
 
           <b> ______________ </b>

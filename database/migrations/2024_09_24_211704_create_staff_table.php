@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role',['Admin','Karyawan']);
             $table->string('profile')->nullable();
+            $table->string('tandatangan')->nullable();
             $table->timestamps();
         });
     }

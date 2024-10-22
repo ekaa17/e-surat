@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Produk;
 use App\Models\Pemesan;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Models\PenawaranHarga;
 use App\Http\Controllers\Controller;
+use App\Models\Staff;
 
 class PenawaranHargaController extends Controller
 {
@@ -91,4 +93,35 @@ class PenawaranHargaController extends Controller
         return redirect()->route('data-PH.index')->with('error', 'Gagal menghapus data penawaran.');
     }
 }
+    
+    public function setujui($id) {
+        $penawaran = PenawaranHarga::findOrFail($id);
+        $penawaran->status_pengajuan = 'disetujui';
+
+        if ($penawaran->save()){
+            return redirect()->back()->with('success', 'Surat terkait berhasil disetujui!');
+        } else {
+            return redirect()->back()->with('error', 'Gagal menyetujui surat');
+        }
+    }
+
+    public function validasi($id) {
+        $penawaran = PenawaranHarga::findOrFail($id);
+        $penawaran->status_validity = 'divalidasi';
+
+        // TAMBAHIN CODE BUAT CREATE PO + INVOICE DISINI YA EKA
+
+        if ($penawaran->save()){
+            return redirect()->back()->with('success', 'Surat terkait telah divalisasi!');
+        } else {
+            return redirect()->back()->with('error', 'Gagal menyetujui surat');
+        }
+    }
+
+    public function surat_ph($id) {
+        $data = PenawaranHarga::findOrFail($id);
+        $informasi_perusahaan = Setting::where('id', 1)->first();
+        $direktur = Staff::where('role', 'Karyawan')->first();
+        return view('pages.surat.surat_penawaran_harga', compact('data', 'informasi_perusahaan', 'direktur'));
+    }
 }

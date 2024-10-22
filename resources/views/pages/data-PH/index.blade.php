@@ -33,7 +33,7 @@
                 <div class="card">
                     <div class="card-body pt-3">
                         <div class="d-flex align-items-center justify-content-between m-3">
-                            <h5 class="card-title">Total :  Surat</h5>
+                            <h5 class="card-title">Total : {{ count($data_Harga) }}  Surat</h5>
                             <a href="{{ route('data-PH.create') }}" class="btn btn-primary">
                                 <i class="bi bi-plus"></i> Data Baru
                             </a>
@@ -44,11 +44,13 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Id Pemesan</th>
-                                        <th>Id Produk</th>
+                                        <th>Pemesan</th>
+                                        <th>Produk</th>
                                         <th>Quantity</th>
                                         <th>Total</th>
                                         <th>No Surat</th>
+                                        <th>Status Pengajuan</th>
+                                        <th>Status Validasi</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -61,12 +63,76 @@
                                             <td>{{ $penawaran->quantity }}</td> <!-- Jumlah produk -->
                                             <td>{{ number_format($penawaran->total, 0, ',', '.') }}</td> <!-- Total Harga -->
                                             <td>{{ $penawaran->no_surat }}</td> <!-- Nomor Surat -->
+                                            <td>
+                                                @if ($penawaran->status_pengajuan == "belum disetujui")
+                                                    @if (auth()->user()->role == 'Admin') 
+                                                        <span class="badge me-2 badge-pill bg-secondary">{{ $penawaran->status_pengajuan }}</span>
+                                                    @else
+                                                        <button type="button" class="btn mb-1 me-1 btn-secondary" data-bs-toggle="modal" data-bs-target="#pengajuan{{ $penawaran->id }}" fdprocessedid="tml8fm">
+                                                            Setujui
+                                                        </button>
+                                                        <div id="pengajuan{{ $penawaran->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title" id="myModalLabel"> Setujui Penawaran Harga </h4> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <h6>Apakah benar anda menyetujui penawaran harga terkait ?</h6>
+                                                                    </div>
+                                                                    <div class="modal-footer"> 
+                                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"> Tidak </button>
+                                                                        <a href="/setujui-surat-ph/{{ $penawaran->id }}" class="btn btn-primary">Ya</a> 
+                                                                    </div>
+                                                                </div> <!-- /.modal-content -->
+                                                            </div> <!-- /.modal-dialog -->
+                                                        </div> <!-- /.modal -->
+                                                    @endif
+                                                @else
+                                                    <a href="/surat-penawaran-harga/{{ $penawaran->id }}" blan class="btn btn-primary" target="_blank">
+                                                        <i class="ti ti-download"></i>
+                                                    </a> 
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($penawaran->status_validity == "belum divalidasi")
+                                                    @if (auth()->user()->role == 'Admin') 
+                                                        @if ($penawaran->status_pengajuan == "belum disetujui")
+                                                            <span class="badge me-2 badge-pill bg-secondary">{{ $penawaran->status_pengajuan }}</span>
+                                                        @else
+                                                            <button type="button" class="btn mb-1 me-1 btn-secondary" data-bs-toggle="modal" data-bs-target="#validasi{{ $penawaran->id }}" fdprocessedid="tml8fm">
+                                                                Validasi
+                                                            </button>
+                                                            <div id="validasi{{ $penawaran->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title" id="myModalLabel"> Validasi Penawaran Harga </h4> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <h6>Apakah benar pemesan telah memvalidasi penawaran harga terkait ?</h6>
+                                                                        </div>
+                                                                        <div class="modal-footer"> 
+                                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"> Tidak </button>
+                                                                            <a href="/validasi-surat-ph/{{ $penawaran->id }}" class="btn btn-primary">Ya</a> 
+                                                                        </div>
+                                                                    </div> <!-- /.modal-content -->
+                                                                </div> <!-- /.modal-dialog -->
+                                                            </div> <!-- /.modal -->
+                                                        @endif
+                                                    @else
+                                                        <span class="badge me-2 badge-pill bg-secondary">{{ $penawaran->status_validity }}</span>
+                                                    @endif
+                                                @else
+                                                    <span class="badge me-2 badge-pill bg-success">{{ $penawaran->status_validity }}</span>
+                                                @endif
+                                            </td>
                                             <th>
-                                                <a href="{{ route('data-PH.edit', $penawaran->id) }}" class="btn btn-primary btn-sm">
-                                                    <i class="bi bi-pencil-fill"></i>
+                                                <a href="{{ route('data-PH.edit', $penawaran->id) }}" class="btn btn-primary">
+                                                    <i class="ti ti-pencil"></i>
                                                 </a>
-                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $penawaran->id }}">
-                                                    <i class="bi bi-trash-fill"></i>
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $penawaran->id }}">
+                                                    <i class="ti ti-trash"></i>
                                                 </button>
                                             </th>
                                         </tr>

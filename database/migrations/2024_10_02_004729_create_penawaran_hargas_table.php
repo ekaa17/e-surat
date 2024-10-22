@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('penawaran_hargas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_pemesan');
-            $table->unsignedBigInteger('id_produk');
+            $table->foreignId('id_pemesan')->references('id')->on('pemesans')->onDelete('cascade');
+            $table->foreignId('id_produk')->references('id')->on('produks')->onDelete('cascade');
             $table->integer('quantity');
             $table->decimal('total', 10, 2);
             $table->string('no_surat')->nullable();
+            $table->enum('status_pengajuan', ['belum disetujui', 'disetujui']);
+            $table->enum('status_validity', ['belum divalidasi', 'divalidasi']);
             $table->timestamps();
 
 

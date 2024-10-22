@@ -14,7 +14,7 @@
   <meta name="keywords" content="Mordenize" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!--  Favicon -->
-  <link rel="shortcut icon" type="image/png" href="../../dist/images/logos/favicon.ico" />
+  <link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/profile/Logo.jpg') }}" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <!-- Owl Carousel  -->
   <link rel="stylesheet" href="../../dist/libs/owl.carousel/dist/assets/owl.carousel.min.css">
