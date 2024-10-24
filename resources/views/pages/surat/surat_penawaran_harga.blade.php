@@ -116,17 +116,17 @@
               BEST REGARDS,
               <br><br>
   
-              @if($direktur->tandatangan)
-                  <img src="{{ asset('assets/img/tandatangan/'.$direktur->tandatangan) }}" alt="Tanda Tangan {{ $direktur->name }}" class="img-fluid mb-2" style="max-width: 100px; height: auto;">
+              @if(optional($direktur)->tandatangan)
+                  <img src="{{ asset('assets/img/tandatangan/' . $direktur->tandatangan) }}" alt="Tanda Tangan {{ optional($direktur)->name }}" class="img-fluid mb-2" style="max-width: 100px; height: auto;">
               @else
                   <p>Tanda tangan tidak tersedia</p>
               @endif
   
               <br><br>
               <p style="margin: 0; padding: 0;">
-                  <u>{{ $informasi_perusahaan->nama_perusahaan }}</u> <br>
-                  {{ $direktur->name }} ({{ $direktur->no_telepon }}) <br>
-                  Email: {{ $informasi_perusahaan->email }}
+                  <u>{{ optional($informasi_perusahaan)->nama_perusahaan ?? 'Nama Perusahaan Tidak Tersedia' }}</u> <br>
+                  {{ optional($direktur)->name ?? 'Nama Direktur Tidak Tersedia' }} ({{ optional($direktur)->no_telepon ?? 'No Telepon Tidak Tersedia' }}) <br>
+                  Email: {{ optional($informasi_perusahaan)->email ?? 'Email Tidak Tersedia' }}
               </p>
   
               <br>
