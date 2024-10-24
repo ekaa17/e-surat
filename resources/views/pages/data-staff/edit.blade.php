@@ -44,8 +44,8 @@
                                 <label for="role">Role</label>
                                 <select name="role" id="role" class="form-control" required>
                                     <option value="" disabled>Pilih role</option>
-                                    <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
-                                    <option value="karyawan" {{ $user->role == 'karyawan' ? 'selected' : '' }}>Karyawan</option>
+                                    <option value="Admin" {{ $user->role == 'Admin' ? 'selected' : '' }}>Admin</option>
+                                    <option value="Karyawan" {{ $user->role == 'Karyawan' ? 'selected' : '' }}>Karyawan</option>
                                 </select>
                             </div>
                         

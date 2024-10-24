@@ -16,9 +16,6 @@ class PenawaranHargaSeeder extends Seeder
         DB::table('penawaran_hargas')->insert([
             [
                 'id_pemesan' => rand(1,2),
-                'id_produk' => rand(1,2),
-                'quantity' => 10,
-                'total' => 500000.00,
                 'status_pengajuan' => 'belum disetujui',
                 'status_validity' => 'belum divalidasi',
                 'created_at' => now(),
@@ -26,9 +23,6 @@ class PenawaranHargaSeeder extends Seeder
             ],
             [
                 'id_pemesan' => rand(1,2),
-                'id_produk' => rand(1,2),
-                'quantity' => 10,
-                'total' => 800000.00,
                 'status_pengajuan' => 'belum disetujui',
                 'status_validity' => 'belum divalidasi',
                 'created_at' => now(),

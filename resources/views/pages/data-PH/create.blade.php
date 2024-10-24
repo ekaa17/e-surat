@@ -36,47 +36,6 @@
                                     @enderror
                                 </div>
                             </div>
-                            
-                            <div class="row mb-3">
-                                <label for="id_produk" class="col-md-4 col-lg-3 col-form-label">Produk</label>
-                                <div class="col-md-8 col-lg-9">
-                                    <select name="id_produk" id="id_produk" class="form-control @error('id_produk') is-invalid @enderror" required>
-                                        <option value="">Pilih Produk</option>
-                                        @foreach($produk as $p)
-                                            <option value="{{ $p->id }}" {{ old('id_produk') == $p->id ? 'selected' : '' }}>{{ $p->nama_produk }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('id_produk')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="quantity" class="col-md-4 col-lg-3 col-form-label">Quantity</label>
-                                <div class="col-md-8 col-lg-9">
-                                    <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity') }}" required>
-                                    @error('quantity')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="total" class="col-md-4 col-lg-3 col-form-label">Total Harga</label>
-                                <div class="col-md-8 col-lg-9">
-                                    <input type="number" class="form-control @error('total') is-invalid @enderror" id="total" name="total" value="{{ old('total') }}" required>
-                                    @error('total')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
 
                             <div class="row mb-3">
                                 <label for="no_surat" class="col-md-4 col-lg-3 col-form-label">No Surat</label>

@@ -17,8 +17,9 @@ class PenawaranHargaController extends Controller
     public function index()
     {
         $no = 1;
-        $data_Harga = PenawaranHarga::orderBy('id')->get();
-        return view('pages.data-PH.index', compact('no', 'data_Harga'));
+        $data_Harga = PenawaranHarga::with('pemesan')->get();
+        $pemesan = Pemesan::all(); 
+        return view('pages.data-PH.index', compact('data_Harga', 'pemesan'));
     }
 
     public function create()
@@ -40,9 +41,6 @@ class PenawaranHargaController extends Controller
         // Validasi data input
         $validatedData = $request->validate([
             'id_pemesan' => 'required|string|max:255',
-            'id_produk'  => 'required|string|max:255',
-            'quantity'   => 'required|integer|min:1',
-            'total'      => 'required|numeric|min:0',
             'no_surat'   => 'required|string|max:255',
         ]);
 
@@ -51,6 +49,15 @@ class PenawaranHargaController extends Controller
 
         // Redirect dengan pesan sukses
         return redirect()->route('data-PH.index')->with('success', 'Data penawaran berhasil ditambahkan.');
+    }
+
+    public function show($id)
+    {
+        $penawaran = PenawaranHarga::findOrFail($id);
+        $produk = Produk::all(); // Mengambil semua data produk
+        $pemesan = Pemesan::all(); // Mengambil semua data pemesan
+
+        return view('pages.data-PH.show', compact('penawaran', 'produk', 'pemesan'));
     }
 
     public function edit($id)
@@ -66,9 +73,6 @@ class PenawaranHargaController extends Controller
     {
         $validatedData = $request->validate([
             'id_pemesan' => 'required|exists:pemesans,id',
-            'id_produk'  => 'required|exists:produks,id',
-            'quantity'   => 'required|integer|min:1',
-            'total'      => 'required|numeric|min:0',
             'no_surat'   => 'required|string|max:255',
         ]);
 
