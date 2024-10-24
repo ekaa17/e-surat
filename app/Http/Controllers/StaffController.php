@@ -23,37 +23,51 @@ class StaffController extends Controller
     }
 
     public function store(Request $request)
-    {
-        // dd($request);
-        $request->validate([
-            'name' => 'required',
-            'jabatan' => 'required',
-            'no_telepon' => 'required',
-            'email' => 'required',
-            'role' => 'required',
-            'password' => 'required'
-        ]);
+{
+    // Validasi input
+    $request->validate([
+        'name' => 'required',
+        'jabatan' => 'required',
+        'no_telepon' => 'required',
+        'email' => 'required|unique:staff,email',
+        'role' => 'required',
+        'password' => 'required',
+        'profile' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Optional: untuk validasi profile
+        'tandatangan' => 'image|mimes:jpeg,png,jpg,gif|max:2048' // Optional: validasi tanda tangan
+    ]);
 
-       if ($request->hasFile('profile')) {
+    // Upload profile jika ada
+    if ($request->hasFile('profile')) {
         $profile = $request->file('profile');
         $imageName = now()->format('YmdHis') . $request->email . '.' . $profile->extension();
         $profile->move(public_path('assets/img/profile/'), $imageName);
-       } else {
-        $imageName=null;
-       }
-
-        Staff::create([
-            'name' => $request->name,
-            'jabatan' => $request->jabatan,
-            'no_telepon' => $request->no_telepon,
-            'email' => $request->email,
-            'role' => $request->role,
-            'profile' => $imageName ,
-            'password' => Hash::make($request->password)
-        ]);
-
-        return redirect()->route('data-staff.index')->with('success', 'Staff berhasil ditambahkan.');
+    } else {
+        $imageName = null;
     }
+
+    // Upload tanda tangan jika ada
+    if ($request->hasFile('tandatangan')) {
+        $tandatangan = $request->file('tandatangan');
+        $tandatanganName = now()->format('YmdHis') . '_tandatangan_' . $request->email . '.' . $tandatangan->extension();
+        $tandatangan->move(public_path('assets/img/tandatangan/'), $tandatanganName);
+    } else {
+        $tandatanganName = null;
+    }
+
+    // Buat staff baru
+    Staff::create([
+        'name' => $request->name,
+        'jabatan' => $request->jabatan,
+        'no_telepon' => $request->no_telepon,
+        'email' => $request->email,
+        'role' => $request->role,
+        'profile' => $imageName,
+        'tandatangan' => $tandatanganName, // Menyimpan tanda tangan
+        'password' => Hash::make($request->password)
+    ]);
+
+    return redirect()->route('data-staff.index')->with('success', 'Staff berhasil ditambahkan.');
+}
 
     public function edit($id)
     {
@@ -65,51 +79,67 @@ class StaffController extends Controller
     
     public function update(Request $request, $id)
     {
-        // dd($request);
-        // Validasi input
-        $request->validate([
-            'name' => 'required',
-            'jabatan' => 'required',
-            'no_telepon' => 'required',
-            'email' => 'required',
-            'role' => 'required',
-        ]);
-    
-        // Temukan user berdasarkan ID
-        $user = Staff::findOrFail($id);
-    
-        // Jika ada file profile diupload
-        if ($request->hasFile('profile')) {
-            // Upload dan ganti gambar profil
-            $profile = $request->file('profile');
-            $imageName = now()->format('YmdHis') . $request->email . '.' . $profile->extension();
-            $profile->move(public_path('assets/img/profile/'), $imageName);
-    
-            // Hapus file profil lama jika ada
-            if ($user->profile) {
-                $oldProfile = public_path('assets/img/profile/') . $user->profile;
-                if (file_exists($oldProfile)) {
-                    unlink($oldProfile);
-                }
+    // Validasi input
+    $request->validate([
+        'name' => 'required',
+        'jabatan' => 'required',
+        'no_telepon' => 'required',
+        'email' => 'required',
+        'role' => 'required',
+        'profile' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Optional: untuk validasi profile
+        'tandatangan' => 'image|mimes:jpeg,png,jpg,gif|max:2048' // Optional: validasi tanda tangan
+    ]);
+
+    // Temukan user berdasarkan ID
+    $user = Staff::findOrFail($id);
+
+    // Upload profile jika ada
+    if ($request->hasFile('profile')) {
+        $profile = $request->file('profile');
+        $imageName = now()->format('YmdHis') . $request->email . '.' . $profile->extension();
+        $profile->move(public_path('assets/img/profile/'), $imageName);
+
+        // Hapus profile lama
+        if ($user->profile) {
+            $oldProfile = public_path('assets/img/profile/') . $user->profile;
+            if (file_exists($oldProfile)) {
+                unlink($oldProfile);
             }
-        } else {
-            // Jika tidak ada upload, gunakan profil lama
-            $imageName = $user->profile;
         }
-    
-        // Update data user
-        $user->update([
-            'name' => $request->name,
-            'jabatan' => $request->jabatan,
-            'no_telepon' => $request->no_telepon,
-            'email' => $request->email,
-            'role' => $request->role,
-            // Hanya update password jika diisi
-            'password' => $request->password ? Hash::make($request->password) : $user->password,
-        ]);
-    
-        // Redirect kembali ke index data staff dengan pesan sukses
-        return redirect()->route('data-staff.index')->with('success', 'Data staff berhasil diperbarui.');
+    } else {
+        $imageName = $user->profile;
+    }
+
+    // Upload tanda tangan jika ada
+    if ($request->hasFile('tandatangan')) {
+        $tandatangan = $request->file('tandatangan');
+        $tandatanganName = now()->format('YmdHis') . '_tandatangan_' . $request->email . '.' . $tandatangan->extension();
+        $tandatangan->move(public_path('assets/img/tandatangan/'), $tandatanganName);
+
+        // Hapus tanda tangan lama
+        if ($user->tandatangan) {
+            $oldTandatangan = public_path('assets/img/tandatangan/') . $user->tandatangan;
+            if (file_exists($oldTandatangan)) {
+                unlink($oldTandatangan);
+            }
+        }
+    } else {
+        $tandatanganName = $user->tandatangan;
+    }
+
+    // Update data user
+    $user->update([
+        'name' => $request->name,
+        'jabatan' => $request->jabatan,
+        'no_telepon' => $request->no_telepon,
+        'email' => $request->email,
+        'role' => $request->role,
+        'profile' => $imageName,
+        'tandatangan' => $tandatanganName, // Update tanda tangan
+        'password' => $request->password ? Hash::make($request->password) : $user->password,
+    ]);
+
+    return redirect()->route('data-staff.index')->with('success', 'Data staff berhasil diperbarui.');
     }
 
     public function destroy($id)

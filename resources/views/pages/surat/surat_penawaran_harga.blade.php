@@ -108,25 +108,32 @@
 
     <br>
     
-    <table style="font-size: 10px">
+    <table style="font-size: 10px; text-align: left;">
       <tr>
-        <td>
-          CILEGON, {{ date('d M Y') }}
-          <br><br><br>
-          BEST REGARDS
-          <br><br>
-          <img src="{{ asset('assets/img/ttd-staff/'.$direktur->tandatangan) }}" alt="{{ $direktur->tandatangan }}" class="img-fluid mb-2" style="max-width: 75px">
-          <br><br>
-          <p>
-              <u>{{ $informasi_perusahaan->nama_perusahaan }}</u> <br>
-              {{ $direktur->name }} ({{ $direktur->no_telepon }}) <br>
-              Email : {{ $informasi_perusahaan->email }}
-          </p>
-
-          <b> ______________ </b>
-        </td>
+          <td>
+              CILEGON, {{ date('d M Y') }}
+              <br><br><br>
+              BEST REGARDS,
+              <br><br>
+  
+              @if($direktur->tandatangan)
+                  <img src="{{ asset('assets/img/tandatangan/'.$direktur->tandatangan) }}" alt="Tanda Tangan {{ $direktur->name }}" class="img-fluid mb-2" style="max-width: 100px; height: auto;">
+              @else
+                  <p>Tanda tangan tidak tersedia</p>
+              @endif
+  
+              <br><br>
+              <p style="margin: 0; padding: 0;">
+                  <u>{{ $informasi_perusahaan->nama_perusahaan }}</u> <br>
+                  {{ $direktur->name }} ({{ $direktur->no_telepon }}) <br>
+                  Email: {{ $informasi_perusahaan->email }}
+              </p>
+  
+              <br>
+              <b> ______________ </b>
+          </td>
       </tr>
-    </table>
+  </table>
   </div>
 
   <script type="text/javascript">

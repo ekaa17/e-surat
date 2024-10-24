@@ -64,6 +64,13 @@
                                         <th>{{ $data->role }}</th>
                                         <th>{{ $data->profile }}</th>
                                         <th>
+                                            @if($data->tandatangan)
+                                                <img src="{{ asset('assets/img/tandatangan/' . $data->tandatangan) }}" alt="Tanda Tangan" width="50">
+                                            @else
+                                                Tidak Ada Tanda Tangan
+                                            @endif
+                                        </t>
+                                        <th>
                                             <a href="{{ route('data-staff.edit', $data->id) }}" class="btn btn-primary btn-sm">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>

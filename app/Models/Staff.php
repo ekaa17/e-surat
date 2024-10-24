@@ -30,6 +30,7 @@ class Staff extends Authenticatable
         'password',
         'role',
         'profile',
+        'tandatangan',
     ];
 
     /**

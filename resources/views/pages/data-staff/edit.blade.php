@@ -60,6 +60,15 @@
                                 <input type="file" name="profile" id="profile" class="form-control">
                                 <small class="text-muted">Kosongkan jika tidak ingin mengubah foto profil</small>
                             </div>
+
+                            <div class="form-group">
+                                <label for="tandatangan">Tanda Tangan</label>
+                                <input type="file" class="form-control" name="tandatangan" id="tandatangan">
+                                @if($user->tandatangan)
+                                    <img src="{{ asset('assets/img/tandatangan/' . $user->tandatangan) }}" alt="Tanda Tangan" width="100">
+                                @endif
+                            </div>
+                            
                             <div class="m-2 d-flex justify-content-between align-items-center">
                                 <a href="{{ route('data-staff.index') }}" class="btn btn-secondary">Kembali</a>
                                 <button type="submit" class="btn btn-primary">Update</button>
