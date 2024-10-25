@@ -49,8 +49,15 @@
                                         <th>No Surat</th>
                                         <th>Status Pengajuan</th>
                                         <th>Status Validasi</th>
-                                        <th>Data</th>
-                                        <th>Aksi</th>
+                                        @if (auth()->user()->role == 'Admin')
+                                            <th>Data</th>
+                                            <th>Aksi</th>
+                                        @else
+                                            <th>
+
+                                                Unduh Surat
+                                            </th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -94,47 +101,33 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <!-- Detail Data -->
-                                                <a href="{{ route('data-PH.show', $penawaran->id) }}" class="btn btn-info">
-                                                    <i class="ti ti-eye"></i>
-                                                </a>
+
+                                                @if (auth()->user()->role == 'Admin')
+                                                    <!-- Detail Data -->
+                                                    <a href="{{ route('data-PH.show', $penawaran->id) }}" class="btn btn-info">
+                                                        <i class="ti ti-eye"></i>
+                                                    </a>
+                                                @endif
                                                 
                                                 <!-- Download Data -->
                                                 <a href="/surat-penawaran-harga/{{ $penawaran->id }}" blan class="btn btn-primary" target="_blank">
                                                     <i class="ti ti-download"></i>
                                                 </a> 
                                             </td>
-                                            <td>
-                                                <!-- Edit Button -->
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $penawaran->id }}">
-                                                    <i class="ti ti-pencil"></i>
-                                                </button>
-                                                
-                                                <!-- Delete Button -->
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $penawaran->id }}">
-                                                    <i class="ti ti-trash"></i>
-                                                </button>
-                                            </td>
+                                            @if (auth()->user()->role == 'Admin')
+                                                <td>
+                                                    <!-- Edit Button -->
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $penawaran->id }}">
+                                                        <i class="ti ti-pencil"></i>
+                                                    </button>
+                                                    
+                                                    <!-- Delete Button -->
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $penawaran->id }}">
+                                                        <i class="ti ti-trash"></i>
+                                                    </button>
+                                                </td>
+                                            @endif
                                         </tr>
-
-                                        <!-- Modal Setujui Pengajuan -->
-                                            {{-- <div class="modal fade" id="pengajuan{{ $penawaran->id }}" tabindex="-1" role="dialog" aria-labelledby="pengajuanLabel{{ $penawaran->id }}" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title" id="pengajuanLabel{{ $penawaran->id }}">Setujui Penawaran Harga</h4>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Apakah Anda yakin ingin menyetujui penawaran ini?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tidak</button>
-                                                            <a href="/setujui-surat-ph/{{ $penawaran->id }}" class="btn btn-primary">Ya</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
 
                                         <!-- Modal Edit Data -->
                                         <div class="modal fade" id="editModal{{ $penawaran->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $penawaran->id }}" aria-hidden="true">
