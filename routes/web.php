@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DetailPesananController;
 use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -46,6 +47,7 @@ Route::group(['middleware' => 'cekrole:Admin,Karyawan'], function() {
     Route::get('/setujui-surat-ph/{id}', [PenawaranHargaController::class, 'setujui']);
     Route::get('/surat-penawaran-harga/{id}', [PenawaranHargaController::class, 'surat_ph']);
     Route::get('/validasi-surat-ph/{id}', [PenawaranHargaController::class, 'validasi']);
+    Route::resource('/detail-data', DetailPesananController::class)->names('detail-data');
     Route::resource('/data-perusahaan', PerusahaanController::class)->names('data-perusahaan');
     Route::resource('/data-produk', ProdukController::class)->names('data-produk');
     Route::resource('/data-pemesan', PemesanController::class)->names('data-pemesan');

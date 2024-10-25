@@ -49,6 +49,7 @@
                                         <th>No Surat</th>
                                         <th>Status Pengajuan</th>
                                         <th>Status Validasi</th>
+                                        <th>Data</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -83,10 +84,6 @@
                                                             </div> <!-- /.modal-dialog -->
                                                         </div> <!-- /.modal -->
                                                     @endif
-                                                @else
-                                                    <a href="/surat-penawaran-harga/{{ $penawaran->id }}" blan class="btn btn-primary" target="_blank">
-                                                        <i class="ti ti-download"></i>
-                                                    </a> 
                                                 @endif
                                             </td>
                                             <td>
@@ -96,21 +93,28 @@
                                                     <span class="badge me-2 badge-pill bg-success">{{ $penawaran->status_validity }}</span>
                                                 @endif
                                             </td>
-                                            <th>
+                                            <td>
+                                                <!-- Detail Data -->
+                                                <a href="{{ route('data-PH.show', $penawaran->id) }}" class="btn btn-info">
+                                                    <i class="ti ti-eye"></i>
+                                                </a>
+                                                
+                                                <!-- Download Data -->
+                                                <a href="/surat-penawaran-harga/{{ $penawaran->id }}" blan class="btn btn-primary" target="_blank">
+                                                    <i class="ti ti-download"></i>
+                                                </a> 
+                                            </td>
+                                            <td>
                                                 <!-- Edit Button -->
                                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $penawaran->id }}">
                                                     <i class="ti ti-pencil"></i>
                                                 </button>
-
-                                                <a href="{{ route('data-PH.show', $penawaran->id) }}" class="btn btn-primary">
-                                                    <i class="ti ti-eye"></i>
-                                                </a>
-
+                                                
                                                 <!-- Delete Button -->
                                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $penawaran->id }}">
                                                     <i class="ti ti-trash"></i>
                                                 </button>
-                                            </th>
+                                            </td>
                                         </tr>
 
                                         <!-- Modal Setujui Pengajuan -->

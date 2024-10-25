@@ -67,14 +67,16 @@
           <th>TOTAL</th>
         </thead>
         <tbody>
+          @foreach ($detail_data as $item)              
             <tr>
-                <td>1</td>
-                <td>{{ $data->produk->nama_produk }}</td>
-                <td>{{ $data->quantity }}</td>
-                <td>{{ $data->produk->unit }}</td>
-                <td>{{ number_format($data->produk->harga_produk, 0, ',', '.') }}</td>
-                <td>{{ number_format($data->total, 0, ',', '.') }}</td>
+                <td>{{ $no++ }}</td>
+                <td>{{ $item->produk->nama_produk }}</td>
+                <td>{{ $item->quantity }}</td>
+                <td>{{ $item->produk->unit }}</td>
+                <td>{{ number_format($item->produk->harga_produk, 0, ',', '.') }}</td>
+                <td>{{ number_format($item->total, 0, ',', '.') }}</td>
             </tr>
+          @endforeach
             <tr>
                 <td></td>
                 <td></td>
@@ -89,7 +91,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>{{ number_format($data->total, 0, ',', '.') }}</td>
+                <td>{{ number_format($total, 0, ',', '.') }}</td>
             </tr>
         </tbody>
       </table>

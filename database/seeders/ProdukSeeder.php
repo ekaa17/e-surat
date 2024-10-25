@@ -16,19 +16,19 @@ class ProdukSeeder extends Seeder
         Produk::create([
             'nama_produk' => 'Product A',
             'alamat_perusahaan' => '123 Company St',
-            'harga_produk' => 100.50,
+            'harga_produk' => 100000,
             'id_perusahaan' => 1, // Assuming perusahaan ID 1 exists
             'description' => 'Description of Product A',
-            'unit' => 50,
+            'unit' => 'PC',
         ]);
 
         Produk::create([
             'nama_produk' => 'Product B',
             'alamat_perusahaan' => '456 Business Ave',
-            'harga_produk' => 200.75,
+            'harga_produk' => 150000,
             'id_perusahaan' => 2, // Assuming perusahaan ID 2 exists
             'description' => 'Description of Product B',
-            'unit' => 20,
+            'unit' => 'Box',
         ]);
     }
 }

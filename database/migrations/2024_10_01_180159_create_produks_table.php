@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('nama_produk');
             $table->string('alamat_perusahaan');
-            $table->decimal('harga_produk', 10, 2); // decimal for price, 10 digits, 2 decimals
+            $table->integer('harga_produk');
             $table->unsignedBigInteger('id_perusahaan'); // assuming 'perusahaans' table exists
             $table->text('description');
-            $table->integer('unit');
+            $table->string('unit');
             $table->timestamps();
 
             // Foreign key relation to the perusahaans table

@@ -8,6 +8,7 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Models\PenawaranHarga;
 use App\Http\Controllers\Controller;
+use App\Models\DetailPenawaran;
 use App\Models\Invoice;
 use App\Models\PenawaranOrder;
 use App\Models\Staff;
@@ -30,12 +31,6 @@ class PenawaranHargaController extends Controller
         return view('pages.data-PH.create', compact('produk', 'pemesan')); // Menampilkan halaman create
     }
 
-    /**
-     * Menyimpan data penawaran baru ke database.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(Request $request)
     {
         // Validasi data input
@@ -53,11 +48,13 @@ class PenawaranHargaController extends Controller
 
     public function show($id)
     {
+        $no = 1;
+        $produk = Produk::all();
+        $pemesan = Pemesan::all();
         $penawaran = PenawaranHarga::findOrFail($id);
-        $produk = Produk::all(); // Mengambil semua data produk
-        $pemesan = Pemesan::all(); // Mengambil semua data pemesan
+        $detail_pemesanan = DetailPenawaran::where('id_penawaran', $id)->get();
 
-        return view('pages.data-PH.show', compact('penawaran', 'produk', 'pemesan'));
+        return view('pages.data-PH.show', compact('no', 'penawaran', 'produk', 'pemesan', 'detail_pemesanan'));
     }
 
     public function edit($id)
@@ -141,9 +138,12 @@ class PenawaranHargaController extends Controller
     }
 
     public function surat_ph($id) {
+        $no = 1;
         $data = PenawaranHarga::findOrFail($id);
+        $detail_data = DetailPenawaran::where('id_penawaran', $id)->get();
+        $total = DetailPenawaran::where('id_penawaran', $id)->sum('total');
         $informasi_perusahaan = Setting::where('id', 1)->first();
         $direktur = Staff::where('role', 'Karyawan')->first();
-        return view('pages.surat.surat_penawaran_harga', compact('data', 'informasi_perusahaan', 'direktur'));
+        return view('pages.surat.surat_penawaran_harga', compact('no', 'data', 'detail_data', 'total', 'informasi_perusahaan', 'direktur'));
     }
 }

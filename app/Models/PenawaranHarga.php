@@ -24,9 +24,4 @@ class PenawaranHarga extends Model
     {
         return $this->belongsTo(Pemesan::class, 'id_pemesan');
     }
-
-    public function produk()
-    {
-        return $this->belongsTo(Produk::class, 'id_produk');
-    }
 }
