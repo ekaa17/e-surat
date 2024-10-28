@@ -8,14 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 class PenawaranOrder extends Model
 {
     use HasFactory;
-    protected $table = 'PenawaranOrders';
+    protected $table = 'penawaranorders';
 
     protected $fillable = [
-        'purchase_no',
-        'nama_perusahaan',
-        'alamat_kirim',
+        'id_produk',
+        'id_penawaran',
+        'nomor_surat',
         'quantity',
-        'harga_satuan',
-        'jumlah_amount'
+        'total',
+        'lokasi_gudang',
+        'bukti',
+        'waktu_penyerahan_barang',
+        'waktu_pembayaran',
+        'ppn',
     ];
+
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class, 'id_produk');
+    }
+
+    public function penawaran()
+    {
+        return $this->belongsTo(PenawaranHarga::class, 'id_penawaran');
+    }
 }

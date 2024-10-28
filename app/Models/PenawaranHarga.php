@@ -24,4 +24,9 @@ class PenawaranHarga extends Model
     {
         return $this->belongsTo(Pemesan::class, 'id_pemesan');
     }
+
+    public function penawaranorders()
+    {
+        return $this->hasMany(PenawaranOrder::class, 'id_penawaran');
+    }
 }

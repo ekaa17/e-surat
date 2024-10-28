@@ -12,14 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('penawaranorders', function (Blueprint $table) {
-            $table->id();
-            $table->string('purchase_no');
-            $table->string('nama_perusahaan');
-            $table->string('Alamat_kirim');
-            $table->string('quantity');
-            $table->decimal('harga_satuan', 10, 2);
-            $table->decimal('jumlah_amount', 15, 2);
+            $table->id(); // Primary key ID untuk PO
+            $table->string('nomor_surat')->nullable(); // Nomor Surat (Nullable)
+            $table->string('lokasi_gudang'); // Lokasi Gudang
+            $table->unsignedBigInteger('id_penawaran')->nullable(); // ID Penawaran (Nullable FK)
+            $table->string('bukti'); // Bukti
+            $table->decimal('ppn', 5, 2); // PPN (Persentase, DECIMAL dengan 5 digit dan 2 desimal)
+            $table->dateTime('waktu_penyerahan_barang'); // Waktu Penyerahan Barang
+            $table->dateTime('waktu_pembayaran'); // Waktu Pembayaran
             $table->timestamps();
+
+
+            // Foreign key constraints
+            $table->foreign('id_penawaran')->references('id')->on('penawaran_hargas')->onDelete('set null');
         });
     }
 
@@ -29,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('penawaran_orders');
+        Schema::dropIfExists('penawaranorders');
     }
 };

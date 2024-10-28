@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -15,24 +16,34 @@ class PenawaranOrderSeeder extends Seeder
     {
         DB::table('penawaranorders')->insert([
             [
-                'purchase_no' => 'PO001',
-                'nama_perusahaan' => 'PT ABC',
-                'alamat_kirim' => 'Jl. Sudirman No. 123, Jakarta',
+                'id_produk' => rand(1,2),
+                'id_penawaran' => rand(1,2),
+                'nomor_surat' => 'NS-001',
                 'quantity' => 10,
-                'harga_satuan' => 50000.00,
-                'jumlah_amount' => 500000.00,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'no_invoice' => 'INV-001',
+                'total' => 100000.00,
+                'lokasi_gudang' => 'Gudang Jakarta',
+                'bukti' => 'bukti1.jpg',
+                'waktu_penyerahan_barang' => Carbon::now()->addDays(5),
+                'waktu_pembayaran' => Carbon::now()->addDays(30),
+                'ppn' => 10.00,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
-                'purchase_no' => 'PO002',
-                'nama_perusahaan' => 'PT XYZ',
-                'alamat_kirim' => 'Jl. Thamrin No. 45, Jakarta',
-                'quantity' => 20,
-                'harga_satuan' => 75000.00,
-                'jumlah_amount' => 1500000.00,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'id_produk' => rand(1,2),
+                'id_penawaran' => rand(1,2),
+                'nomor_surat' => 'NS-002',
+                'quantity' => 5,
+                'no_invoice' => 'INV-002',
+                'total' => 50000.00,
+                'lokasi_gudang' => 'Gudang Surabaya',
+                'bukti' => 'bukti2.jpg',
+                'waktu_penyerahan_barang' => Carbon::now()->addDays(7),
+                'waktu_pembayaran' => Carbon::now()->addDays(25),
+                'ppn' => 10.00,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
         ]);
     }

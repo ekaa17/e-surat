@@ -14,7 +14,7 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         Setting::create([
-            'nama_perusahaan' => 'PT. Shina Mandiri',
+            'nama_perusahaan' => 'PT. Indokarya Jasa',
             'bidang' => 'Tambang',
             'alamat' => 'Jalan Raya No. 123, Jakarta',
             'no_telpon' => '021-1234567',

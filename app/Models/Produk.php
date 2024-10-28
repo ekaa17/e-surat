@@ -30,4 +30,9 @@ class Produk extends Model
     {
         return $this->hasMany(PenawaranHarga::class, 'id_produk');
     }
+
+    public function penawaranorders()
+    {
+        return $this->hasMany(PenawaranOrder::class, 'id_produk');
+    }
 }

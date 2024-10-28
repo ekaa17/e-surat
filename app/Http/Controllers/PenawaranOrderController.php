@@ -2,73 +2,123 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Staff;
+use App\Models\Produk;
+use App\Models\Pemesan;
+use App\Models\Setting;
+use App\Models\Detailorder;
 use Illuminate\Http\Request;
+use App\Models\PenawaranHarga;
 use App\Models\PenawaranOrder;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class PenawaranOrderController extends Controller
 {
     public function index()
     {
         $no = 1;
-        $penawaranOrders = PenawaranOrder::orderBy('purchase_no')->get();
-        
+        $orders = PenawaranOrder::with('penawaran')->get();
+        $penawaran = PenawaranHarga::all(); 
         // Mengirim data ke view 'pages.data-PO.index'
-        return view('pages.data-PO.index', compact('no','penawaranOrders'));
+        return view('pages.data-PO.index', compact('no','orders','penawaran'));
     }
 
     public function create()
-{
-    return view('pages.data-PO.create');
-}
+    {
+        $produk = Produk::all();
+        $penawaran = PenawaranHarga::all();
+        return view('pages.data-PO.create',compact('penawaran','produk')); // Sesuaikan dengan nama view Anda
+    }
 
+    // Menyimpan penawaran order baru
     public function store(Request $request)
     {
-        // Validasi input
+        // dd($request);
         $request->validate([
-            'purchase_no' => 'required|string|max:255',
-            'nama_perusahaan' => 'required|string|max:255',
-            'alamat_kirim' => 'required|string|max:255',
-            'quantity' => 'required|string|max:255',
-            'harga_satuan' => 'required|numeric',
-            'jumlah_amount' => 'required|numeric',
+            'nomor_surat' => 'nullable|string',
+            'lokasi_gudang' => 'required|string',
+            'id_penawaran' => 'nullable|exists:penawaran_hargas,id',
+            'waktu_penyerahan_barang' => 'required|date',
+            'waktu_pembayaran' => 'required|date',
+            'bukti' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'ppn' => 'required|numeric',
         ]);
 
-        // Menyimpan data ke database
+        if ($request->hasFile('bukti')) {
+            $bukti = $request->file('bukti');
+            $buktiName = now()->format('YmdHis') . '_bukti_' . $request->nomor_surat . '.' . $bukti->extension();
+            $bukti->move(public_path('assets/img/bukti/'), $buktiName);
+        } else {
+            $buktiName = null;
+        }
         PenawaranOrder::create($request->all());
 
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('data-PO.index')->with('success', 'Data Penawaran Order berhasil ditambahkan.');
+        return redirect()->route('data-PO.index')->with('success', 'Penawaran order berhasil dibuat.');
     }
 
+    //menampilkan detail penawaran order
+        public function show($id)
+    {
+        $no = 1;
+        $produk = Produk::all();
+        $order = PenawaranOrder::with('penawaran')->findOrFail($id);
+        $detail_order = Detailorder::where('id_produk', $id)->get();
+        return view('pages.data-PO.show', compact('no','order','produk','detail_order')); // Sesuaikan dengan nama view Anda
+    }
+
+        // Menampilkan form untuk mengedit penawaran order
         public function edit($id)
     {
-        $penawaranOrder = PenawaranOrder::findOrFail($id);
-        return view('pages.data-PO.edit', compact('penawaranOrder'));
+        $order = PenawaranOrder::findOrFail($id);
+        return view('data-PO.edit', compact('order')); // Sesuaikan dengan nama view Anda
     }
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'purchase_no' => 'required',
-            'nama_perusahaan' => 'required',
-            'alamat_kirim' => 'required',
-            'quantity' => 'required|integer',
-            'harga_satuan' => 'required|numeric',
-            'jumlah_amount' => 'required|numeric',
-        ]);
+// Memperbarui penawaran order yang ada
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'nomor_surat' => 'nullable|string',
+        'lokasi_gudang' => 'required|string',
+        'id_penawaran' => 'nullable|exists:penawaran_hargas,id',
+        'waktu_penyerahan_barang' => 'required|date',
+        'waktu_pembayaran' => 'required|date',
+        'bukti' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048', // ubah menjadi nullable jika tidak wajib
+        'ppn' => 'required|numeric',
+    ]);
 
-        $penawaranOrder = PenawaranOrder::findOrFail($id);
-        $penawaranOrder->update($request->all());
+    $order = PenawaranOrder::findOrFail($id);
+    
+    // Menyimpan data yang tidak terkait file
+    $data = $request->only('nomor_surat', 'lokasi_gudang', 'id_penawaran', 'waktu_penyerahan_barang', 'waktu_pembayaran', 'ppn');
 
-        return redirect()->route('data-PO.index')->with('success', 'Penawaran Order berhasil diperbarui');
+    if ($request->hasFile('bukti')) {
+        // Hapus bukti lama jika ada
+        if ($order->bukti) {
+            Storage::delete('public/' . $order->bukti); // Hapus bukti lama
+        }
+        // Simpan file baru
+        $data['bukti'] = $request->file('bukti')->store('bukti', 'public');
     }
 
+    // Update data order dengan data baru
+    $order->update($data);
+
+    return redirect()->route('data-PO.index')->with('success', 'Penawaran order berhasil diperbarui.');
+}
+
+    // Menghapus penawaran order
     public function destroy($id)
     {
-        $penawaranOrder = PenawaranOrder::findOrFail($id);
-        $penawaranOrder->delete();
+        $order = PenawaranOrder::findOrFail($id);
+        $order->delete();
 
-        return redirect()->route('data-PO.index')->with('success', 'Penawaran Order berhasil dihapus');
+        return redirect()->route('data-PO.index')->with('success', 'Penawaran order berhasil dihapus.');
+    }
+
+    public function surat_order($id) {
+        $no = 1;
+        $data = PenawaranOrder::findOrFail($id);
+        return view('pages.surat.surat_purchase_order', compact('no', 'data'));
     }
 }

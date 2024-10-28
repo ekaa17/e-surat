@@ -35,9 +35,12 @@
                         <div class="d-flex align-items-center justify-content-between m-3">
                             <h5 class="card-title">Total: {{ count($data_Harga) }} Surat</h5>
                             <!-- Tombol Tambah Data -->
+                            @if (auth()->user()->role == 'Admin')
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
                                 <i class="bi bi-plus"></i> Data Baru
                             </button>
+                            @else
+                            @endif
                         </div>
 
                         <div class="table-responsive">

@@ -39,6 +39,7 @@
             <span class="hide-menu">Data Staff</span>
           </a>
         </li>
+        @if (auth()->user()->role == 'Admin')
         <li class="sidebar-item">
           <a class="sidebar-link" href="./data-perusahaan" aria-expanded="false">
             <span>
@@ -63,6 +64,8 @@
             <span class="hide-menu">Data Pemesan</span>
           </a>
         </li>
+        @else
+        @endif
         <li class="sidebar-item">
           <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
             <span>
