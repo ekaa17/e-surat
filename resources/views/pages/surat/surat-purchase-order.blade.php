@@ -45,7 +45,7 @@
       <p style="font-size: 10px">
         Kepada / TO : <br>
           <b> PT. Indokarya </b> <br>
-          Date : 06 Desember 2023 <br>
+          Date : {{ $order->created_at }} <br>
           Berdasarkan permintaan pembelian : <br> <i> Basic of purchase requesition </i> <br>
           Harap Kirim Barang Tersebut Di :{{ $order->lokasi_gudang }}
 
