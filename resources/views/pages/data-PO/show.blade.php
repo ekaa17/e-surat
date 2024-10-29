@@ -61,7 +61,7 @@
             </div>
 
             <div class="d-flex justify-content-center align-items-center my-2">
-                <a href="{{ route('data-PH.index') }}" class="btn btn-warning">
+                <a href="{{ route('data-PO.index') }}" class="btn btn-warning">
                     kembali ke halaman penawaran harga
                 </a>
             </div>
@@ -85,6 +85,7 @@
                                             <form action="{{ route('detail-order.store') }}" method="POST">
                                                 @csrf
                                                 <div class="row mb-3">
+                                                    <input type="hidden" name="id_order" value="{{ $order->id }}">
                                                     <label for="produk" class="col-md-4 col-lg-3 col-form-label">Jenis Produk</label>
                                                     <div class="col-md-8 col-lg-9">
                                                         <select name="produk" id="produk" class="form-control @error('produk') is-invalid @enderror" onchange="updateTotal()">

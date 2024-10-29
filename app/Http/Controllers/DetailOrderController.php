@@ -9,7 +9,9 @@ class DetailOrderController extends Controller
 {
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
+            'id_order'   => 'nullable',
             'produk'   => 'required',
             'quantity'   => 'required',
             'total'   => 'required',
@@ -17,6 +19,7 @@ class DetailOrderController extends Controller
 
         $data = new Detailorder();
         $data->id_produk = $request->produk;
+        $data->id_order = $request->id_order;
         $data->quantity = $request->quantity;
         $data->total = $request->total;
 

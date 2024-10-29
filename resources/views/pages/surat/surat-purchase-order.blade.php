@@ -44,7 +44,7 @@
     <div class="m-0 p-0">
       <p style="font-size: 10px">
         Kepada / TO : <br>
-          <b> PT. Indokarya </b> <br>
+          <b> {{ $order->perusahaan->nama_perusahaan }} </b> <br>
           Date : {{ $order->created_at }} <br>
           Berdasarkan permintaan pembelian : <br> <i> Basic of purchase requesition </i> <br>
           Harap Kirim Barang Tersebut Di :{{ $order->lokasi_gudang }}
@@ -81,8 +81,8 @@
                   <b> Jumlah </b> <br> PPN 11&
                 </td>
                 <td>
-                  {{ $item->total }} <br>
-                  {{ $order->ppn }}
+                  {{ number_format($jumlah, 0, ',', '.') }} <br>
+                  {{ number_format($ppn, 0, ',', '.') }}
                 </td>
             </tr>
             <tr>
@@ -90,7 +90,7 @@
                 <td></td>
                 <td></td>
                 <td><b>Total</b></td>
-                <td>{{ $item->total }}</td>
+                <td>{{ number_format($total, 0, ',', '.') }}</td>
             </tr>
         </tbody>
       </table>

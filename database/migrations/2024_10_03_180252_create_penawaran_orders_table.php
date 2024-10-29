@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('nomor_surat')->nullable(); // Nomor Surat (Nullable)
             $table->string('lokasi_gudang'); // Lokasi Gudang
             $table->unsignedBigInteger('id_penawaran')->nullable(); // ID Penawaran (Nullable FK)
+            $table->unsignedBigInteger('id_perusahaan');
             $table->string('bukti'); // Bukti
-            $table->decimal('ppn', 5, 2); // PPN (Persentase, DECIMAL dengan 5 digit dan 2 desimal)
             $table->dateTime('waktu_penyerahan_barang'); // Waktu Penyerahan Barang
             $table->dateTime('waktu_pembayaran'); // Waktu Pembayaran
             $table->timestamps();
@@ -25,6 +25,7 @@ return new class extends Migration
 
             // Foreign key constraints
             $table->foreign('id_penawaran')->references('id')->on('penawaran_hargas')->onDelete('set null');
+            $table->foreign('id_perusahaan')->references('id')->on('perusahaans')->onDelete('cascade');
         });
     }
 

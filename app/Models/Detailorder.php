@@ -12,6 +12,7 @@ class Detailorder extends Model
     protected $table = 'detailorders';
 
     protected $fillable = [
+        'id_order',
         'id_produk',
         'quantity',
         'total'
@@ -20,5 +21,10 @@ class Detailorder extends Model
     public function produk()
     {
         return $this->belongsTo(Produk::class, 'id_produk');
+    }
+
+    public function penawaranorders()
+    {
+        return $this->hasMany(PenawaranOrder::class, 'id_penawaran');
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Staff;
 use App\Models\Produk;
 use App\Models\Pemesan;
 use App\Models\Setting;
+use App\Models\Perusahaan;
 use App\Models\Detailorder;
 use Illuminate\Http\Request;
 use App\Models\PenawaranHarga;
@@ -20,15 +21,17 @@ class PenawaranOrderController extends Controller
         $no = 1;
         $orders = PenawaranOrder::with('penawaran')->get();
         $penawaran = PenawaranHarga::all(); 
+        $perusahaans = Perusahaan::all();
         // Mengirim data ke view 'pages.data-PO.index'
-        return view('pages.data-PO.index', compact('no','orders','penawaran'));
+        return view('pages.data-PO.index', compact('no','orders','penawaran','perusahaans'));
     }
 
     public function create()
     {
         $produk = Produk::all();
         $penawaran = PenawaranHarga::all();
-        return view('pages.data-PO.create',compact('penawaran','produk')); // Sesuaikan dengan nama view Anda
+        $perusahaans = Perusahaan::all();
+        return view('pages.data-PO.create',compact('penawaran','produk','perusahaans')); // Sesuaikan dengan nama view Anda
     }
 
     // Menyimpan penawaran order baru
@@ -42,7 +45,7 @@ class PenawaranOrderController extends Controller
             'waktu_penyerahan_barang' => 'required|date',
             'waktu_pembayaran' => 'required|date',
             'bukti' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
-            'ppn' => 'required|numeric',
+            'id_perusahaan' => 'required|exists:perusahaans,id',
         ]);
 
         if ($request->hasFile('bukti')) {
@@ -62,16 +65,18 @@ class PenawaranOrderController extends Controller
     {
         $no = 1;
         $produk = Produk::all();
-        $order = PenawaranOrder::with('penawaran')->findOrFail($id);
-        $detail_order = Detailorder::where('id_produk', $id)->get();
-        return view('pages.data-PO.show', compact('no','order','produk','detail_order')); // Sesuaikan dengan nama view Anda
+        $order = PenawaranOrder::with(['penawaran', 'perusahaan'])->findOrFail($id);
+        $detail_order = Detailorder::where('id_order', $id)->get();
+        
+        return view('pages.data-PO.show', compact('no', 'order', 'produk', 'detail_order')); // Sesuaikan dengan nama view Anda
     }
 
         // Menampilkan form untuk mengedit penawaran order
         public function edit($id)
     {
         $order = PenawaranOrder::findOrFail($id);
-        return view('data-PO.edit', compact('order')); // Sesuaikan dengan nama view Anda
+        $perusahaans = Perusahaan::all();
+        return view('data-PO.edit', compact('order','perusahaans')); // Sesuaikan dengan nama view Anda
     }
 
 // Memperbarui penawaran order yang ada
@@ -84,7 +89,7 @@ public function update(Request $request, $id)
         'waktu_penyerahan_barang' => 'required|date',
         'waktu_pembayaran' => 'required|date',
         'bukti' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048', // ubah menjadi nullable jika tidak wajib
-        'ppn' => 'required|numeric',
+        'id_perusahaan' => 'required|exists:perusahaans,id',
     ]);
 
     $order = PenawaranOrder::findOrFail($id);
@@ -119,10 +124,13 @@ public function update(Request $request, $id)
     public function surat_order($id) {
         $no = 1;
         $order = PenawaranOrder::findOrFail($id);
-        $detail_order = Detailorder::where('id_produk', $id)->get();
-        // $total = Detailorder::where('Id_order', $id)->sum('total');
+        $detail_order = Detailorder::where('id_order', $id)->get();
+        $total = Detailorder::where('id_order', $id)->sum('total');
+        $ppn = $total*(($order->ppn)/100);
+        $jumlah = $total-$ppn;
+        // dd($total_akhir);
         $informasi_perusahaan = Setting::where('id', 1)->first();
         $direktur = Staff::where('role', 'Karyawan')->first();
-        return view('pages.surat.surat-purchase-order', compact('no', 'order', 'detail_order', 'informasi_perusahaan', 'direktur'));
+        return view('pages.surat.surat-purchase-order', compact('no', 'order', 'detail_order', 'total','ppn', 'jumlah','informasi_perusahaan', 'direktur'));
     }
 }

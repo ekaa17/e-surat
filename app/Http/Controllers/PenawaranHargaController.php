@@ -108,35 +108,6 @@ class PenawaranHargaController extends Controller
         }
     }
 
-    public function validasi($id) {
-        $penawaran = PenawaranHarga::findOrFail($id);
-        $penawaran->status_validity = 'divalidasi';
-
-        // TAMBAHIN CODE BUAT CREATE PO + INVOICE DISINI YA EKA
-        $po = new PenawaranOrder();
-        $po->penawaran_id = $penawaran->id;
-        $po->tanggal_po = now(); // Atau bisa gunakan tanggal lain yang sesuai
-        $po->status = 'baru'; // Sesuaikan dengan status yang diperlukan
-        $po->total_harga = $penawaran->total_harga; // Sesuaikan dengan field di model PenawaranHarga
-        $po->save(); // Simpan data PO
-
-        // Buat Invoice
-        $invoice = new Invoice();
-        $invoice->penawaran_id = $penawaran->id;
-        $invoice->tanggal_invoice = now(); // Atau bisa gunakan tanggal lain yang sesuai
-        $invoice->status = 'belum dibayar'; // Sesuaikan dengan status yang diperlukan
-        $invoice->total_tagihan = $penawaran->total_harga; // Sesuaikan dengan field di model PenawaranHarga
-        $invoice->save(); // Simpan data Invoice
-
-        // Simpan status validasi penawaran
-        if ($penawaran->save()){
-            return redirect()->back()->with('success', 'Surat terkait telah divalidasi dan PO serta Invoice berhasil dibuat!');
-        } else {
-            return redirect()->back()->with('error', 'Gagal memvalidasi surat');
-        }
-
-    }
-
     public function surat_ph($id) {
         $no = 1;
         $data = PenawaranHarga::findOrFail($id);

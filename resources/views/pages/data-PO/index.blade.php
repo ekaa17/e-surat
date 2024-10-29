@@ -50,7 +50,7 @@
                                         <th>Waktu Pembayaran</th>
                                         <th>Lokasi Gudang</th>
                                         {{-- <th>Bukti</th> --}}
-                                        <th>PPN</th>
+                                        <th>Nama Perusahaan</th>
                                         <th>Data</th>
                                         <th>Actions</th>
                                     </tr>
@@ -64,7 +64,7 @@
                                             <td>{{ $order->waktu_penyerahan_barang }}</td>
                                             <td>{{ $order->waktu_pembayaran }}</td>
                                             <td>{{ $order->lokasi_gudang }}</td>
-                                            <td>{{ $order->ppn }}</td>
+                                            <td>{{ $order->perusahaan->nama_perusahaan }}</td>
                                             <td>
                                                  <!-- Detail Data -->
                                                 <a href="{{ route('data-PO.show', $order->id) }}" class="btn btn-danger" >
@@ -294,10 +294,15 @@
                             @enderror
                         </div>
     
-                        <!-- PPN -->
-                        <div class="mb-3">
-                            <label for="ppn" class="form-label">PPN</label>
-                            <input type="number" class="form-control" id="ppn" name="ppn" required>
+                        <!-- Perusahaan -->
+                        <div class="form-group p-2">
+                            <label for="id_perusahaan">Perusahaan</label>
+                            <select name="id_perusahaan" id="id_perusahaan" class="form-control" required>
+                                <option value="" disabled selected>Pilih perusahaan</option>
+                                @foreach ($perusahaans as $perusahaan)
+                                    <option value="{{ $perusahaan->id }}">{{ $perusahaan->nama_perusahaan }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
     

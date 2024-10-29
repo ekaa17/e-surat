@@ -19,8 +19,8 @@ class PenawaranOrder extends Model
         'lokasi_gudang',
         'bukti',
         'waktu_penyerahan_barang',
+        'id_perusahaan',
         'waktu_pembayaran',
-        'ppn',
     ];
 
     public function produk()
@@ -31,5 +31,10 @@ class PenawaranOrder extends Model
     public function penawaran()
     {
         return $this->belongsTo(PenawaranHarga::class, 'id_penawaran');
+    }
+
+    public function perusahaan()
+    {
+        return $this->belongsTo(Perusahaan::class, 'id_perusahaan');
     }
 }

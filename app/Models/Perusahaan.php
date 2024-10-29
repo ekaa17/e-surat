@@ -16,4 +16,9 @@ class Perusahaan extends Model
         'alamat_perusahaan',
         'no_telpon',
     ];
+
+    public function penawaranorders()
+    {
+        return $this->hasMany(PenawaranOrder::class, 'id_perusahaan');
+    }
 }
