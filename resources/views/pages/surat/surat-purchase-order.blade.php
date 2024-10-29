@@ -90,7 +90,7 @@
                 <td></td>
                 <td></td>
                 <td><b>Total</b></td>
-                <td>105.600.000</td>
+                <td>{{ $item->total }}</td>
             </tr>
         </tbody>
       </table>
