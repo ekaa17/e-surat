@@ -46,6 +46,7 @@ class PenawaranOrderController extends Controller
             'waktu_pembayaran' => 'required|date',
             'bukti' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
             'id_perusahaan' => 'required|exists:perusahaans,id',
+            'ppn' => 'required|numeric',
         ]);
 
         if ($request->hasFile('bukti')) {
@@ -90,6 +91,7 @@ public function update(Request $request, $id)
         'waktu_pembayaran' => 'required|date',
         'bukti' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048', // ubah menjadi nullable jika tidak wajib
         'id_perusahaan' => 'required|exists:perusahaans,id',
+        'ppn' => 'required|numeric',
     ]);
 
     $order = PenawaranOrder::findOrFail($id);

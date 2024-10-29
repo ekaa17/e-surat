@@ -293,6 +293,12 @@
                                 </div>
                             @enderror
                         </div>
+                        
+                          <!-- PPN -->
+                        <div class="mb-3">
+                        <label for="ppn" class="form-label">PPN</label>
+                        <input type="number" class="form-control" id="ppn" name="ppn" required>
+                        </div>
     
                         <!-- Perusahaan -->
                         <div class="form-group p-2">

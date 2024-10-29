@@ -67,8 +67,8 @@
                 <td>{{ $no++ }}</td>
                 <td>{{ $item->quantity }}</td>
                 <td>{{ $item->produk->nama_produk }}</td>
-                <td>{{ $item->produk->harga_produk }}</td>
-                <td>{{ $item->total }}</td>
+                <td>{{ number_format($item->produk->harga_produk, 0, ',', '.') }}</td>
+                <td>{{ number_format($item->total, 0, ',', '.') }}</td>
                 <td></td>
             </tr>         
             @endforeach   

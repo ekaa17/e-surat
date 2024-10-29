@@ -21,6 +21,7 @@ class PenawaranOrder extends Model
         'waktu_penyerahan_barang',
         'id_perusahaan',
         'waktu_pembayaran',
+        'ppn',
     ];
 
     public function produk()

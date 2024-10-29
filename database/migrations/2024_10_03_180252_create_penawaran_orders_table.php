@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_penawaran')->nullable(); // ID Penawaran (Nullable FK)
             $table->unsignedBigInteger('id_perusahaan');
             $table->string('bukti'); // Bukti
+            $table->decimal('ppn', 5, 2); // PPN (Persentase, DECIMAL dengan 5 digit dan 2 desimal)
             $table->dateTime('waktu_penyerahan_barang'); // Waktu Penyerahan Barang
             $table->dateTime('waktu_pembayaran'); // Waktu Pembayaran
             $table->timestamps();
