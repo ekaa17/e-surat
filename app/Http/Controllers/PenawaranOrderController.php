@@ -118,7 +118,11 @@ public function update(Request $request, $id)
 
     public function surat_order($id) {
         $no = 1;
-        $data = PenawaranOrder::findOrFail($id);
-        return view('pages.surat.surat_purchase_order', compact('no', 'data'));
+        $order = PenawaranOrder::findOrFail($id);
+        $detail_order = Detailorder::where('id_produk', $id)->get();
+        // $total = Detailorder::where('Id_order', $id)->sum('total');
+        $informasi_perusahaan = Setting::where('id', 1)->first();
+        $direktur = Staff::where('role', 'Karyawan')->first();
+        return view('pages.surat.surat-purchase-order', compact('no', 'order', 'detail_order', 'informasi_perusahaan', 'direktur'));
     }
 }

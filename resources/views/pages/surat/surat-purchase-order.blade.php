@@ -20,7 +20,7 @@
     <table width=100%>
       <tr>
         <td width="20%" class="text-center">
-          <img src="./LogoIDKY.png" alt="Logo IndoKarya" width="175px">
+          <img src="{{ asset('assets/img/profile/Logo.jpg') }}" alt="Logo IndoKarya" width="175px">
         </td>
         <td width="80%" class="my-0 py-0 text-center">
           <h6 class="text-primary">PT. INDOKARYA JASA PRIMA</h6>
@@ -39,15 +39,16 @@
 
     <p class="text-center mt-2 mb-5" style="font-size: 12px;">
       <b> PURCHASE ORDER (PO) </b> <br>
-      Purchase No :009/IJP/XII/2023
+      {{ $order->nomor_surat }}
     </p>
     <div class="m-0 p-0">
       <p style="font-size: 10px">
         Kepada / TO : <br>
-          <b> PT. Ghana Petro Nusa </b> <br>
+          <b> PT. Indokarya </b> <br>
           Date : 06 Desember 2023 <br>
           Berdasarkan permintaan pembelian : <br> <i> Basic of purchase requesition </i> <br>
-          Harap Kirim Barang Tersebut Di : Haka WP 9 Surabaya ( 8000 Ltr )
+          Harap Kirim Barang Tersebut Di :{{ $order->lokasi_gudang }}
+
       </p>
     </div>
 
@@ -60,14 +61,18 @@
           <th>Harga Satuan <br> Unit Price (Rp)</th>
           <th>Jumlah <br> Amount</th>
         </thead>
-        <tbody>             
+        <tbody>
+          @foreach ($detail_order as $item)              
             <tr>
-                <td>1</td>
-                <td>8000 Ltr</td>
-                <td>Solar Industry <b> Non subsidi </b></td>
-                <td>13.200</td>
-                <td>105.600.000</td>
-            </tr>
+                <td>{{ $no++ }}</td>
+                <td>{{ $item->quantity }}</td>
+                <td>{{ $item->produk->nama_produk }}</td>
+                <td>{{ $item->produk->harga_produk }}</td>
+                <td>{{ $item->total }}</td>
+                <td></td>
+            </tr>         
+            @endforeach   
+            
             <tr>
                 <td></td>
                 <td></td>
@@ -76,8 +81,8 @@
                   <b> Jumlah </b> <br> PPN 11&
                 </td>
                 <td>
-                  95.135.135 <br>
-                  10.464.865
+                  {{ $item->total }} <br>
+                  {{ $order->ppn }}
                 </td>
             </tr>
             <tr>
@@ -104,11 +109,11 @@
       </tr>
       <tr>
         <td> B. Waktu Penyerahan Barang </td>
-        <td> 07 Desember 2023 </td>
+        <td> {{ $order->waktu_penyerahan_barang }} </td>
       </tr>
       <tr>
         <td> C. Cara Pembayaran </td>
-        <td> Pembayaran Selama 15 hari Kerja. Pembayaran tanggal 23 Desmber 2023 Melalui ATM Perusahaan <b> PT. INDOKARYA JASA PRIMA </b> </td>
+        <td> Pembayaran Selama 15 hari Kerja. Pembayaran tanggal {{ $order->waktu_pembayaran }} Melalui ATM Perusahaan <b> PT. INDOKARYA JASA PRIMA </b> </td>
       </tr>
       <tr>
         <td> D. Syarat - Syarat </td>
@@ -126,12 +131,12 @@
               PT. INDOKARYA JASA PRIMA
               <br><br>
 
-              <img src="./LogoIDKY.png" alt="Tanda Tangan" class="img-fluid mb-2" style="max-width: 100px; height: auto;">
+              <img src="{{ asset('assets/img/tandatangan/' . $direktur->tandatangan) }}" alt="Tanda Tangan" class="img-fluid mb-2" style="max-width: 100px; height: auto;">
   
               <br><br>
   
-              <u> Saeful Anwar S.Kom </u> <br>
-              <i> Direktur </i>
+              <u> {{ optional($direktur)->name ?? 'Nama Direktur Tidak Tersedia' }} </u> <br>
+              <i> {{ optional($direktur)->jabatan ?? 'Nama Direktur Tidak Tersedia' }}</i>
           </td>
       </tr>
   </table>
