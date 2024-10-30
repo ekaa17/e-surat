@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_pemesan')->references('id')->on('pemesans')->onDelete('cascade');
             $table->string('no_surat')->nullable();
-            $table->enum('status_pengajuan', ['belum disetujui', 'disetujui']);
-            $table->enum('status_validity', ['belum divalidasi', 'divalidasi']);
+            $table->enum('status_pengajuan', ['Belum Disetujui', 'Disetujui']);
             $table->timestamps();
 
 

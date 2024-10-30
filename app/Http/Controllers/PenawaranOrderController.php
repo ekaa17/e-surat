@@ -37,18 +37,18 @@ class PenawaranOrderController extends Controller
     // Menyimpan penawaran order baru
     public function store(Request $request)
     {
-        // dd($request);
         $request->validate([
             'nomor_surat' => 'nullable|string',
             'lokasi_gudang' => 'required|string',
             'id_penawaran' => 'nullable|exists:penawaran_hargas,id',
             'waktu_penyerahan_barang' => 'required|date',
             'waktu_pembayaran' => 'required|date',
-            'bukti' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'bukti' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'id_perusahaan' => 'required|exists:perusahaans,id',
             'ppn' => 'required|numeric',
         ]);
-
+    
+        // Proses file bukti jika ada
         if ($request->hasFile('bukti')) {
             $bukti = $request->file('bukti');
             $buktiName = now()->format('YmdHis') . '_bukti_' . $request->nomor_surat . '.' . $bukti->extension();
@@ -56,8 +56,19 @@ class PenawaranOrderController extends Controller
         } else {
             $buktiName = null;
         }
-        PenawaranOrder::create($request->all());
-
+    
+        // Buat data PenawaranOrder dengan data yang telah diproses
+        PenawaranOrder::create([
+            'nomor_surat' => $request->nomor_surat,
+            'lokasi_gudang' => $request->lokasi_gudang,
+            'id_penawaran' => $request->id_penawaran,
+            'waktu_penyerahan_barang' => $request->waktu_penyerahan_barang,
+            'waktu_pembayaran' => $request->waktu_pembayaran,
+            'bukti' => $buktiName,
+            'id_perusahaan' => $request->id_perusahaan,
+            'ppn' => $request->ppn,
+        ]);
+    
         return redirect()->route('data-PO.index')->with('success', 'Penawaran order berhasil dibuat.');
     }
 
@@ -80,8 +91,8 @@ class PenawaranOrderController extends Controller
         return view('data-PO.edit', compact('order','perusahaans')); // Sesuaikan dengan nama view Anda
     }
 
-// Memperbarui penawaran order yang ada
-public function update(Request $request, $id)
+    // Memperbarui penawaran order yang ada
+    public function update(Request $request, $id)
 {
     $request->validate([
         'nomor_surat' => 'nullable|string',
@@ -89,26 +100,36 @@ public function update(Request $request, $id)
         'id_penawaran' => 'nullable|exists:penawaran_hargas,id',
         'waktu_penyerahan_barang' => 'required|date',
         'waktu_pembayaran' => 'required|date',
-        'bukti' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048', // ubah menjadi nullable jika tidak wajib
+        'bukti' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'id_perusahaan' => 'required|exists:perusahaans,id',
         'ppn' => 'required|numeric',
     ]);
 
     $order = PenawaranOrder::findOrFail($id);
     
-    // Menyimpan data yang tidak terkait file
-    $data = $request->only('nomor_surat', 'lokasi_gudang', 'id_penawaran', 'waktu_penyerahan_barang', 'waktu_pembayaran', 'ppn');
+    // Data yang akan di-update
+    $data = $request->only('nomor_surat', 'lokasi_gudang', 'id_penawaran', 'waktu_penyerahan_barang', 'waktu_pembayaran', 'ppn', 'id_perusahaan');
 
     if ($request->hasFile('bukti')) {
-        // Hapus bukti lama jika ada
+        $bukti = $request->file('bukti');
+        $buktiName = now()->format('YmdHis') . '_bukti_' . $request->nomor_surat . '.' . $bukti->extension();
+        $bukti->move(public_path('assets/img/bukti/'), $buktiName);
+
+        // Hapus file bukti lama jika ada
         if ($order->bukti) {
-            Storage::delete('public/' . $order->bukti); // Hapus bukti lama
+            $oldBuktiPath = public_path('assets/img/bukti/') . $order->bukti;
+            if (file_exists($oldBuktiPath)) {
+                unlink($oldBuktiPath);
+            }
         }
-        // Simpan file baru
-        $data['bukti'] = $request->file('bukti')->store('bukti', 'public');
+
+        // Tambahkan nama file baru ke data
+        $data['bukti'] = $buktiName;
+    } else {
+        $data['bukti'] = $order->bukti;
     }
 
-    // Update data order dengan data baru
+    // Update data order dengan data yang sudah lengkap
     $order->update($data);
 
     return redirect()->route('data-PO.index')->with('success', 'Penawaran order berhasil diperbarui.');
@@ -123,6 +144,19 @@ public function update(Request $request, $id)
         return redirect()->route('data-PO.index')->with('success', 'Penawaran order berhasil dihapus.');
     }
 
+
+    public function setujui($id) {
+        $order = PenawaranOrder::findOrFail($id);
+        $order->status_pengajuan = 'Disetujui';
+
+        if ($order->save()){
+            return redirect()->back()->with('success', 'Surat terkait berhasil Disetujui!');
+        } else {
+            return redirect()->back()->with('error', 'Gagal menyetujui surat');
+        }
+    }
+
+
     public function surat_order($id) {
         $no = 1;
         $order = PenawaranOrder::findOrFail($id);
@@ -133,6 +167,32 @@ public function update(Request $request, $id)
         // dd($total_akhir);
         $informasi_perusahaan = Setting::where('id', 1)->first();
         $direktur = Staff::where('role', 'Karyawan')->first();
-        return view('pages.surat.surat-purchase-order', compact('no', 'order', 'detail_order', 'total','ppn', 'jumlah','informasi_perusahaan', 'direktur'));
+        $terbilang = $this->terbilang($total);
+        return view('pages.surat.surat-purchase-order', compact('no','terbilang', 'order', 'detail_order', 'total','ppn', 'jumlah','informasi_perusahaan', 'direktur'));
     }
+    private function terbilang($number) {
+        $number = abs($number);
+        $words = [
+            '','Satu','Dua','Tiga','Empat','Lima','Enam','Tujuh','Delapan','Sembilan','Sepuluh','Sebelas'];
+        $result = '';
+        if ($number < 12) {
+            $result = ' ' . $words[$number];
+        } elseif ($number < 20) {
+            $result = $this->terbilang($number - 10) . ' Belas';
+        } elseif ($number < 100) {
+            $result = $this->terbilang($number / 10) . ' Puluh' . $this->terbilang($number % 10);
+        } elseif ($number < 200) {
+            $result = ' Seratus' . $this->terbilang($number - 100);
+        } elseif ($number < 1000) {
+            $result = $this->terbilang($number / 100) . ' Ratus' . $this->terbilang($number % 100);
+        } elseif ($number < 2000) {
+            $result = ' Seribu' . $this->terbilang($number - 1000);
+        } elseif ($number < 1000000) {
+            $result = $this->terbilang($number / 1000) . ' Ribu' . $this->terbilang($number % 1000);
+        } elseif ($number < 1000000000) {
+            $result = $this->terbilang($number / 1000000) . ' Juta' . $this->terbilang($number % 1000000);
+        }
+        return $result;
+    }
+    
 }

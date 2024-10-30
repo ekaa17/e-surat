@@ -33,10 +33,13 @@
                 <div class="card">
                     <div class="card-body pt-3">
                         <div class="d-flex align-items-center justify-content-between m-3">
-                            <h5 class="card-title">Total :  Surat</h5>
+                            <h5 class="card-title">Total : {{ count($orders) }} Surat</h5>
+                            @if (auth()->user()->role == 'Admin')
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
                                 <i class="bi bi-plus"></i> Data Baru
                             </button>
+                            @else
+                            @endif
                         </div>
 
                         <div class="table-responsive">
@@ -49,40 +52,81 @@
                                         <th>Waktu Penyerahan</th>
                                         <th>Waktu Pembayaran</th>
                                         <th>Lokasi Gudang</th>
-                                        {{-- <th>Bukti</th> --}}
                                         <th>Nama Perusahaan</th>
-                                        <th>Data</th>
-                                        <th>Actions</th>
+                                        <th>Status Pengajuan</th>
+                                        @if (auth()->user()->role == 'Admin')
+                                            <th>Data</th>
+                                            <th>Actions</th>
+                                        @else
+                                        <th>
+                                            Unduh Surat
+                                        </th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse($orders as $order)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $order->nomor_surat }}</td>
-                                            <td>{{ $order->penawaran ? $order->penawaran->no_surat : 'Tidak ada penawaran' }}</td>
-                                            <td>{{ $order->waktu_penyerahan_barang }}</td>
-                                            <td>{{ $order->waktu_pembayaran }}</td>
-                                            <td>{{ $order->lokasi_gudang }}</td>
-                                            <td>{{ $order->perusahaan->nama_perusahaan }}</td>
-                                            <td>
-                                                 <!-- Detail Data -->
-                                                <a href="{{ route('data-PO.show', $order->id) }}" class="btn btn-danger" >
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $order->nomor_surat }}</td>
+                                        <td>{{ $order->penawaran ? $order->penawaran->no_surat : 'Tidak ada penawaran' }}</td>
+                                        <td>{{ date('d F Y', strtotime($order->waktu_penyerahan_barang)) }}</td>
+                                        <td>{{ date('d F Y', strtotime($order->waktu_pembayaran)) }}</td>
+                                        <td>{{ $order->lokasi_gudang }}</td>
+                                        <td>{{ $order->perusahaan->nama_perusahaan }}</td>
+                                        <td>
+                                            @if ($order->status_pengajuan == "Belum Disetujui")
+                                                @if (auth()->user()->role == 'Admin') 
+                                                    <span class="badge me-2 badge-pill bg-secondary">{{ $order->status_pengajuan }}</span>
+                                                @else
+                                                    <button type="button" class="btn mb-1 me-1 btn-secondary" data-bs-toggle="modal" data-bs-target="#pengajuan{{ $order->id }}">
+                                                        Setujui
+                                                    </button>
+                                                    <div id="pengajuan{{ $order->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title" id="myModalLabel">Setujui order Harga</h4>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <h6>Apakah benar anda menyetujui order harga terkait?</h6>
+                                                                </div>
+                                                                <div class="modal-footer"> 
+                                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tidak</button>
+                                                                    <a href="/setujui-surat-po/{{ $order->id }}" class="btn btn-primary">Ya</a> 
+                                                                </div>
+                                                            </div> <!-- /.modal-content -->
+                                                        </div> <!-- /.modal-dialog -->
+                                                    </div> <!-- /.modal -->
+                                                @endif
+                                            @else
+                                                <span class="badge me-2 badge-pill bg-primary">{{ $order->status_pengajuan }}</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (auth()->user()->role == 'Admin')
+                                                <!-- Detail Data -->
+                                                <a href="{{ route('data-PO.show', $order->id) }}" class="btn btn-danger">
                                                     <i class="ti ti-eye"></i>
-                                                </a>
-                                            
+                                                </a>      
+                                            @endif
                                             <!-- Download Data -->
-                                            <a href="/surat-purchase-order/{{ $order->id }} " class="btn btn-primary" target="_blank">
+                                            <a href="/surat-purchase-order/{{ $order->id }}" class="btn btn-primary" target="_blank">
                                                 <i class="ti ti-download"></i>
                                             </a> 
-                                                <td>  
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal-{{ $order->id }}">
-                                                        <i class="bi bi-pencil-fill"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $order->id }}">
-                                                        <i class="bi bi-trash-fill"></i>
-                                                    </button>     
-                                        </tr>
+                                        </td>
+                                        @if (auth()->user()->role == 'Admin')
+                                            <td>
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal-{{ $order->id }}">
+                                                    <i class="bi bi-pencil-fill"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $order->id }}">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>     
+                                            </td>
+                                        @endif 
+                                    </tr>
 
                                         <!-- Modal Edit -->
                                         <div class="modal fade" id="editModal-{{ $order->id }}" tabindex="-1" aria-labelledby="editModalLabel-{{ $order->id }}" aria-hidden="true">
@@ -170,6 +214,19 @@
                                                                 <input type="number" class="form-control" id="ppn" name="ppn" value="{{ old('ppn', $order->ppn) }}" required>
                                                             </div>
                                                         </div>
+
+                                                        <div class="form-group p-2">
+                                                            <label for="id_perusahaan">Perusahaan</label>
+                                                            <select name="id_perusahaan" id="id_perusahaan" class="form-control" required>
+                                                                <option value="" disabled>Pilih perusahaan</option>
+                                                                @foreach ($perusahaans as $perusahaan)
+                                                                    <option value="{{ $perusahaan->id }}"
+                                                                        @if (isset($order) && $order->id_perusahaan == $perusahaan->id) selected @endif>
+                                                                        {{ $perusahaan->nama_perusahaan }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
                                         
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -255,7 +312,7 @@
                         <div class="row mb-3">
                             <label for="waktu_penyerahan_barang" class="col-sm-4 col-form-label">Waktu Penyerahan Barang</label>
                             <div class="col-sm-8">
-                                <input type="datetime-local" class="form-control @error('waktu_penyerahan_barang') is-invalid @enderror" name="waktu_penyerahan_barang" value="{{ old('waktu_penyerahan_barang') }}" required>
+                                <input type="date" class="form-control @error('waktu_penyerahan_barang') is-invalid @enderror" name="waktu_penyerahan_barang" value="{{ old('waktu_penyerahan_barang') }}" required>
                                 @error('waktu_penyerahan_barang')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -268,7 +325,7 @@
                         <div class="row mb-3">
                             <label for="waktu_pembayaran" class="col-sm-4 col-form-label">Waktu Pembayaran</label>
                             <div class="col-sm-8">
-                                <input type="datetime-local" class="form-control @error('waktu_pembayaran') is-invalid @enderror" name="waktu_pembayaran" value="{{ old('waktu_pembayaran') }}" required>
+                                <input type="date" class="form-control @error('waktu_pembayaran') is-invalid @enderror" name="waktu_pembayaran" value="{{ old('waktu_pembayaran') }}" required>
                                 @error('waktu_pembayaran')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -320,4 +377,5 @@
             </div>
         </div>
     </div>
+</section>
 @endsection

@@ -62,14 +62,20 @@
                                         <th>{{ $data->no_telepon }}</th>
                                         <th>{{ $data->email }}</th>
                                         <th>{{ $data->role }}</th>
-                                        <th>{{ $data->profile }}</th>
+                                        <th>
+                                            @if($data->profile)
+                                                <img src="{{ asset('assets/img/profile/' . $data->profile) }}" alt="profile" width="50">
+                                            @else
+                                                Tidak Ada Profile
+                                            @endif
+                                        </th>
                                         <th>
                                             @if($data->tandatangan)
                                                 <img src="{{ asset('assets/img/tandatangan/' . $data->tandatangan) }}" alt="Tanda Tangan" width="50">
                                             @else
                                                 Tidak Ada Tanda Tangan
                                             @endif
-                                        </t>
+                                        </th>
                                         <th>
                                             <a href="{{ route('data-staff.edit', $data->id) }}" class="btn btn-primary btn-sm">
                                                 <i class="bi bi-pencil-fill"></i>

@@ -45,7 +45,7 @@
       <p style="font-size: 10px">
         Kepada / TO : <br>
           <b> {{ $order->perusahaan->nama_perusahaan }} </b> <br>
-          Date : {{ $order->created_at }} <br>
+          Date : {{ $order->created_at->format('d F Y') }} <br>
           Berdasarkan permintaan pembelian : <br> <i> Basic of purchase requesition </i> <br>
           Harap Kirim Barang Tersebut Di :{{ $order->lokasi_gudang }}
 
@@ -96,7 +96,7 @@
       </table>
     </div>
     <p style="font-size: 10px;">
-      <i> Terbilang : Seratus Lima Juta Enam Ratus Rupiah </i>
+      <i> Terbilang : {{ $terbilang }} </i>
     </p>
 
     <table style="font-size: 10px;">
@@ -108,16 +108,16 @@
         <td>: Harga Franco Proyek </td>
       </tr>
       <tr>
-        <td> B. Waktu Penyerahan Barang </td>
-        <td> {{ $order->waktu_penyerahan_barang }} </td>
+        <td> B. Waktu Penyerahan </td>
+        <td>:  {{ \Carbon\Carbon::parse($order->waktu_penyerahan_barang)->format('d F Y') }}</td>
       </tr>
       <tr>
         <td> C. Cara Pembayaran </td>
-        <td> Pembayaran Selama 15 hari Kerja. Pembayaran tanggal {{ $order->waktu_pembayaran }} Melalui ATM Perusahaan <b> PT. INDOKARYA JASA PRIMA </b> </td>
+        <td>:  Pembayaran Selama 15 hari Kerja. Pembayaran tanggal {{ \Carbon\Carbon::parse($order->waktu_pembayaran)->format('d F Y') }} Melalui ATM Perusahaan <b> PT. INDOKARYA JASA PRIMA </b> </td>
       </tr>
       <tr>
         <td> D. Syarat - Syarat </td>
-        <td> <i> Mohon Quantity Disesuaikan Dengan Jumlah Pemesanan, Apabila Barang Yang Datang Tidak Sesuai Spesifikasi Dan Quantity Akan Ditolak Dan Dikembalikan Segala Resiko Yang Timbul Menjadi Tanggung Jawab Suppliyer </i> </td>
+        <td> <i>:  Mohon Quantity Disesuaikan Dengan Jumlah Pemesanan, Apabila Barang Yang Datang Tidak Sesuai Spesifikasi Dan Quantity Akan Ditolak Dan Dikembalikan Segala Resiko Yang Timbul Menjadi Tanggung Jawab Suppliyer </i> </td>
       </tr>
     </table>
 
@@ -128,10 +128,14 @@
           <td>
               Dipersiapkan Oleh
               <br>
-              PT. INDOKARYA JASA PRIMA
+              {{ optional($informasi_perusahaan)->nama_perusahaan ?? 'Nama Perusahaan Tidak Tersedia' }}
               <br><br>
 
-              <img src="{{ asset('assets/img/tandatangan/' . $direktur->tandatangan) }}" alt="Tanda Tangan" class="img-fluid mb-2" style="max-width: 100px; height: auto;">
+              @if ($direktur->tandatangan && $order->status_pengajuan == 'Disetujui')
+                 <img src="{{ asset('assets/img/tandatangan/' . $direktur->tandatangan) }}" alt="Tanda Tangan" class="img-fluid mb-2" style="max-width: 100px; height: auto;">
+              @else
+                 <p class="text-muted">Tanda tangan belum tersedia.</p>
+              @endif
   
               <br><br>
   

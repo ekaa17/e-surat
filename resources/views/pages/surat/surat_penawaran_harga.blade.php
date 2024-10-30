@@ -118,10 +118,10 @@
               BEST REGARDS,
               <br><br>
   
-              @if(optional($direktur)->tandatangan)
-                  <img src="{{ asset('assets/img/tandatangan/' . $direktur->tandatangan) }}" alt="Tanda Tangan {{ optional($direktur)->name }}" class="img-fluid mb-2" style="max-width: 100px; height: auto;">
+              @if ($direktur->tandatangan && $penawaran->status_pengajuan == 'Disetujui')
+                 <img src="{{ asset('assets/img/tandatangan/' . $direktur->tandatangan) }}" alt="Tanda Tangan" class="img-fluid mb-2" style="max-width: 100px; height: auto;">
               @else
-                  <p>Tanda tangan tidak tersedia</p>
+                 <p class="text-muted">Tanda tangan belum tersedia.</p>
               @endif
   
               <br><br>

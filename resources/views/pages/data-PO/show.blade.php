@@ -36,22 +36,35 @@
                             <thead>
                                 <tr>
                                         <th>Nomor Surat</th>
-                                        <th>penawaran</th>
+                                        <th>perusahaan</th>
                                         <th>Waktu Penyerahan</th>
                                         <th>Waktu Pembayaran</th>
                                         <th>Lokasi Gudang</th>
-                                        {{-- <th>Bukti</th> --}}
-                                        <th>PPN</th>
+                                        <th>bukti</th>
+                                        <th>Status Pengajuan</th>
                                 </tr>
                             </thead>
                             <tbody>
                                     <tr>
                                         <td>{{ $order->nomor_surat }}</td>
-                                        <td>{{ $order->penawaran ? $order->penawaran->no_surat : 'Tidak ada penawaran' }}</td>
-                                        <td>{{ $order->waktu_penyerahan_barang }}</td>
-                                        <td>{{ $order->waktu_pembayaran }}</td>
+                                        <td>{{ $order->perusahaan->nama_perusahaan}}</td>
+                                        <td>{{ date('d F Y', strtotime($order->waktu_penyerahan_barang)) }}</td>
+                                        <td>{{ date('d F Y', strtotime($order->waktu_pembayaran)) }}</td>
                                         <td>{{ $order->lokasi_gudang }}</td>
-                                        <td>{{ $order->ppn }}</td>
+                                        <th>
+                                            @if($order->bukti)
+                                                <img src="{{ asset('assets/img/bukti/' . $order->bukti) }}" alt="bukti" width="50">
+                                            @else
+                                                Tidak Ada bukti
+                                            @endif
+                                        </th>
+                                        <td>
+                                            @if ($order->status_pengajuan == "belum disetujui")
+                                                <span class="badge me-2 badge-pill bg-secondary">{{ $order->status_pengajuan }}</span>
+                                            @else
+                                                <span class="badge me-2 badge-pill bg-success">{{ $order->status_pengajuan }}</span>
+                                            @endif
+                                        </td>
 
                                     </tr>
                             </tbody>
@@ -70,7 +83,7 @@
                 <div class="card">
                     <div class="card-body pt-3">
                         <div class="d-flex align-items-center justify-content-between m-3">
-                            <h5 class="card-title">Total :  Produk</h5>
+                            <h5 class="card-title">Total :  {{ count($detail_order) }} Produk</h5>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahProduk">
                                 <i class="bi bi-plus"></i> Tambah Produk
                             </button>
@@ -146,30 +159,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($detail_order as $item)
+                                    @foreach ($detail_order as $index => $order)
                                         <tr>
-                                            <td> {{ $no++ }} </td>
-                                            <td> {{ $item->produk->nama_produk }} </td>
-                                            <td> Rp. {{ number_format( $item->produk->harga_produk, 0, ',', '.') }} </td>
-                                            <td> {{ $item->quantity }} {{ $item->produk->unit }}</td>
-                                            <td> Rp {{ number_format($item->total, 0, ',', '.') }} </td>
+                                            <td> {{ $index + 1 }} </td>
+                                            <td> {{ $order->produk?->nama_produk ?? '-' }} </td>
+                                            <td> Rp. {{ number_format($order->produk?->harga_produk ?? 0, 0, ',', '.') }} </td>
+                                            <td> {{ $order->quantity }} {{ $order->produk?->unit ?? '-' }}</td>
+                                            <td> Rp {{ number_format($order->total, 0, ',', '.') }} </td>
                                             <td></td>
                                             <td>
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $order->id }}">
                                                     <i class="ti ti-trash"></i>
                                                 </button>
-                                                <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                
+                                                <!-- Modal Hapus -->
+                                                <div class="modal fade" id="deleteModal{{ $order->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $order->id }}" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="deleteModalLabel">Hapus Produk Dalam List</h5>
+                                                                <h5 class="modal-title" id="deleteModalLabel{{ $order->id }}">Hapus Produk Dalam List</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                Apakah Anda yakin ingin menghapus produk <strong>{{ $item->produk->nama_produk }}</strong>?
+                                                                Apakah Anda yakin ingin menghapus produk <strong>{{ $order->produk?->nama_produk ?? 'Produk tidak tersedia' }}</strong>?
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <form action="{{ route('detail-data.destroy', $item->id) }}" method="POST">
+                                                                <form action="{{ route('detail-order.destroy', $order->id) }}" method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit" class="btn btn-danger">Hapus</button>

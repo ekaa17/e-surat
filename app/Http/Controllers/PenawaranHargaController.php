@@ -99,10 +99,10 @@ class PenawaranHargaController extends Controller
     
     public function setujui($id) {
         $penawaran = PenawaranHarga::findOrFail($id);
-        $penawaran->status_pengajuan = 'disetujui';
+        $penawaran->status_pengajuan = 'Disetujui';
 
         if ($penawaran->save()){
-            return redirect()->back()->with('success', 'Surat terkait berhasil disetujui!');
+            return redirect()->back()->with('success', 'Surat terkait berhasil Disetujui!');
         } else {
             return redirect()->back()->with('error', 'Gagal menyetujui surat');
         }

@@ -11,7 +11,6 @@ class DetailOrderController extends Controller
     {
         // dd($request);
         $request->validate([
-            'id_order'   => 'nullable',
             'produk'   => 'required',
             'quantity'   => 'required',
             'total'   => 'required',

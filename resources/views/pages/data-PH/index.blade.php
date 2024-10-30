@@ -51,7 +51,6 @@
                                         <th>Pemesan</th>
                                         <th>No Surat</th>
                                         <th>Status Pengajuan</th>
-                                        <th>Status Validasi</th>
                                         @if (auth()->user()->role == 'Admin')
                                             <th>Data</th>
                                             <th>Aksi</th>
@@ -70,7 +69,7 @@
                                             <td>{{ $penawaran->pemesan->nama_pemesan }}</td>
                                             <td>{{ $penawaran->no_surat }}</td>
                                             <td>
-                                                @if ($penawaran->status_pengajuan == "belum disetujui")
+                                                @if ($penawaran->status_pengajuan == "Belum Disetujui")
                                                    @if (auth()->user()->role == 'Admin') 
                                                         <span class="badge me-2 badge-pill bg-secondary">{{ $penawaran->status_pengajuan }}</span>
                                                     @else
@@ -96,39 +95,6 @@
                                                     @endif
                                                     @else
                                                     <span class="badge me-2 badge-pill bg-primary">{{ $penawaran->status_pengajuan }}</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($penawaran->status_validity == "belum divalidasi")
-                                                    @if (auth()->user()->role == 'Admin') 
-                                                        @if ($penawaran->status_pengajuan == "belum disetujui")
-                                                            <span class="badge me-2 badge-pill bg-secondary">{{ $penawaran->status_pengajuan }}</span>
-                                                        @else
-                                                            <button type="button" class="btn mb-1 me-1 btn-secondary" data-bs-toggle="modal" data-bs-target="#validasi{{ $penawaran->id }}" fdprocessedid="tml8fm">
-                                                                Validasi
-                                                            </button>
-                                                            <div id="validasi{{ $penawaran->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h4 class="modal-title" id="myModalLabel"> Validasi Penawaran Harga </h4> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <h6>Apakah benar pemesan telah memvalidasi penawaran harga terkait ?</h6>
-                                                                        </div>
-                                                                        <div class="modal-footer"> 
-                                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"> Tidak </button>
-                                                                            <a href="/validasi-surat-ph/{{ $penawaran->id }}" class="btn btn-primary">Ya</a> 
-                                                                        </div>
-                                                                    </div> <!-- /.modal-content -->
-                                                                </div> <!-- /.modal-dialog -->
-                                                            </div> <!-- /.modal -->
-                                                        @endif
-                                                    @else
-                                                        <span class="badge me-2 badge-pill bg-secondary">{{ $penawaran->status_validity }}</span>
-                                                    @endif
-                                                @else
-                                                    <span class="badge me-2 badge-pill bg-success">{{ $penawaran->status_validity }}</span>
                                                 @endif
                                             </td>
                                             <td>

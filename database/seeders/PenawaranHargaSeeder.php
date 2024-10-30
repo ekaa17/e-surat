@@ -16,15 +16,13 @@ class PenawaranHargaSeeder extends Seeder
         DB::table('penawaran_hargas')->insert([
             [
                 'id_pemesan' => rand(1,2),
-                'status_pengajuan' => 'belum disetujui',
-                'status_validity' => 'belum divalidasi',
+                'status_pengajuan' => 'belum Disetujui',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'id_pemesan' => rand(1,2),
-                'status_pengajuan' => 'belum disetujui',
-                'status_validity' => 'belum divalidasi',
+                'status_pengajuan' => 'belum Disetujui',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

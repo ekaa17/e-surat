@@ -46,6 +46,7 @@ Route::group(['middleware' => 'cekrole:Admin,Karyawan'], function() {
     Route::resource('/data-invoice', InvoiceController::class)->names('data-invoice');
     Route::resource('/data-PH', PenawaranHargaController::class)->names('data-PH');
     Route::get('/setujui-surat-ph/{id}', [PenawaranHargaController::class, 'setujui']);
+    Route::get('/setujui-surat-po/{id}', [PenawaranOrderController::class, 'setujui']);
     Route::get('/surat-penawaran-harga/{id}', [PenawaranHargaController::class, 'surat_ph']);
     Route::get('/surat-purchase-order/{id}', [PenawaranOrderController::class, 'surat_order']);
     Route::get('/validasi-surat-ph/{id}', [PenawaranHargaController::class, 'validasi']);

@@ -23,8 +23,4 @@ class Detailorder extends Model
         return $this->belongsTo(Produk::class, 'id_produk');
     }
 
-    public function penawaranorders()
-    {
-        return $this->hasMany(PenawaranOrder::class, 'id_penawaran');
-    }
 }

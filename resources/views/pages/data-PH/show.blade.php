@@ -39,7 +39,6 @@
                                     <th>Pemesan</th>
                                     <th>No Surat</th>
                                     <th>Status Pengajuan</th>
-                                    <th>Status Validasi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,13 +51,6 @@
                                             <span class="badge me-2 badge-pill bg-secondary">{{ $penawaran->status_pengajuan }}</span>
                                         @else
                                             <span class="badge me-2 badge-pill bg-success">{{ $penawaran->status_pengajuan }}</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($penawaran->status_validity == "belum divalidasi")
-                                            <span class="badge me-2 badge-pill bg-secondary">{{ $penawaran->status_validity }}</span>
-                                        @else
-                                            <span class="badge me-2 badge-pill bg-success">{{ $penawaran->status_validity }}</span>
                                         @endif
                                     </td>
                                 </tr>
