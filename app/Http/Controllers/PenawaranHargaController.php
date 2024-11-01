@@ -110,11 +110,12 @@ class PenawaranHargaController extends Controller
 
     public function surat_ph($id) {
         $no = 1;
+        $penawaran = PenawaranHarga::findOrFail($id);
         $data = PenawaranHarga::findOrFail($id);
         $detail_data = DetailPenawaran::where('id_penawaran', $id)->get();
         $total = DetailPenawaran::where('id_penawaran', $id)->sum('total');
         $informasi_perusahaan = Setting::where('id', 1)->first();
         $direktur = Staff::where('role', 'Karyawan')->first();
-        return view('pages.surat.surat_penawaran_harga', compact('no', 'data', 'detail_data', 'total', 'informasi_perusahaan', 'direktur'));
+        return view('pages.surat.surat_penawaran_harga', compact('no', 'data','penawaran', 'detail_data', 'total', 'informasi_perusahaan', 'direktur'));
     }
 }

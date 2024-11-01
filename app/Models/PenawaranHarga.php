@@ -29,4 +29,9 @@ class PenawaranHarga extends Model
     {
         return $this->hasMany(PenawaranOrder::class, 'id_penawaran');
     }
+
+    public function invoice()
+    {
+        return $this->hasMany(Invoice::class, 'id_invoice');
+    }
 }

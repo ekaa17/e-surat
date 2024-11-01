@@ -34,68 +34,110 @@
                     <div class="card-body pt-3">
                         <div class="d-flex align-items-center justify-content-between m-3">
                             <h5 class="card-title">Total :  Surat</h5>
-                            <a href="{{ route('data-invoice.create') }}" class="btn btn-primary">
+                            @if (auth()->user()->role == 'Admin')
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
                                 <i class="bi bi-plus"></i> Data Baru
-                            </a>
+                            </button>
+                            @else
+                            @endif
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table datatable" id="inovice">
+                            <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Bill To</th>
-                                        <th>No Invoice</th>
-                                        <th>PO Number</th>
-                                        <th>Description</th>
-                                        <th>Unit Price</th>
-                                        <th>Quantity</th>
-                                        <th>Amount</th>
-                                        <th>Subtotal</th>
-                                        <th>PPN</th>
-                                        <th>Total</th>
-                                        <th>Aksi</th>
+                                        <th>No Surat</th>
+                                        <th>Id Penawaran</th>
+                                        <th>Id Order</th>
+                                        <th>Status</th>
+                                        <th>Bukti Transaksi</th>
+                                        @if (auth()->user()->role == 'Admin')
+                                            <th>Data</th>
+                                            <th>Actions</th>
+                                        @else
+                                        <th>
+                                            Unduh Surat
+                                        </th>
+                                        @endif
                                     </tr>
-                                    <tbody>
-                                        @forelse($invoices as $invoice)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $invoice->bill_to }}</td>
-                                            <td>{{ $invoice->no_invoice }}</td>
-                                            <td>{{ $invoice->po_number }}</td>
-                                            <td>{{ $invoice->description }}</td>
-                                            <td>{{ number_format($invoice->unit_price, 2) }}</td>
-                                            <td>{{ $invoice->quantity }}</td>
-                                            <td>{{ number_format($invoice->amount, 2) }}</td>
-                                            <td>{{ number_format($invoice->subtotal, 2) }}</td>
-                                            <td>{{ number_format($invoice->ppn, 2) }}</td>
-                                            <td>{{ number_format($invoice->total, 2) }}</td>
-                                            <td>
-                                                <a href="{{ route('data-invoice.edit', $invoice->id) }}" class="btn btn-primary btn-sm">
-                                                    <i class="bi bi-pencil-fill"></i>
-                                                </a>
-                                                <form action="{{ route('data-invoice.destroy', $invoice->id) }}" method="POST" style="display:inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
-                                                        <i class="bi bi-trash-fill"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        @empty
-                                        <tr>
-                                            <td colspan="11" class="text-center">Tidak ada invoice tersedia.</td>
-                                        </tr>
-                                        @endforelse
-                                    </tbody>
                                 </thead>
+                              
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
+<!-- Modal Create -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">Tambah Data Invoice</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('data-invoice.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="no_surat" class="form-label">No Surat</label>
+                        <input type="text" class="form-control" id="no_surat" name="no_surat" required>
+                    </div>
+                    <!-- Pemesan -->
+                    <div class="row mb-3">
+                        <label for="id_penawaran" class="col-md-4 col-lg-3 col-form-label">Penawaran</label>
+                        <div class="col-md-8 col-lg-9">
+                            <select name="id_penawaran" id="id_penawaran" class="form-control @error('id_penawaran') is-invalid @enderror">
+                                <option value="">Pilih Penawaran</option>
+                                @foreach($penawaran as $p)
+                                    <option value="{{ $p->id }}" {{ old('id_penawaran') == $p->id ? 'selected' : '' }}>{{ $p->no_surat }}</option>
+                                @endforeach
+                            </select>
+                            @error('id_penawaran')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="id_order" class="col-md-4 col-lg-3 col-form-label">ID Order</label>
+                        <div class="col-md-8 col-lg-9">
+                            <select name="id_order" id="id_order" class="form-control @error('id_order') is-invalid @enderror">
+                                <option value="">Pilih Order</option>
+                                @foreach($orders as $p)
+                                    <option value="{{ $p->id }}" {{ old('id_order') == $p->id ? 'selected' : '' }}>{{ $p->nomor_surat }}</option>
+                                @endforeach
+                            </select>
+                            @error('id_order')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" id="status" name="status" required>
+                            <option value="Pending">Pending</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bukti_transaksi" class="form-label">Bukti Transaksi</label>
+                        <input type="file" class="form-control" id="bukti_transaksi" name="bukti_transaksi" accept=".jpg, .jpeg, .png, .pdf">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</section>
 @endsection

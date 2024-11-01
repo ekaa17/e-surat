@@ -39,11 +39,19 @@
             <span class="hide-menu">Data Staff</span>
           </a>
         </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="./data-jabatan" aria-expanded="false">
+            <span>
+              <i class="bi-table"></i>
+            </span>
+            <span class="hide-menu">Data Jabatan</span>
+          </a>
+        </li>
         @if (auth()->user()->role == 'Admin')
         <li class="sidebar-item">
           <a class="sidebar-link" href="./data-perusahaan" aria-expanded="false">
             <span>
-              <i class="bi-person"></i>
+              <i class="bi-building"></i>
             </span>
             <span class="hide-menu">Data Perusahaan</span>
           </a>

@@ -12,23 +12,23 @@ class Invoice extends Model
     protected $table = 'Invoices';
 
     protected $fillable = [
-        'bill_to',
-        'no_invoice',
-        'po_number',
-        'description',
-        'unit_price',
-        'quantity',
-        'unit',
-        'amount',
-        'subtotal',
-        'ppn',
-        'total',
+        'no_surat',
+        'id_penawaran',
+        'id_order',
+        'status',
+        'bukti_transaksi',
     ];
 
-    protected $casts = [
-        'amount' => 'decimal:2',
-        'subtotal' => 'decimal:2',
-        'ppn' => 'decimal:2',
-        'total' => 'decimal:2',
-    ];
+    public function penawaran()
+    {
+        return $this->belongsTo(PenawaranHarga::class, 'id_penawaran');
+    }
+
+    /**
+     * Get the order that owns the invoice.
+     */
+    public function order()
+    {
+        return $this->belongsTo(PenawaranOrder::class, 'id_order');
+    }
 }
