@@ -36,7 +36,7 @@
             <span>
               <i class="bi-person-circle"></i>
             </span>
-            <span class="hide-menu">Data Staff</span>
+            <span class="hide-menu">Data Karyawan</span>
           </a>
         </li>
         <li class="sidebar-item">
