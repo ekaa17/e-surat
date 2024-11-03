@@ -25,7 +25,7 @@ class Staff extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'jabatan',
+        'id_jabatan',
         'no_telepon',
         'password',
         'role',
@@ -51,4 +51,10 @@ class Staff extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class, 'id_jabatan', 'id');
+    }
 }

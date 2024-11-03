@@ -3,6 +3,7 @@
 use App\Http\Controllers\DetailOrderController;
 use App\Http\Controllers\DetailPesananController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\JabatanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PemesanController;
@@ -56,6 +57,7 @@ Route::group(['middleware' => 'cekrole:Admin,Karyawan'], function() {
     Route::resource('/data-produk', ProdukController::class)->names('data-produk');
     Route::resource('/data-pemesan', PemesanController::class)->names('data-pemesan');
     Route::resource('/data-setting', SettingController::class)->names('data-setting');
+    Route::resource('/data-jabatan', JabatanController::class)->names('data-jabatan');
     
 });
 Route::group(['middleware' => 'cekrole:Karyawan'], function() {

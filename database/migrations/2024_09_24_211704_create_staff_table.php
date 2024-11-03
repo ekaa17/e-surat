@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('jabatan');
+            $table->unsignedBigInteger('id_jabatan');
             $table->string('no_telepon');
             $table->string('email')->unique();
             $table->string('password');
@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('profile')->nullable();
             $table->string('tandatangan')->nullable();
             $table->timestamps();
+
+            // Foreign key relation to the perusahaans table
+            $table->foreign('id_jabatan')->references('id')->on('jabatans')->onDelete('cascade');
         });
     }
 

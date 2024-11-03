@@ -58,7 +58,7 @@
                                     <tr>
                                         <th>{{ $no++ }}</th>
                                         <th>{{ $data->name }}</th>
-                                        <th>{{ $data->jabatan }}</th>
+                                        <th>{{ $data->jabatan->nama_jabatan ?? 'Tidak ada' }}</th>
                                         <th>{{ $data->no_telepon }}</th>
                                         <th>{{ $data->email }}</th>
                                         <th>{{ $data->role }}</th>
