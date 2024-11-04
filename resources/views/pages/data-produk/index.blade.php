@@ -33,7 +33,7 @@
                 <div class="card">
                     <div class="card-body pt-3">
                         <div class="d-flex align-items-center justify-content-between m-3">
-                            <h5 class="card-title">Total : Produk</h5>
+                            <h5 class="card-title">Total :{{$produk}} Produk</h5>
                             <a href="{{ route('data-produk.create') }}" class="btn btn-primary">
                                 <i class="fas fa-plus fa-sm text-white-50"></i> Data Baru
                             </a>

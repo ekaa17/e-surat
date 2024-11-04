@@ -39,6 +39,7 @@
             <span class="hide-menu">Data Karyawan</span>
           </a>
         </li>
+        @if (auth()->user()->role == 'Admin')
         <li class="sidebar-item">
           <a class="sidebar-link" href="./data-jabatan" aria-expanded="false">
             <span>
@@ -47,7 +48,6 @@
             <span class="hide-menu">Data Jabatan</span>
           </a>
         </li>
-        @if (auth()->user()->role == 'Admin')
         <li class="sidebar-item">
           <a class="sidebar-link" href="./data-perusahaan" aria-expanded="false">
             <span>

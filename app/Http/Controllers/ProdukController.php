@@ -13,7 +13,8 @@ class ProdukController extends Controller
     {
 
         $products = Produk::with('perusahaan')->get();
-        return view('pages.data-produk.index', compact('products'));
+        $produk = Produk::count();
+        return view('pages.data-produk.index', compact('products','produk'));
     }
 
     public function create()

@@ -33,7 +33,7 @@
                 <div class="card">
                     <div class="card-body pt-3">
                         <div class="d-flex align-items-center justify-content-between m-3">
-                            <h5 class="card-title">Total : Admin</h5>
+                            <h5 class="card-title">Total :{{ $Jabatan }} Jabatan</h5>
                             <!-- Button untuk modal create -->
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
                                 <i class="fas fa-plus fa-sm text-white-50"></i> Data Baru
@@ -79,8 +79,8 @@
                                                     @method('PUT')
                                                     <div class="modal-body">
                                                         <div class="mb-3">
-                                                            <label for="jabatan" class="form-label">Jabatan</label>
-                                                            <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ $item->jabatan }}" required>
+                                                            <label for="nama_jabatan" class="form-label">Jabatan</label>
+                                                            <input type="text" class="form-control" id="nama_jabatan" name="nama_jabatan" value="{{ $item->nama_jabatan }}" required>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -102,7 +102,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Apakah Anda yakin ingin menghapus jabatan <strong>{{ $item->jabatan }}</strong>?
+                                                    Apakah Anda yakin ingin menghapus jabatan <strong>{{ $item->nama_jabatan }}</strong>?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <form action="{{ route('data-jabatan.destroy', $item->id) }}" method="POST">
@@ -138,8 +138,8 @@
                         @csrf
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="jabatan" class="form-label">Jabatan</label>
-                                <input type="text" class="form-control" id="jabatan" name="jabatan" required>
+                                <label for="nama_jabatan" class="form-label">Jabatan</label>
+                                <input type="text" class="form-control" id="nama_jabatan" name="nama_jabatan" required>
                             </div>
                         </div>
                         <div class="modal-footer">

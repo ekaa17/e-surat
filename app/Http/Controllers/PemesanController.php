@@ -11,7 +11,8 @@ class PemesanController extends Controller
     {
         $no = 1;
         $pemesans = Pemesan::orderBy('nama_pemesan')->get();  // Perbaikan nama variabel menjadi $data_pelanggan
-        return view('pages.data-pemesan.index', compact('no', 'pemesans'));  // Konsistensi variabel di compact()
+        $pemesan = Pemesan::count();
+        return view('pages.data-pemesan.index', compact('no', 'pemesans','pemesan'));  // Konsistensi variabel di compact()
     }
 
     public function create()

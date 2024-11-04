@@ -11,7 +11,8 @@ class JabatanController extends Controller
     public function index()
     {
         $data = Jabatan::all(); // Mengambil semua data jabatan
-        return view('pages.data-jabatan.index', compact('data'));
+        $Jabatan = Jabatan::count();
+        return view('pages.data-jabatan.index', compact('data','Jabatan'));
     }
 
     /**
@@ -26,7 +27,7 @@ class JabatanController extends Controller
 
         // Simpan data ke database
         Jabatan::create([
-            'nama_jabatan' => $request->jabatan
+            'nama_jabatan' => $request->nama_jabatan
         ]);
 
         // Redirect dengan pesan sukses
@@ -46,7 +47,7 @@ class JabatanController extends Controller
         // Cari jabatan berdasarkan ID dan update datanya
         $jabatan = Jabatan::findOrFail($id);
         $jabatan->update([
-            'jabatan' => $request->jabatan
+            'nama_jabatan' => $request->nama_jabatan
         ]);
 
         // Redirect dengan pesan sukses
@@ -59,8 +60,8 @@ class JabatanController extends Controller
     public function destroy($id)
     {
         // Cari jabatan berdasarkan ID dan hapus
-        $jabatan = Jabatan::findOrFail($id);
-        $jabatan->delete();
+        $data = Jabatan::findOrFail($id);
+        $data->delete();
 
         // Redirect dengan pesan sukses
         return redirect()->route('data-jabatan.index')->with('success', 'Data jabatan berhasil dihapus');

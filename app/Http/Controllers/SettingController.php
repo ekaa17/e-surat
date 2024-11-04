@@ -11,7 +11,8 @@ class SettingController extends Controller
     {
         // $no = 1;
         $perusahaans = Setting::all();
-        return view('pages.data-setting.index', compact('perusahaans'));
+        $setting = Setting::count();
+        return view('pages.data-setting.index', compact('perusahaans','setting'));
     }
 
     public function create()

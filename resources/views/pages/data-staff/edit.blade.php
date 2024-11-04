@@ -26,8 +26,16 @@
                             </div>
 
                             <div class="form-group p-2">
-                                <label for="jabatan">Jabatan</label>
-                                <input type="text" name="jabatan" id="jabatan" class="form-control" placeholder="Masukkan Jabatan" value="{{ $user->jabatan }}" required>
+                                <label for="id_jabatan">Jabatan</label>
+                                <select name="id_jabatan" id="id_jabatan" class="form-control" required>
+                                    <option value="" disabled>Pilih jabatan</option>
+                                    @foreach ($jabatans as $jabatan)
+                                        <option value="{{ $jabatan->id }}" 
+                                            {{ (isset($direktur) && $direktur->id_jabatan == $jabatan->id) ? 'selected' : '' }}>
+                                            {{ $jabatan->nama_jabatan }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="form-group p-2">

@@ -79,8 +79,8 @@ class StaffController extends Controller
     {
         // Temukan user berdasarkan ID
         $user = Staff::findOrFail($id);
-        // Arahkan ke view form edit dan kirimkan data user yang ditemukan
-        return view('pages.data-staff.edit', compact('user'));
+        $jabatans = Jabatan::all();
+        return view('pages.data-staff.edit', compact('user','jabatans'));
     }
     
     public function update(Request $request, $id)

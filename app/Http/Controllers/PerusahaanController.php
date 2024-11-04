@@ -11,8 +11,8 @@ class PerusahaanController extends Controller
     {
         $no = 1;
         $perusahaans = Perusahaan::orderBy('nama_perusahaan')->get();  // Perbaikan nama variabel menjadi $data_pelanggan
-        // $name = Perusahaan::where('nama_perusahaan')->count();
-        return view('pages.data-perusahaan.index', compact('no', 'perusahaans'));  // Konsistensi variabel di compact()
+        $jumlahperusahaan = Perusahaan::count();
+        return view('pages.data-perusahaan.index', compact('no', 'perusahaans','jumlahperusahaan'));  // Konsistensi variabel di compact()
     }
 
     public function create()

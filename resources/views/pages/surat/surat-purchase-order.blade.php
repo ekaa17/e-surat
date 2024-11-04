@@ -140,7 +140,7 @@
               <br><br>
   
               <u> {{ optional($direktur)->name ?? 'Nama Direktur Tidak Tersedia' }} </u> <br>
-              <i> {{ optional($direktur)->jabatan ?? 'Nama Direktur Tidak Tersedia' }}</i>
+              <i> {{ optional($direktur->jabatan)->nama_jabatan ?? 'Nama Direktur Tidak Tersedia' }}</i>
           </td>
       </tr>
   </table>
