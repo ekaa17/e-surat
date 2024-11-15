@@ -1,9 +1,0 @@
-<tr>
-                                        <th>No</th>
-                                        <th>No Surat</th>
-                                        <th>Id Penawaran</th>
-                                        <th>Id Order</th>
-                                        <th>Status</th>
-                                        <th>Bukti Transaksi</th>
-                                        <th>Aksi</th>
-                                    </tr>

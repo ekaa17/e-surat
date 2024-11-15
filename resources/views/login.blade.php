@@ -15,35 +15,50 @@
     <title>Login Sistem</title>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="logo">
-            <img src="{{ asset('landing/img/LogoIDKY.png') }}" alt="">
-        </div>
-        <div class="text-center mt-4 name">
-            PT.Indokarya Jasa Prima <br>
-
-            @if(session('wrong'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <i class="bi bi-exclamation-octagon me-1"></i>
-                {{ session('wrong') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<section class="vh-100" style="background-image:url('{{ asset('landing/img/cta-bg.jpg') }}')">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col col-xl-5">
+            <div class="card text-black" style="border-radius: 1rem;">
+              <div class="card-body p-4 p-lg-5 text-black">
+                <!-- Logo di bagian atas -->
+                <div class="text-center mb-4">
+                  <img src="{{ asset('landing/img/LogoIDKY.png') }}" alt="Logo" class="img-fluid mb-3" style="width: 150px;">
+                  <h4 class="name">PT. Indokarya Jasa Prima</h4>
                 </div>
-            @endif
+    
+                <!-- Menampilkan alert jika ada kesalahan -->
+                @if(session('wrong'))
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-octagon me-1"></i>
+                    {{ session('wrong') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                @endif
+    
+                <!-- Form Login -->
+                <form class="p-3 mt-3" method="post" action="/login">
+                  @csrf
+                  <div class="form-field d-flex align-items-center mb-3">
+                    <span class="far fa-user"></span>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+                  </div>
+                  <div class="form-field d-flex align-items-center mb-3">
+                    <span class="fas fa-key"></span>
+                    <input type="password" name="password" id="pwd" class="form-control" placeholder="Password" required>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-dark btn-lg mt-3">Login</button>
+                  </div>
+                </form>
+    
+              </div>
+            </div>
+          </div>
         </div>
-        <form class="p-3 mt-3" method="post" action="/login" >
-            @csrf
-            <div class="form-field d-flex align-items-center">
-                <span class="far fa-user"></span>
-                <input type="email" name="email" id="email" placeholder="email">
-            </div>
-            <div class="form-field d-flex align-items-center">
-                <span class="fas fa-key"></span>
-                <input type="password" name="password" id="pwd" placeholder="Password">
-            </div>
-            <button type="submit" class="btn mt-3">Login</button>
-        </form>
-    </div>
+      </div>
+</section>
 
-    <script src="{{ asset('model/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ asset('model/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 </body>
 </html>

@@ -46,6 +46,8 @@
                                         <th>No.</th>
                                         <th>Nama Pemesan</th>
                                         <th>Asal Pemesan</th>
+                                        <th>Alamat Perusahaan</th>
+                                        <th>Nomor PO</th>
                                         <th>Tanggal Pemesan</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -56,6 +58,8 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $pemesan->nama_pemesan }}</td>
                                             <td>{{ $pemesan->asal_pemesan }}</td>
+                                            <td>{{ $pemesan->alamat_perusahaan }}</td>
+                                            <td>{{ $pemesan->no_po }}</td>
                                             <td>{{ $pemesan->tanggal_pemesan }}</td>
                                             <td>
                                                 <!-- Tombol Edit -->
@@ -89,6 +93,14 @@
                                                             <div class="mb-3">
                                                                 <label for="asal_pemesan{{ $pemesan->id }}" class="form-label">Asal Pemesan</label>
                                                                 <input type="text" class="form-control" id="asal_pemesan{{ $pemesan->id }}" name="asal_pemesan" value="{{ $pemesan->asal_pemesan }}" required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="alamat_perusahaan{{ $pemesan->id }}" class="form-label">Alamat Perusahaan</label>
+                                                                <input type="text" class="form-control" id="alamat_perusahaan{{ $pemesan->id }}" name="alamat_perusahaan" value="{{ $pemesan->asal_pemesan }}" required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="no_po{{ $pemesan->id }}" class="form-label">Nomor PO</label>
+                                                                <input type="text" class="form-control" id="no_po{{ $pemesan->id }}" name="no_po" value="{{ $pemesan->no_po }}" required>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="tanggal_pemesan{{ $pemesan->id }}" class="form-label">Tanggal Pemesan</label>
@@ -151,6 +163,14 @@
                     <div class="mb-3">
                         <label for="asal_pemesan" class="form-label">Asal Pemesan</label>
                         <input type="text" class="form-control" id="asal_pemesan" name="asal_pemesan" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="alamat_perusahaan" class="form-label">Alamat Perusahaan</label>
+                        <input type="text" class="form-control" id="alamat_perusahaan" name="alamat_perusahaan" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="no_po" class="form-label">Nomor PO</label>
+                        <input type="text" class="form-control" id="no_po" name="no_po" required>
                     </div>
                     <div class="mb-3">
                         <label for="tanggal_pemesan" class="form-label">Tanggal Pemesan</label>

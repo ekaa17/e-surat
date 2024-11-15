@@ -14,11 +14,18 @@ class Pemesan extends Model
     protected $fillable = [
         'nama_pemesan',
         'asal_pemesan',
+        'no_po',
+        'alamat_perusahaan',
         'tanggal_pemesan',
     ];
 
     public function penawarans()
     {
         return $this->hasMany(PenawaranHarga::class, 'id_pemesan');
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class, 'id_pemesan');
     }
 }

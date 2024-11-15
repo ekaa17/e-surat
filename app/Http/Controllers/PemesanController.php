@@ -17,40 +17,56 @@ class PemesanController extends Controller
 
     public function create()
     {
-        return view('pages.data-pemesan.create'); // Arahkan ke view form create
+        return view('pages.data-pemesan.create'); 
     }
 
+    // Menyimpan data pemesan baru
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_pemesan' => 'required',
-            'asal_pemesan' => 'required',
-            'tanggal_pemesan' => 'required|date',
+        // Validasi data yang diterima
+        $validated = $request->validate([
+            'nama_pemesan' => 'required|string|max:255', 
+            'asal_pemesan' => 'required|string|max:255', 
+            'alamat_perusahaan' => 'required|string|max:255', 
+            'no_po' => 'nullable|string|max:255', 
+            'tanggal_pemesan' => 'required|date', 
         ]);
 
-        Pemesan::create($request->all());
-        return redirect()->route('data-pemesan.index')->with('success', 'Pemesan created successfully.');
+        // Menyimpan pemesan baru
+        Pemesan::create($validated);
+
+        // Redirect ke halaman index dengan pesan sukses
+        return redirect()->route('data-pemesan.index')->with('success', 'Pemesan berhasil ditambahkan.');
     }
 
-        public function update(Request $request, $id)
+    // Mengupdate data pemesan
+    public function update(Request $request, $id)
     {
+        // Validasi data yang diterima
         $validated = $request->validate([
-            'nama_pemesan' => 'required',
-            'asal_pemesan' => 'required',
-            'tanggal_pemesan' => 'required|date',
+            'nama_pemesan' => 'required|string|max:255', 
+            'asal_pemesan' => 'required|string|max:255', 
+            'alamat_perusahaan' => 'required|string|max:255', 
+            'no_po' => 'nullable|string|max:255', 
+            'tanggal_pemesan' => 'required|date', 
         ]);
 
+        // Mencari pemesan berdasarkan ID dan mengupdate datanya
         $pemesan = Pemesan::findOrFail($id);
-        $pemesan->update($validated);
+        $pemesan->update($validated); 
 
+        // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('data-pemesan.index')->with('success', 'Data pemesan berhasil diperbarui.');
     }
 
-        public function destroy($id)
-        {
-            $data_pelanggan = Pemesan::findOrFail($id);
-            $data_pelanggan->delete();
+    // Menghapus data pemesan
+    public function destroy($id)
+    {
+        // Mencari pemesan berdasarkan ID dan menghapusnya
+        $pemesan = Pemesan::findOrFail($id);
+        $pemesan->delete();
 
-            return redirect()->route('data-pemesan.index')->with('success', 'Produk berhasil dihapus.');
-        }
+        // Redirect ke halaman index dengan pesan sukses
+        return redirect()->route('data-pemesan.index')->with('success', 'Pemesan berhasil dihapus.');
+    }
 }

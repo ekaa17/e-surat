@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('no_surat')->unique();
-            $table->foreignId('id_penawaran')->constrained('penawaran_hargas')->onDelete('cascade');
-            $table->foreignId('id_order')->constrained('penawaranorders')->onDelete('cascade');
+            $table->foreignId('id_pemesan')->constrained('pemesans')->onDelete('cascade');
             $table->string('status')->default('Pending');
+            $table->enum('status_pengajuan', ['Belum Disetujui', 'Disetujui']);
+            $table->string('ppn');
             $table->string('bukti_transaksi')->nullable();
             $table->timestamps();
+
+
         });
     }
 

@@ -13,22 +13,18 @@ class Invoice extends Model
 
     protected $fillable = [
         'no_surat',
-        'id_penawaran',
-        'id_order',
+        'id_pemesan',
         'status',
+        'ppn',
         'bukti_transaksi',
     ];
 
-    public function penawaran()
+    public function pemesan()
     {
-        return $this->belongsTo(PenawaranHarga::class, 'id_penawaran');
+        return $this->belongsTo(Pemesan::class, 'id_pemesan');
     }
 
     /**
      * Get the order that owns the invoice.
      */
-    public function order()
-    {
-        return $this->belongsTo(PenawaranOrder::class, 'id_order');
-    }
 }

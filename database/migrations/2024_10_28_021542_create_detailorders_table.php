@@ -13,15 +13,11 @@ return new class extends Migration
     {
         Schema::create('detailorders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_order')->nullable()->change();
-            $table->foreignId('id_produk')->references('id')->on('produks')->onDelete('cascade');
-            $table->integer('quantity');
-            $table->decimal('total', 10, 2);
+            $table->foreignId('id_order')->nullable()->constrained('penawaranorders')->onDelete('cascade');
+            $table->foreignId('id_produk')->constrained('produks')->onDelete('cascade');
+            $table->integer('quantity'); // Mengubah menjadi integer untuk nilai hingga 8000
+            $table->decimal('total', 15, 2);
             $table->timestamps();
-
-
-
-            $table->foreignId('id_order')->references('id')->on('penawaranorders')->onDelete('cascade');
         });
     }
 

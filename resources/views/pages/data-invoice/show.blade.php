@@ -6,7 +6,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active">Detail PO</li>
+                <li class="breadcrumb-item active">Detail Invoice</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -37,32 +37,28 @@
                                 <tr>
                                         <th>Nomor Surat</th>
                                         <th>perusahaan</th>
-                                        <th>Waktu Penyerahan</th>
-                                        <th>Waktu Pembayaran</th>
-                                        <th>Lokasi Gudang</th>
+                                        <th>Status</th>
                                         <th>bukti</th>
                                         <th>Status Pengajuan</th>
                                 </tr>
                             </thead>
                             <tbody>
                                     <tr>
-                                        <td>{{ $order->nomor_surat }}</td>
-                                        <td>{{ $order->perusahaan->nama_perusahaan}}</td>
-                                        <td>{{ date('d F Y', strtotime($order->waktu_penyerahan_barang)) }}</td>
-                                        <td>{{ date('d F Y', strtotime($order->waktu_pembayaran)) }}</td>
-                                        <td>{{ $order->lokasi_gudang }}</td>
-                                        <th>
-                                            @if($order->bukti)
-                                                <img src="{{ asset('assets/img/bukti/' . $order->bukti) }}" alt="bukti" width="50">
-                                            @else
-                                                Tidak Ada bukti
-                                            @endif
-                                        </th>
+                                        <td>{{ $invoice->no_surat }}</td>
+                                        <td>{{ $invoice->pemesan ? $invoice->pemesan->asal_pemesan : 'Tidak Ada' }}</td>
+                                        <td>{{ $invoice->status }}</td>
                                         <td>
-                                            @if ($order->status_pengajuan == "belum disetujui")
-                                                <span class="badge me-2 badge-pill bg-secondary">{{ $order->status_pengajuan }}</span>
+                                            @if($invoice->bukti_transaksi)
+                                                <img src="{{ asset('assets/img/bukti_transaksi/' . $invoice->bukti_transaksi) }}" alt="bukti_transaksi" width="50">
                                             @else
-                                                <span class="badge me-2 badge-pill bg-success">{{ $order->status_pengajuan }}</span>
+                                                Tidak Ada Tanda Tangan
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($invoice->status_pengajuan == "belum disetujui")
+                                                <span class="badge me-2 badge-pill bg-secondary">{{ $invoice->status_pengajuan }}</span>
+                                            @else
+                                                <span class="badge me-2 badge-pill bg-success">{{ $invoice->status_pengajuan }}</span>
                                             @endif
                                         </td>
 
@@ -74,7 +70,7 @@
             </div>
 
             <div class="d-flex justify-content-center align-items-center my-2">
-                <a href="{{ route('data-PO.index') }}" class="btn btn-primary">
+                <a href="{{ route('data-invoice.index') }}" class="btn btn-primary">
                     kembali ke halaman penawaran harga
                 </a>
             </div>
@@ -83,7 +79,7 @@
                 <div class="card">
                     <div class="card-body pt-3">
                         <div class="d-flex align-items-center justify-content-between m-3">
-                            <h5 class="card-title">Total :  {{ count($detail_order) }} Produk</h5>
+                            <h5 class="card-title">Total : {{count($detail_invoice)}}  Produk</h5>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahProduk">
                                 <i class="bi bi-plus"></i> Tambah Produk
                             </button>
@@ -95,10 +91,10 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{ route('detail-order.store') }}" method="POST">
+                                            <form action="{{ route('detail-invoice.store') }}" method="POST">
                                                 @csrf
                                                 <div class="row mb-3">
-                                                    <input type="hidden" name="id_order" value="{{ $order->id }}">
+                                                    <input type="hidden" name="id_invoice" value="{{ $invoice->id }}">
                                                     <label for="produk" class="col-md-4 col-lg-3 col-form-label">Jenis Produk</label>
                                                     <div class="col-md-8 col-lg-9">
                                                         <select name="produk" id="produk" class="form-control @error('produk') is-invalid @enderror" onchange="updateTotal()">
@@ -159,7 +155,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($detail_order as $index => $order)
+                                    @foreach ($detail_invoice as $index => $order)
                                         <tr>
                                             <td> {{ $index + 1 }} </td>
                                             <td> {{ $order->produk?->nama_produk ?? '-' }} </td>
@@ -184,7 +180,7 @@
                                                                 Apakah Anda yakin ingin menghapus produk <strong>{{ $order->produk?->nama_produk ?? 'Produk tidak tersedia' }}</strong>?
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <form action="{{ route('detail-order.destroy', $order->id) }}" method="POST">
+                                                                <form action="{{ route('detail-invoice.destroy', $order->id) }}" method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit" class="btn btn-danger">Hapus</button>

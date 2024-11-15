@@ -128,7 +128,7 @@
                                         @endif 
                                     </tr>
 
-                                        <!-- Modal Edit -->
+                                       <!-- Modal Edit -->
                                         <div class="modal fade" id="editModal-{{ $order->id }}" tabindex="-1" aria-labelledby="editModalLabel-{{ $order->id }}" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -138,18 +138,18 @@
                                                     </div>
                                                     <form action="{{ route('data-PO.update', $order->id) }}" method="POST" enctype="multipart/form-data">
                                                         @csrf
-                                                        @method('PUT') <!-- Menentukan metode PUT untuk update -->
+                                                        @method('PUT')
                                                         <div class="modal-body">
-                                                            <!-- Nomor Surat -->
-                                                            <div class="mb-3">
-                                                                <label for="nomor_surat" class="form-label">Nomor Surat</label>
-                                                                <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" value="{{ old('nomor_surat', $order->nomor_surat) }}" required>
-                                                            </div>
-                                        
-                                                            <!-- Pemesan -->
-                                                            <div class="row mb-3">
-                                                                <label for="id_penawaran" class="col-md-4 col-lg-3 col-form-label">Penawaran</label>
-                                                                <div class="col-md-8 col-lg-9">
+                                                            <div class="row">
+                                                                <!-- Nomor Surat -->
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="nomor_surat" class="form-label">Nomor Surat</label>
+                                                                    <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" value="{{ old('nomor_surat', $order->nomor_surat) }}" required>
+                                                                </div>
+
+                                                                <!-- Penawaran -->
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="id_penawaran" class="form-label">Penawaran</label>
                                                                     <select name="id_penawaran" id="id_penawaran" class="form-control @error('id_penawaran') is-invalid @enderror">
                                                                         <option value="">Pilih Penawaran</option>
                                                                         @foreach($penawaran as $p)
@@ -157,77 +157,71 @@
                                                                         @endforeach
                                                                     </select>
                                                                     @error('id_penawaran')
-                                                                        <div class="invalid-feedback">
-                                                                            {{ $message }}
-                                                                        </div>
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
                                                                 </div>
                                                             </div>
-                                        
-                                                            <!-- Waktu Penyerahan Barang -->
-                                                            <div class="row mb-3">
-                                                                <label for="waktu_penyerahan_barang" class="col-sm-4 col-form-label">Waktu Penyerahan Barang</label>
-                                                                <div class="col-sm-8">
+
+                                                            <div class="row">
+                                                                <!-- Waktu Penyerahan Barang -->
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="waktu_penyerahan_barang" class="form-label">Waktu Penyerahan Barang</label>
                                                                     <input type="datetime-local" class="form-control @error('waktu_penyerahan_barang') is-invalid @enderror" name="waktu_penyerahan_barang" value="{{ old('waktu_penyerahan_barang', \Carbon\Carbon::parse($order->waktu_penyerahan_barang)->format('Y-m-d\TH:i')) }}" required>
                                                                     @error('waktu_penyerahan_barang')
-                                                                        <div class="invalid-feedback">
-                                                                            {{ $message }}
-                                                                        </div>
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
                                                                 </div>
-                                                            </div>
-                                        
-                                                            <!-- Waktu Pembayaran -->
-                                                            <div class="row mb-3">
-                                                                <label for="waktu_pembayaran" class="col-sm-4 col-form-label">Waktu Pembayaran</label>
-                                                                <div class="col-sm-8">
+
+                                                                <!-- Waktu Pembayaran -->
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="waktu_pembayaran" class="form-label">Waktu Pembayaran</label>
                                                                     <input type="datetime-local" class="form-control @error('waktu_pembayaran') is-invalid @enderror" name="waktu_pembayaran" value="{{ old('waktu_pembayaran', \Carbon\Carbon::parse($order->waktu_pembayaran)->format('Y-m-d\TH:i')) }}" required>
                                                                     @error('waktu_pembayaran')
-                                                                        <div class="invalid-feedback">
-                                                                            {{ $message }}
-                                                                        </div>
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
                                                                 </div>
                                                             </div>
-                                        
-                                                            <!-- Lokasi Gudang -->
-                                                            <div class="mb-3">
-                                                                <label for="lokasi_gudang" class="form-label">Lokasi Gudang</label>
-                                                                <input type="text" class="form-control" id="lokasi_gudang" name="lokasi_gudang" value="{{ old('lokasi_gudang', $order->lokasi_gudang) }}" required>
+
+                                                            <div class="row">
+                                                                <!-- Lokasi Gudang -->
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="lokasi_gudang" class="form-label">Lokasi Gudang</label>
+                                                                    <input type="text" class="form-control" id="lokasi_gudang" name="lokasi_gudang" value="{{ old('lokasi_gudang', $order->lokasi_gudang) }}" required>
+                                                                </div>
+
+                                                                <!-- Bukti (File Upload) -->
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="bukti" class="form-label">Bukti (jpg, jpeg, png, pdf)</label>
+                                                                    <input type="file" class="form-control @error('bukti') is-invalid @enderror" name="bukti" id="bukti">
+                                                                    <small class="text-muted">Biarkan kosong jika tidak ingin mengubah bukti.</small>
+                                                                    @error('bukti')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
                                                             </div>
-                                        
-                                                            <!-- Bukti (File Upload) -->
-                                                            <div class="mb-3">
-                                                                <label for="bukti" class="form-label">Bukti (jpg, jpeg, png, pdf)</label>
-                                                                <input type="file" class="form-control @error('bukti') is-invalid @enderror" name="bukti" id="bukti">
-                                                                <small class="text-muted">Biarkan kosong jika tidak ingin mengubah bukti.</small>
-                                                                @error('bukti')
-                                                                    <div class="invalid-feedback">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                        
-                                                            <!-- PPN -->
-                                                            <div class="mb-3">
-                                                                <label for="ppn" class="form-label">PPN</label>
-                                                                <input type="number" class="form-control" id="ppn" name="ppn" value="{{ old('ppn', $order->ppn) }}" required>
+
+                                                            <div class="row">
+                                                                <!-- PPN -->
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="ppn" class="form-label">PPN</label>
+                                                                    <input type="number" class="form-control" id="ppn" name="ppn" value="{{ old('ppn', $order->ppn) }}" required>
+                                                                </div>
+
+                                                                <!-- Perusahaan -->
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="id_perusahaan" class="form-label">Perusahaan</label>
+                                                                    <select name="id_perusahaan" id="id_perusahaan" class="form-control" required>
+                                                                        <option value="" disabled>Pilih perusahaan</option>
+                                                                        @foreach ($perusahaans as $perusahaan)
+                                                                            <option value="{{ $perusahaan->id }}" {{ (old('id_perusahaan', $order->id_perusahaan) == $perusahaan->id) ? 'selected' : '' }}>
+                                                                                {{ $perusahaan->nama_perusahaan }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-group p-2">
-                                                            <label for="id_perusahaan">Perusahaan</label>
-                                                            <select name="id_perusahaan" id="id_perusahaan" class="form-control" required>
-                                                                <option value="" disabled>Pilih perusahaan</option>
-                                                                @foreach ($perusahaans as $perusahaan)
-                                                                    <option value="{{ $perusahaan->id }}"
-                                                                        @if (isset($order) && $order->id_perusahaan == $perusahaan->id) selected @endif>
-                                                                        {{ $perusahaan->nama_perusahaan }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                        
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                             <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
@@ -236,6 +230,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
     
                                         <!-- Modal Delete -->
                                         <div class="modal fade" id="deleteModal-{{ $order->id }}" tabindex="-1" aria-labelledby="deleteModalLabel-{{ $order->id }}" aria-hidden="true">
@@ -273,109 +268,104 @@
         </div>
     </section>
 
-    <!-- Modal Create -->
-    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createModalLabel">Tambah Data Order</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('data-PO.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <!-- Nomor Surat -->
-                        <div class="mb-3">
-                            <label for="nomor_surat" class="form-label">Nomor Surat</label>
-                            <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" required>
+            <!-- Modal Create -->
+            <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="createModalLabel">Tambah Data Order</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-    
-                        <!-- Pemesan -->
-                        <div class="row mb-3">
-                            <label for="id_penawaran" class="col-md-4 col-lg-3 col-form-label">Penawaran</label>
-                            <div class="col-md-8 col-lg-9">
-                                <select name="id_penawaran" id="id_penawaran" class="form-control @error('id_penawaran') is-invalid @enderror">
-                                    <option value="">Pilih Penawaran</option>
-                                    @foreach($penawaran as $p)
-                                        <option value="{{ $p->id }}" {{ old('id_penawaran') == $p->id ? 'selected' : '' }}>{{ $p->no_surat }}</option>
-                                    @endforeach
-                                </select>
-                                @error('id_penawaran')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
+                        <form action="{{ route('data-PO.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="row">
+                                    <!-- Nomor Surat -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nomor_surat" class="form-label">Nomor Surat</label>
+                                        <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" required>
                                     </div>
-                                @enderror
-                            </div>
-                        </div>
-    
-                        <!-- Waktu Penyerahan Barang -->
-                        <div class="row mb-3">
-                            <label for="waktu_penyerahan_barang" class="col-sm-4 col-form-label">Waktu Penyerahan Barang</label>
-                            <div class="col-sm-8">
-                                <input type="date" class="form-control @error('waktu_penyerahan_barang') is-invalid @enderror" name="waktu_penyerahan_barang" value="{{ old('waktu_penyerahan_barang') }}" required>
-                                @error('waktu_penyerahan_barang')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
+
+                                    <!-- Penawaran -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="id_penawaran" class="form-label">Penawaran</label>
+                                        <select name="id_penawaran" id="id_penawaran" class="form-control @error('id_penawaran') is-invalid @enderror">
+                                            <option value="">Pilih Penawaran</option>
+                                            @foreach($penawaran as $p)
+                                                <option value="{{ $p->id }}" {{ old('id_penawaran') == $p->id ? 'selected' : '' }}>{{ $p->no_surat }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_penawaran')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                @enderror
-                            </div>
-                        </div>
-    
-                        <!-- Waktu Pembayaran -->
-                        <div class="row mb-3">
-                            <label for="waktu_pembayaran" class="col-sm-4 col-form-label">Waktu Pembayaran</label>
-                            <div class="col-sm-8">
-                                <input type="date" class="form-control @error('waktu_pembayaran') is-invalid @enderror" name="waktu_pembayaran" value="{{ old('waktu_pembayaran') }}" required>
-                                @error('waktu_pembayaran')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-    
-                        <!-- Lokasi Gudang -->
-                        <div class="mb-3">
-                            <label for="lokasi_gudang" class="form-label">Lokasi Gudang</label>
-                            <input type="text" class="form-control" id="lokasi_gudang" name="lokasi_gudang" required>
-                        </div>
-    
-                        <!-- Bukti (File Upload) -->
-                        <div class="mb-3">
-                            <label for="bukti" class="form-label">Bukti (jpg, jpeg, png, pdf)</label>
-                            <input type="file" class="form-control @error('bukti') is-invalid @enderror" name="bukti" id="bukti">
-                            @error('bukti')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
                                 </div>
-                            @enderror
-                        </div>
-                        
-                          <!-- PPN -->
-                        <div class="mb-3">
-                        <label for="ppn" class="form-label">PPN</label>
-                        <input type="number" class="form-control" id="ppn" name="ppn" required>
-                        </div>
-    
-                        <!-- Perusahaan -->
-                        <div class="form-group p-2">
-                            <label for="id_perusahaan">Perusahaan</label>
-                            <select name="id_perusahaan" id="id_perusahaan" class="form-control" required>
-                                <option value="" disabled selected>Pilih perusahaan</option>
-                                @foreach ($perusahaans as $perusahaan)
-                                    <option value="{{ $perusahaan->id }}">{{ $perusahaan->nama_perusahaan }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+
+                                <div class="row">
+                                    <!-- Waktu Penyerahan Barang -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="waktu_penyerahan_barang" class="form-label">Waktu Penyerahan Barang</label>
+                                        <input type="date" class="form-control @error('waktu_penyerahan_barang') is-invalid @enderror" name="waktu_penyerahan_barang" value="{{ old('waktu_penyerahan_barang') }}" required>
+                                        @error('waktu_penyerahan_barang')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <!-- Waktu Pembayaran -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="waktu_pembayaran" class="form-label">Waktu Pembayaran</label>
+                                        <input type="date" class="form-control @error('waktu_pembayaran') is-invalid @enderror" name="waktu_pembayaran" value="{{ old('waktu_pembayaran') }}" required>
+                                        @error('waktu_pembayaran')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Lokasi Gudang -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lokasi_gudang" class="form-label">Lokasi Gudang</label>
+                                        <input type="text" class="form-control" id="lokasi_gudang" name="lokasi_gudang" required>
+                                    </div>
+
+                                    <!-- Bukti (File Upload) -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="bukti" class="form-label">Bukti (jpg, jpeg, png, pdf)</label>
+                                        <input type="file" class="form-control @error('bukti') is-invalid @enderror" name="bukti" id="bukti">
+                                        @error('bukti')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- PPN -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="ppn" class="form-label">PPN</label>
+                                        <input type="number" class="form-control" id="ppn" name="ppn" required>
+                                    </div>
+
+                                    <!-- Perusahaan -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="id_perusahaan" class="form-label">Perusahaan</label>
+                                        <select name="id_perusahaan" id="id_perusahaan" class="form-control" required>
+                                            <option value="" disabled selected>Pilih perusahaan</option>
+                                            @foreach ($perusahaans as $perusahaan)
+                                                <option value="{{ $perusahaan->id }}">{{ $perusahaan->nama_perusahaan }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Tambah Data</button>
+                            </div>
+                        </form>
                     </div>
-    
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Tambah Data</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
+
 </section>
 @endsection

@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_penawarans', function (Blueprint $table) {
+        Schema::create('detail_invoices', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_invoice')->nullable()->change();
             $table->foreignId('id_produk')->references('id')->on('produks')->onDelete('cascade');
-            $table->foreignId('id_penawaran')->references('id')->on('penawaran_hargas')->onDelete('cascade');
             $table->integer('quantity');
-            $table->decimal('total', 15, 2);
+            $table->decimal('total', 10, 2);
             $table->timestamps();
+
+            $table->foreignId('id_invoice')->references('id')->on('invoices')->onDelete('cascade');
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detail_penawarans');
+        Schema::dropIfExists('detail_invoices');
     }
 };

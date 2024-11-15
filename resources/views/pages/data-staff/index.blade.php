@@ -50,6 +50,7 @@
                                         <th>Email</th>
                                         <th>Role</th>
                                         <th>Profile</th>
+                                        <th>Tanda Tangan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>

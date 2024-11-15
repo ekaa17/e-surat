@@ -39,8 +39,4 @@ class PenawaranOrder extends Model
         return $this->belongsTo(Perusahaan::class, 'id_perusahaan');
     }
 
-    public function invoice()
-    {
-        return $this->hasMany(Invoice::class, 'id_invoice');
-    }
 }

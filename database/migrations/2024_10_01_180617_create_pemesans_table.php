@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama_pemesan');
             $table->string('asal_pemesan');
+            $table->string('no_po')->nullable();
+            $table->string('alamat_perusahaan');
             $table->date('tanggal_pemesan');
             $table->timestamps();
         });
