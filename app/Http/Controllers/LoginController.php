@@ -6,7 +6,10 @@ use App\Models\Staff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Models\Pemesan;
+use App\Models\PenawaranHarga;
 use App\Models\PenawaranOrder;
+use App\Models\Perusahaan;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -20,9 +23,12 @@ class LoginController extends Controller
     {
         $total_staff = Staff::count();
         $total_PO = PenawaranOrder::count();
+        $total_PH = PenawaranHarga::count();
+        $total_pemesan = Pemesan::count();
+        $total_perusahaan = Perusahaan::count();
         $total_invoice = Invoice::count();
         // Your logic here, e.g., returning a view
-        return view('pages.dashboard', compact('total_staff','total_PO','total_invoice'));
+        return view('pages.dashboard', compact('total_staff','total_PO','total_PH','total_invoice','total_pemesan','total_perusahaan'));
     }
 
     public function login(Request $request) {
