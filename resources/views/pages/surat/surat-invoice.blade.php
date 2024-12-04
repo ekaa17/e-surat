@@ -23,13 +23,13 @@
           <img src="{{ asset('assets/img/profile/Logo.jpg') }}" alt="Logo IndoKarya" width="175px">
         </td>
         <td width="80%" class="my-0 py-0 text-center">
-          <h6 class="text-primary">PT. INDOKARYA JASA PRIMA</h6>
+          <h6 class="text-primary">{{$informasi_perusahaan->nama_perusahaan}}</h6>
           <p style="font-size: 12px;" class="my-0 py-0">
-            CONTRACTOR, TRADING & SUPPLIER
+            {{$informasi_perusahaan->bidang}}
           </p>
           <p style="font-size: 10px" class="my-0 py-0">
-            Office : Jln. Link Warungkara RT/RW 005/001 Randakari Ciwanda Kota Cilegon Provinsi Banten kode pos <br>
-            42446 Telp. 081234567890 Email : ptindokaryajasaprima@gmail.com
+            Office : {{ $informasi_perusahaan->alamat }} <br>
+            42446 Telp. {{ $informasi_perusahaan->no_telpon }} Email : {{ $informasi_perusahaan->email }}
           </p>
         </td>
       </tr>
@@ -46,7 +46,7 @@
           <td>{{ $invoice->pemesan->alamat_perusahaan }}</td>
         </p>
       </div>
-      <div class="w-25">
+      <div class="width: 28%; border: 1px solid #0d6efd; padding: 10px; margin-bottom: 10px;">
         <h5 class="text-primary text-center">
           <b> INVOICE </b>
         </h5>
@@ -154,9 +154,9 @@
       </p>
       <p> 
         Mohon Pembayaran Di Transfer ke : <br>
-        PT. INDOKARYA JASA PRIMA <br>
-        No. Rek : 163-00-0713799-9 <br>
-        Bank Mandiri
+        {{ $informasi_perusahaan->nama_perusahaan }} <br>
+        No. Rek : {{ $informasi_perusahaan->no_rek }} <br>
+        {{ $informasi_perusahaan->jenis_bank }}
       </p>
     </div>
     

@@ -52,7 +52,6 @@
                                         <th>Email</th>
                                         <th>No Rek</th>
                                         <th>Jenis Bank</th>
-                                        <th>Logo</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -68,13 +67,6 @@
                                             <td>{{ $perusahaan->email }}</td>
                                             <td>{{ $perusahaan->no_rek }}</td>
                                             <td>{{ $perusahaan->jenis_bank }}</td>
-                                            <td>
-                                                @if($perusahaan->logo)
-                                                    <img src="{{ asset('assets/img/logo/' . $perusahaan->logo) }}" alt="logo" width="50">
-                                                @else
-                                                    Tidak Ada Tanda Tangan
-                                                @endif
-                                            </td>
                                             <td>
                                                 <a href="{{ route('data-setting.edit', $perusahaan->id) }}" class="btn btn-primary btn-sm">
                                                     <i class="bi bi-pencil-fill"></i>

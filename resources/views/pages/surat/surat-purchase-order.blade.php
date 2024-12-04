@@ -23,13 +23,13 @@
           <img src="{{ asset('assets/img/profile/Logo.jpg') }}" alt="Logo IndoKarya" width="175px">
         </td>
         <td width="80%" class="my-0 py-0 text-center">
-          <h6 class="text-primary">PT. INDOKARYA JASA PRIMA</h6>
+          <h6 class="text-primary">{{$informasi_perusahaan->nama_perusahaan}}</h6>
           <p style="font-size: 12px;" class="my-0 py-0">
-            CONTRACTOR, TRADING & SUPPLIER
+            {{$informasi_perusahaan->bidang}}
           </p>
           <p style="font-size: 10px" class="my-0 py-0">
-            Office : Jln. Link Warungkara RT/RW 005/001 Randakari Ciwanda Kota Cilegon Provinsi Banten kode pos <br>
-            42446 Telp. 081234567890 Email : ptindokaryajasaprima@gmail.com
+            Office : {{$informasi_perusahaan->alamat}} <br>
+            42446 Telp. {{$informasi_perusahaan->no_telpon}} Email : {{$informasi_perusahaan->email}}
           </p>
         </td>
       </tr>
@@ -78,7 +78,7 @@
                 <td></td>
                 <td></td>
                 <td>
-                  <b> Jumlah </b> <br> PPN 11&
+                  <b> Jumlah </b> <br> PPN 11%
                 </td>
                 <td>
                   {{ number_format($jumlah, 0, ',', '.') }} <br>
@@ -113,7 +113,7 @@
       </tr>
       <tr>
         <td> C. Cara Pembayaran </td>
-        <td>:  Pembayaran Selama 15 hari Kerja. Pembayaran tanggal {{ \Carbon\Carbon::parse($order->waktu_pembayaran)->format('d F Y') }} Melalui ATM Perusahaan <b> PT. INDOKARYA JASA PRIMA </b> </td>
+        <td>:  Pembayaran Selama 15 hari Kerja. Pembayaran tanggal {{ \Carbon\Carbon::parse($order->waktu_pembayaran)->format('d F Y') }} Melalui ATM Perusahaan <b> {{$informasi_perusahaan->nama_perusahaan}} </b> </td>
       </tr>
       <tr>
         <td> D. Syarat - Syarat </td>

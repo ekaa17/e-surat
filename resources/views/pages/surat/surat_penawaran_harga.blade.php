@@ -25,10 +25,10 @@
         <td width="80%" class="my-0 py-0">
           <h6 class="text-primary">{{ $informasi_perusahaan->nama_perusahaan }}</h6>
           <p style="font-size: 12px; text-align: justify;" class="my-0 py-0">
-            DISTRIBUTOR OF VALCE, PIPES & FITTING, ELECTRICAL, PNEUMTAUC, CONTRAKTOR & SAFETY EQUIPMENT (TRADING & SUPPLIER)
+            {{$informasi_perusahaan->bidang}}
           </p>
           <p style="font-size: 10px" class="my-0 py-0">
-            Office : {{ $informasi_perusahaan->alamat }} kode pos 42423 tlp. {{ $informasi_perusahaan->no_telpon }}
+            Office : {{ $informasi_perusahaan->alamat }}  tlp. {{ $informasi_perusahaan->no_telpon }}
           </p>
         </td>
       </tr>
@@ -40,7 +40,7 @@
         <div>
             <b style="font-size: 10px">
                 To : {{ $data->pemesan->nama_pemesan }} <br>
-                {{-- PT. HUTAMAKARYA --}}
+
             </b>
         </div>
         <div class="m-0 p-0">
@@ -105,7 +105,7 @@
                                     PELUNASAN CASH SEBELUM BARANG KAMI KONFIRMASI <br>
         VALIDITY : 1 MINGGU SETELAH TANGGAL PENAWARAN <br>
         HARGA BELUM TERMASUK TAX 11% <br> <br>
-        PEMBAYARAN :   {{ $informasi_perusahaan->no_rek }} ( INDOKARYA JASA PRIMA )
+        PEMBAYARAN :   {{ $informasi_perusahaan->no_rek }} ( {{$informasi_perusahaan->nama_perusahaan}} )
     </b>
 
     <br>
