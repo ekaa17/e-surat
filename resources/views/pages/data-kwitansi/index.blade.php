@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>Data Invoice</h1>
+        <h1>Data kwitansi</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active">Data Invoice</li>
+                <li class="breadcrumb-item active">Data kwitansi</li>
             </ol>
         </nav>
     </div>
@@ -33,7 +33,7 @@
                 <div class="card">
                     <div class="card-body pt-3">
                         <div class="d-flex align-items-center justify-content-between m-3">
-                            <h5 class="card-title">Total: {{ $invoicecount}} Surat Invoice</h5>
+                            <h5 class="card-title">Total:  Surat kwitansi</h5>
                             @if (auth()->user()->role == 'Admin')
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
                                     <i class="bi bi-plus"></i> Data Baru
@@ -46,11 +46,10 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>No Surat</th>
+                                        <th>No Kwitansi</th>
+                                        <th>No Invoice</th>
                                         <th>Nama Klien</th>
-                                        <th>Status Kirim</th>
                                         <th>Status Pengajuan</th>
-                                        <th>Bukti Transaksi</th>
                                         @if (auth()->user()->role == 'Admin')
                                             <th>Data</th>
                                             <th>Actions</th>
@@ -60,65 +59,54 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($invoices as $index => $invoice)
+                                    @foreach($kwitansis as $index => $kwitansi)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
-                                            <td>{{ $invoice->no_surat }}</td>
-                                            <td>{{ $invoice->pemesan ? $invoice->pemesan->asal_pemesan : 'Tidak Ada' }}</td>
-                                            <td>{{ $invoice->status }}</td>
+                                            <td>{{ $kwitansi->no_kwitansi }}</td>
+                                            <td>{{ $kwitansi->invoice ? $kwitansi->invoice->no_surat : 'Tidak Ada' }}</td>
+                                            <td>{{ $kwitansi->invoice ? $kwitansi->invoice->pemesan->asal_pemesan : 'Tidak Ada' }}</td>
+                                        
                                             <td>
-                                                @if ($invoice->status_pengajuan == "Belum Disetujui")
+                                                @if ($kwitansi->status_pengajuan == "Belum Disetujui")
                                                     @if (auth()->user()->role == 'Admin') 
-                                                        <span class="badge me-2 badge-pill bg-secondary">{{ $invoice->status_pengajuan }}</span>
+                                                        <span class="badge me-2 badge-pill bg-secondary">{{ $kwitansi->status_pengajuan }}</span>
                                                     @else
-                                                        <button type="button" class="btn mb-1 me-1 btn-secondary" data-bs-toggle="modal" data-bs-target="#pengajuan{{ $invoice->id }}">
+                                                        <button type="button" class="btn mb-1 me-1 btn-secondary" data-bs-toggle="modal" data-bs-target="#pengajuan{{ $kwitansi->id }}">
                                                             Setujui
                                                         </button>
-                                                        <div id="pengajuan{{ $invoice->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <div id="pengajuan{{ $kwitansi->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h4 class="modal-title" id="myModalLabel">Setujui invoice Harga</h4>
+                                                                        <h4 class="modal-title" id="myModalLabel">Setujui kwitansi Harga</h4>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <h6>Apakah benar anda menyetujui invoice terkait?</h6>
+                                                                        <h6>Apakah benar anda menyetujui kwitansi terkait?</h6>
                                                                     </div>
                                                                     <div class="modal-footer"> 
                                                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tidak</button>
-                                                                        <a href="/setujui-surat-invoice/{{ $invoice->id }}" class="btn btn-primary">Ya</a> 
+                                                                        <a href="/setujui-surat-kwitansi/{{ $kwitansi->id }}" class="btn btn-primary">Ya</a> 
                                                                     </div>
                                                                 </div> <!-- /.modal-content -->
                                                             </div> <!-- /.modal-dialog -->
                                                         </div> <!-- /.modal -->
                                                     @endif
                                                 @else
-                                                    <span class="badge me-2 badge-pill bg-primary">{{ $invoice->status_pengajuan }}</span>
+                                                    <span class="badge me-2 badge-pill bg-primary">{{ $kwitansi->status_pengajuan }}</span>
                                                 @endif
                                             </td>
                                             <td>
-                                                @if($invoice->bukti_transaksi)
-                                                    <img src="{{ asset('assets/img/bukti_transaksi/' . $invoice->bukti_transaksi) }}" alt="bukti_transaksi" width="50">
-                                                @else
-                                                    Tidak Ada Tanda Tangan
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if (auth()->user()->role == 'Admin')
-                                                <!-- Detail Data -->
-                                                <a href="{{ route('data-invoice.show', $invoice->id) }}" class="btn btn-danger">
-                                                    <i class="ti ti-eye"></i>
-                                                </a>      
-                                            @endif
+                                              
                                             <!-- Download Data -->
-                                                <a href="/surat-invoice/{{ $invoice->id }}" class="btn btn-primary" target="_blank"><i class="ti ti-download"></i></a> 
+                                                <a href="/surat-kwitansi/{{ $kwitansi->id }}" class="btn btn-primary" target="_blank"><i class="ti ti-download"></i></a> 
                                             </td>
                                             @if (auth()->user()->role == 'Admin')
                                                 <td>
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal-{{ $invoice->id }}">
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal-{{ $kwitansi->id }}">
                                                         <i class="bi bi-pencil-fill"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $invoice->id }}">
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $kwitansi->id }}">
                                                         <i class="bi bi-trash-fill"></i>
                                                     </button>     
                                                 </td>
@@ -126,57 +114,48 @@
                                         </tr>
 
                                         <!-- Modal Edit -->
-                                        <div class="modal fade" id="editModal-{{ $invoice->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="editModal-{{ $kwitansi->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="editModalLabel">Edit Data Invoice</h5>
+                                                        <h5 class="modal-title" id="editModalLabel">Edit Data kwitansi</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
-                                                    <form action="{{ route('data-invoice.update', $invoice->id) }}" method="POST" enctype="multipart/form-data">
+                                                    <form action="{{ route('data-kwitansi.update', $kwitansi->id) }}" method="POST" enctype="multipart/form-data">
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="modal-body">
                                                             <div class="mb-3">
-                                                                <label for="no_surat" class="form-label">No Surat</label>
-                                                                <input type="text" class="form-control" id="no_surat" name="no_surat" value="{{ $invoice->no_surat }}" required>
+                                                                <label for="no_kwitansi" class="form-label">No Kwitansi</label>
+                                                                <input type="text" class="form-control" id="no_kwitansi" name="no_kwitansi" value="{{ $kwitansi->no_kwitansi }}" required>
                                                             </div>
-                                                            <div class="mb-3 row">
-                                                                <label for="id_pemesan" class="col-md-4 col-lg-3 col-form-label">Pemesan</label>
-                                                                <div class="col-md-8 col-lg-9">
-                                                                    <select name="id_pemesan" id="id_pemesan" class="form-control @error('id_pemesan') is-invalid @enderror" required>
-                                                                        <option value="">Pilih Pemesan</option>
-                                                                        @foreach($pemesan as $p)
-                                                                            <option value="{{ $p->id }}" {{ $invoice->id_pemesan == $p->id ? 'selected' : '' }}>
-                                                                                {{ $p->asal_pemesan }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                    @error('id_pemesan')
-                                                                        <div class="invalid-feedback">
-                                                                            {{ $message }}
-                                                                        </div>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
+                                        
                                                             <div class="mb-3">
-                                                                <label for="status" class="form-label">Status</label>
-                                                                <select class="form-select" id="status" name="status" required>
-                                                                    <option value="Pending" {{ $invoice->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                                                    <option value="Completed" {{ $invoice->status == 'Completed' ? 'selected' : '' }}>Completed</option>
+                                                                <label for="id_invoice" class="form-label">No Invoice</label>
+                                                                <select name="id_invoice" id="id_invoice" class="form-control @error('id_invoice') is-invalid @enderror" required>
+                                                                    <option value="">Pilih No Invoice</option>
+                                                                    @foreach($invoice as $inv)
+                                                                        <option value="{{ $inv->id }}" {{ $kwitansi->id_invoice == $inv->id ? 'selected' : '' }}>{{ $inv->no_surat }}</option>
+                                                                    @endforeach
                                                                 </select>
+                                                                @error('id_invoice')
+                                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                                @enderror
                                                             </div>
+                                        
                                                             <div class="mb-3">
-                                                                <label for="ppn" class="form-label">PPN</label>
-                                                                <input type="number" class="form-control" id="ppn" name="ppn" value="{{ old('ppn', $invoice->ppn) }}" required>
+                                                                <label for="id_klien" class="form-label">Klien</label>
+                                                                <select name="id_klien" id="id_klien" class="form-control @error('id_klien') is-invalid @enderror" required>
+                                                                    <option value="">Pilih Klien</option>
+                                                                    @foreach($invoice as $inv)
+                                                                        <option value="{{ $inv->pemesan->id }}" {{ $kwitansi->invoice->pemesan->id == $inv->pemesan->id ? 'selected' : '' }}>{{ $inv->pemesan->asal_pemesan }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                @error('id_klien')
+                                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                                @enderror
                                                             </div>
-
-                                                        <div class="form-group">
-                                                            <label for="bukti_transaksi">Bukti Transaksi</label>
-                                                            <input type="file" class="form-control" name="bukti_transaksi" id="bukti_transaksi">
-                                                            @if($invoice->bukti_transaksi)
-                                                                <img src="{{ asset('assets/img/bukti_transaksi/' . $invoice->bukti_transaksi) }}" alt="bukti_transaksi" width="100">
-                                                            @endif
+                                        
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -189,19 +168,19 @@
                                         
 
                                         <!-- Modal Delete -->
-                                        <div class="modal fade" id="deleteModal-{{ $invoice->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="deleteModal-{{ $kwitansi->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="deleteModalLabel">Hapus Data Invoice</h5>
+                                                        <h5 class="modal-title" id="deleteModalLabel">Hapus Data Kwitansi</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Apakah Anda yakin ingin menghapus data invoice dengan No Surat "{{ $invoice->no_surat }}"?
+                                                        Apakah Anda yakin ingin menghapus kwitansi dengan No Kwitansi "{{ $kwitansi->no_kwitansi }}"?
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                        <form action="{{ route('data-invoice.destroy', $invoice->id) }}" method="POST">
+                                                        <form action="{{ route('data-kwitansi.destroy', $kwitansi->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-danger">Hapus</button>
@@ -210,6 +189,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                     @endforeach
                                 </tbody>
                             </table>
@@ -225,49 +205,50 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createModalLabel">Tambah Data Invoice</h5>
+                    <h5 class="modal-title" id="createModalLabel">Tambah Data kwitansi</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('data-invoice.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('data-kwitansi.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="no_surat" class="form-label">No Surat</label>
-                            <input type="text" class="form-control" id="no_surat" name="no_surat" value="" required>
+                            <label for="no_kwitansi" class="form-label">No Kwitansi</label>
+                            <input type="text" class="form-control" id="no_kwitansi" name="no_kwitansi" value="" required>
                         </div>
                         <div class="row mb-3">
-                            <label for="id_pemesan" class="col-md-4 col-lg-3 col-form-label">Pemesan</label>
+                            <label for="id_invoice" class="col-md-4 col-lg-3 col-form-label">No Invoice</label>
                             <div class="col-md-8 col-lg-9">
-                                <select name="id_pemesan" id="id_pemesan" class="form-control @error('id_pemesan') is-invalid @enderror" required>
-                                    <option value="">Pilih Pemesan</option>
-                                    @foreach($pemesan as $p)
-                                        <option value="{{ $p->id }}" {{ old('id_pemesan') == $p->id ? 'selected' : '' }}>{{ $p->asal_pemesan }}</option>
+                                <select name="id_invoice" id="id_invoice" class="form-control @error('id_invoice') is-invalid @enderror" required>
+                                    <option value="">Pilih No Invoice</option>
+                                    @foreach($invoice as $p)
+                                        <option value="{{ $p->id }}" {{ old('id_invoice') == $p->id ? 'selected' : '' }}>{{ $p->no_surat }}</option>
                                     @endforeach
                                 </select>
-                                @error('id_pemesan')
+                                @error('id_invoice')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="form-select" id="status" name="status" required>
-                                <option value="" disabled selected>Pilih Status</option>
-                                <option value="Pending">Pending</option>
-                                <option value="Completed">Completed</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="ppn" class="form-label">PPN</label>
-                            <input type="number" class="form-control" id="ppn" name="ppn" required>
+
+                        <div class="row mb-3">
+                            <label for="id_invoice" class="col-md-4 col-lg-3 col-form-label">Klien</label>
+                            <div class="col-md-8 col-lg-9">
+                                <select name="id_invoice" id="id_invoice" class="form-control @error('id_invoice') is-invalid @enderror" required>
+                                    <option value="">Pilih Klien</option>
+                                    @foreach($invoice as $p)
+                                        <option value="{{ $p->id }}" {{ old('id_invoice') == $p->id ? 'selected' : '' }}>{{ $p->pemesan->asal_pemesan }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_invoice')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                        <div class="mb-3">
-                            <label for="bukti_transaksi" class="form-label">Bukti Transaksi</label>
-                            <input type="file" class="form-control" id="bukti_transaksi" name="bukti_transaksi" accept=".jpg, .jpeg, .png, .pdf">
                         </div>
-                    </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>

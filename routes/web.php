@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\DetailinvoiceController;
+use App\Http\Controllers\detailkwitansiController;
 use App\Http\Controllers\DetailOrderController;
 use App\Http\Controllers\DetailPesananController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\KwitansiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PemesanController;
@@ -47,16 +49,19 @@ Route::group(['middleware' => 'cekrole:Admin,Karyawan'], function() {
     Route::resource('/data-PO', PenawaranOrderController::class)->names('data-PO');
     Route::resource('/data-invoice', InvoiceController::class)->names('data-invoice');
     Route::resource('/data-PH', PenawaranHargaController::class)->names('data-PH');
+    Route::resource('/data-kwitansi', KwitansiController::class)->names('data-kwitansi');
     Route::get('/setujui-surat-ph/{id}', [PenawaranHargaController::class, 'setujui']);
     Route::get('/setujui-surat-po/{id}', [PenawaranOrderController::class, 'setujui']);
     Route::get('/setujui-surat-invoice/{id}', [InvoiceController::class, 'setujui']);
     Route::get('/surat-penawaran-harga/{id}', [PenawaranHargaController::class, 'surat_ph']);
     Route::get('/surat-purchase-order/{id}', [PenawaranOrderController::class, 'surat_order']);
     Route::get('/surat-invoice/{id}', [InvoiceController::class, 'surat_invoice']);
+    Route::get('/surat-kwitansi/{id}', [KwitansiController::class, 'surat_kwitansi']);
     Route::get('/validasi-surat-ph/{id}', [PenawaranHargaController::class, 'validasi']);
     Route::resource('/detail-data', DetailPesananController::class)->names('detail-data');
     Route::resource('/detail-order', DetailOrderController::class)->names('detail-order');
     Route::resource('/detail-invoice', DetailinvoiceController::class)->names('detail-invoice');
+    Route::resource('/detail-kwitansi', detailkwitansiController::class)->names('detail-kwitansi');
     Route::resource('/data-perusahaan', PerusahaanController::class)->names('data-perusahaan');
     Route::resource('/data-produk', ProdukController::class)->names('data-produk');
     Route::resource('/data-pemesan', PemesanController::class)->names('data-pemesan');

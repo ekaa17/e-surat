@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_invoice')->nullable()->change();
             $table->foreignId('id_produk')->references('id')->on('produks')->onDelete('cascade');
             $table->integer('quantity');
-            $table->decimal('total', 10, 2);
+            $table->decimal('total', 15, 2);
             $table->timestamps();
 
             $table->foreignId('id_invoice')->references('id')->on('invoices')->onDelete('cascade');

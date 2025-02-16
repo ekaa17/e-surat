@@ -71,7 +71,7 @@
 
             <div class="d-flex justify-content-center align-items-center my-2">
                 <a href="{{ route('data-invoice.index') }}" class="btn btn-primary">
-                    kembali ke halaman penawaran harga
+                    kembali ke halaman Invoice
                 </a>
             </div>
 

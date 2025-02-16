@@ -31,7 +31,7 @@
             <span>
               <i class="bi-person-circle"></i>
             </span>
-            <span class="hide-menu">Data Karyawan</span>
+            <span class="hide-menu">Data Akun</span>
           </a>
         </li>
         @if (auth()->user()->role == 'Admin')
@@ -48,7 +48,7 @@
             <span>
               <i class="bi-building"></i>
             </span>
-            <span class="hide-menu">Data Perusahaan</span>
+            <span class="hide-menu">Data Supplier</span>
           </a>
         </li>
         <li class="sidebar-item">
@@ -64,7 +64,7 @@
             <span>
               <i class="bi-person-fill"></i>
             </span>
-            <span class="hide-menu">Data Pemesan</span>
+            <span class="hide-menu">Data Klien</span>
           </a>
         </li>
         @else
@@ -74,7 +74,7 @@
             <span>
               <i class="bi bi-folder"></i>
             </span>
-            <span class="hide-menu">Data Dokumen</span>
+            <span class="hide-menu">E-Surat</span>
           </a>
           <ul aria-expanded="false" class="collapse first-level">
             <li class="sidebar-item">
@@ -99,6 +99,14 @@
                   <i class="bi bi-file-earmark"></i>
                 </span>
                 <span class="hide-menu">Data Invoice</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="./data-kwitansi" class="sidebar-link">
+                <span>
+                  <i class="bi bi-file-earmark"></i>
+                </span>
+                <span class="hide-menu">Data Kwitansi</span>
               </a>
             </li>
           </ul>
