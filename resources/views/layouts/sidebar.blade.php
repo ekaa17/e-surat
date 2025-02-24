@@ -119,20 +119,21 @@
             <span class="hide-menu">Report E-Surat</span>
           </a>
           <ul aria-expanded="false" class="collapse first-level">
-            <li class="sidebar-item">
-              <a href="/report_PO" class="sidebar-link">
-                <span>
-                  <i class="bi bi-file-earmark"></i>
-                </span>
-                <span class="hide-menu">Report Purchase Order</span>
-              </a>
-            </li>
+           
             <li class="sidebar-item">
               <a href="./laporan_PH" class="sidebar-link">
                 <span>
                   <i class="bi bi-file-earmark"></i>
                 </span>
                 <span class="hide-menu">Report Penawaran Harga</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="/laporan_PO" class="sidebar-link">
+                <span>
+                  <i class="bi bi-file-earmark"></i>
+                </span>
+                <span class="hide-menu">Report Purchase Order</span>
               </a>
             </li>
             <li class="sidebar-item">

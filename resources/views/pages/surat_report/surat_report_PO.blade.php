@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Laporan Penawaran Harga</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{{ asset('assets/img/profile/Logo.jpg') }}" rel="icon">
+  <link href="{{ asset('assets/img/profile/Logo.jpg') }}" rel="logo">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+
+  <div>
+    <table width=100%>
+      <tr>
+        <td width="20%" class="text-center">
+          <img src="{{ asset('assets/img/profile/Logo.jpg') }}" alt="Logo IndoKarya" width="175px">
+        </td>
+        <td width="80%" class="my-0 py-0 text-center">
+          <h6 class="text-primary">{{$informasi_perusahaan->nama_perusahaan}}</h6>
+          <p style="font-size: 12px;" class="my-0 py-0">
+            {{$informasi_perusahaan->bidang}}
+          </p>
+          <p style="font-size: 10px" class="my-0 py-0">
+            Office : {{ $informasi_perusahaan->alamat }} <br>
+            42446 Telp. {{ $informasi_perusahaan->no_telpon }} Email : {{ $informasi_perusahaan->email }}
+          </p>
+        </td>
+      </tr>
+    </table>
+
+    <hr style="border: 2px solid black">
+
+
+
+
+    <p class="text-center mt-2 mb-2" style="font-size: 18px;"><b>Laporan Surat Purchase Order</b></p>
+    <div class="text-center mb-5">
+        <p class="mb-1">{{ request('bulan') ? \Carbon\Carbon::create()->month(request('bulan'))->translatedFormat('F') : 'Semua Bulan' }}  {{ request('tahun') ? request('tahun') : 'Semua Tahun' }}</p>
+        {{-- <p class="mb-1">Tahun: {{ request('tahun') ? request('tahun') : 'Semua Tahun' }}</p> --}}
+    </div>
+    <div style="margin-top: 35px; display: flex; justify-content:center; align-items:center;">
+
+      <table class="table table-striped table-bordered text-center" style="font-size: 12px">
+        <thead class="thead-dark">
+            <tr>
+                <th>Tanggal</th>
+                <th>Nomor Surat</th>
+                <th>Waktu Penyerahan</th>
+                <th>Waktu Pembayaran</th>
+                <th>Lokasi Gudang</th>
+                <th>Nama Perusahaan</th>
+                <th>Produk</th>
+                <th>Quantity</th>
+                <th>Harga</th>
+                <th>Jumlah</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php $grandTotal = 0; @endphp
+            @foreach ($orders as $item)
+                @php $subTotal = 0; @endphp
+                @foreach ($data_show->where('id_order', $item->id) as $data)
+                    @php 
+                        $jumlah = $data->quantity * $data->produk->harga_produk;
+                        $subTotal += $jumlah;
+                    @endphp
+                    <tr>
+                        <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</td>
+                        <td>{{ $item->nomor_surat }}</td>
+                        <td>{{ $item->waktu_penyerahan_barang }}</td>
+                        <td>{{ $item->waktu_pembayaran }}</td>
+                        <td>{{ $item->lokasi_gudang }}</td>
+                        <td>{{ $item->perusahaan->nama_perusahaan }}</td>
+                        <td>{{ $data->produk->nama_produk }}</td>
+                        <td>{{ $data->quantity }} {{ $data->produk->unit }}</td>
+                        <td>Rp. {{ number_format($data->produk->harga_produk, 0, ',', '.') }}</td>
+                        <td>Rp. {{ number_format($jumlah, 0, ',', '.') }}</td>
+                    </tr>
+                @endforeach
+                <tr class="bg-light font-weight-bold">
+                    <td colspan="8"></td>
+                    <td class="text-right">Sub Total:</td>
+                    <td>Rp. {{ number_format($subTotal, 0, ',', '.') }}</td>
+                </tr>
+                @php $grandTotal += $subTotal; @endphp
+            @endforeach
+            <tr class="bg-danger text-white font-weight-bold">
+                <td colspan="8"></td>
+                <td class="text-right">Grand Total:</td>
+                <td>Rp. {{ number_format($grandTotal, 0, ',', '.') }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    </div>
+
+    <br>
+
+   
+    
+    <table style="font-size: 10px; text-align: left; text-align: center;" class="d-flex justify-content-end">
+      <tr>
+          <td>
+              Dipersiapkan Oleh
+              <br>
+              {{ optional($informasi_perusahaan)->nama_perusahaan ?? 'Nama Perusahaan Tidak Tersedia' }}
+              <br><br>
+              {{-- @if ($direktur->tandatangan && $invoice->status_pengajuan == 'Disetujui') --}}
+              <img src="{{ asset('assets/img/tandatangan/' . $direktur->tandatangan) }}" alt="Tanda Tangan" class="img-fluid mb-2" style="max-width: 100px; height: auto;">
+              {{-- @else --}}
+                  <p class="text-muted">Tanda tangan belum tersedia.</p>
+              {{-- @endif --}}
+              <br><br>
+  
+              <u> {{ optional($direktur)->name ?? 'Nama Direktur Tidak Tersedia' }} </u> <br>
+              {{ optional($direktur->jabatan)->nama_jabatan ?? 'Nama Direktur Tidak Tersedia' }}
+          </td>
+      </tr>
+  </table>
+  </div>
+
+  <script type="text/javascript">
+    window.print();
+  </script> 
+</body>
+
+</html>
+

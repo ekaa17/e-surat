@@ -8,6 +8,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KwitansiController;
 use App\Http\Controllers\laporan_PHController;
+use App\Http\Controllers\laporan_POController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PemesanController;
@@ -70,6 +71,11 @@ Route::group(['middleware' => 'cekrole:Admin,Karyawan'], function() {
     Route::resource('/data-jabatan', JabatanController::class)->names('data-jabatan');
     Route::resource('/laporan_PH', laporan_PHController::class)->names('laporan_PH');
     Route::get('/surat_report_PH', [laporan_PHController::class, 'Laporan_PH']);
+    Route::resource('/laporan_PO', laporan_POController::class)->names('laporan_PO');
+    // Route::get('/surat_report_PO', [laporan_POController::class, 'Laporan_PO']);
+    Route::get('/surat_report_PO', [laporan_POController::class, 'laporan_PO'])->name('laporan_PO');
+
+    
     
 });
 Route::group(['middleware' => 'cekrole:Karyawan'], function() {

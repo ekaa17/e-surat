@@ -75,7 +75,7 @@
 
             <div class="d-flex justify-content-center align-items-center my-2">
                 <a href="{{ route('data-PO.index') }}" class="btn btn-primary">
-                    kembali ke halaman penawaran harga
+                    kembali ke halaman Purchase Order
                 </a>
             </div>
 
