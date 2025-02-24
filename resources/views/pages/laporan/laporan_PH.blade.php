@@ -34,8 +34,8 @@
                     <div class="card-body pt-3">
                         <div class="d-flex align-items-center justify-content-between m-3">
                             <h5 class="card-title">Total:  Surat reportPO</h5>
-                            <a href="/surat_report_PH" class="btn btn-primary" target="_blank">Cetak</a> 
                            
+                            <a href="/surat_report_PH" class="btn btn-primary" target="_blank">Cetak</a> 
                         </div>
 
                         <div class="table-responsive">
