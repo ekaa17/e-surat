@@ -70,7 +70,7 @@ Route::group(['middleware' => 'cekrole:Admin,Karyawan'], function() {
     Route::resource('/data-setting', SettingController::class)->names('data-setting');
     Route::resource('/data-jabatan', JabatanController::class)->names('data-jabatan');
     Route::resource('/laporan_PH', laporan_PHController::class)->names('laporan_PH');
-    Route::get('/surat_report_PH', [laporan_PHController::class, 'Laporan_PH']);
+    Route::get('/surat_report_PH', [laporan_PHController::class, 'Laporan_PH'])->name('laporan_PH');
     Route::resource('/laporan_PO', laporan_POController::class)->names('laporan_PO');
     // Route::get('/surat_report_PO', [laporan_POController::class, 'Laporan_PO']);
     Route::get('/surat_report_PO', [laporan_POController::class, 'laporan_PO'])->name('laporan_PO');

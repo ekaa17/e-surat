@@ -39,10 +39,11 @@
 
 
 
-    <p class="text-center mt-2 mb-5" style="font-size: 12px;">
-        <b>Laporan Surat Penawaran Harga </b> <br>
-       
-      </p>
+    <p class="text-center mt-2 mb-2" style="font-size: 18px;"><b>Laporan Surat Penawaran Harga</b></p>
+    <div class="text-center mb-5">
+        <p class="mb-1">{{ request('bulan') ? \Carbon\Carbon::create()->month(request('bulan'))->translatedFormat('F') : 'Semua Bulan' }}  {{ request('tahun') ? request('tahun') : 'Semua Tahun' }}</p>
+        {{-- <p class="mb-1">Tahun: {{ request('tahun') ? request('tahun') : 'Semua Tahun' }}</p> --}}
+    </div>
 
     <div style="margin-top: 35px; display: flex; justify-content:center; align-items:center;">
       <table class="table table-striped table-bordered text-center" style="font-size: 12px">
@@ -106,11 +107,11 @@
               <br>
               {{ optional($informasi_perusahaan)->nama_perusahaan ?? 'Nama Perusahaan Tidak Tersedia' }}
               <br><br>
-              @if ($direktur->tandatangan && $invoice->status_pengajuan == 'Disetujui')
+              {{-- @if ($direktur->tandatangan && $invoice->status_pengajuan == 'Disetujui') --}}
               <img src="{{ asset('assets/img/tandatangan/' . $direktur->tandatangan) }}" alt="Tanda Tangan" class="img-fluid mb-2" style="max-width: 100px; height: auto;">
-              @else
+              {{-- @else
                   <p class="text-muted">Tanda tangan belum tersedia.</p>
-              @endif
+              @endif --}}
               <br><br>
   
               <u> {{ optional($direktur)->name ?? 'Nama Direktur Tidak Tersedia' }} </u> <br>

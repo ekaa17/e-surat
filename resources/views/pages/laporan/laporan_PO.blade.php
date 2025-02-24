@@ -31,43 +31,47 @@
 
             <div class="col-xl-12">
                 <div class="card">
-                    <div class="card-body pt-3">
-                        <div class="d-flex align-items-center justify-content-between m-3">
-                            <h5 class="card-title">Total:  Surat reportPO</h5>
-                            <form action="/laporan_PO" method="GET" class="mb-3">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label for="bulan" class="form-label">Pilih Bulan</label>
-                                        <select name="bulan" id="bulan" class="form-control">
-                                            <option value="">-- Semua Bulan --</option>
-                                            @for($m = 1; $m <= 12; $m++)
-                                                <option value="{{ $m }}" {{ request('bulan') == $m ? 'selected' : '' }}>
-                                                    {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}
-                                                </option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="tahun" class="form-label">Pilih Tahun</label>
-                                        <select name="tahun" id="tahun" class="form-control">
-                                            <option value="">-- Semua Tahun --</option>
-                                            @for($y = now()->year; $y >= now()->year - 5; $y--)
-                                                <option value="{{ $y }}" {{ request('tahun') == $y ? 'selected' : '' }}>
-                                                    {{ $y }}
-                                                </option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4 d-flex align-items-end">
-                                        <button type="submit" class="btn btn-primary">Filter</button>
-                                    </div>
+                        <div class="card-body pt-3">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
+                                <h5 class="card-title">Total: Surat report PO</h5>
+                                
+                                <div class="d-flex flex-wrap gap-2 align-items-end">
+                                    <form action="/laporan_PO" method="GET" class="d-flex flex-wrap align-items-end gap-2">
+                                        <div class="form-group">
+                                            <label for="bulan" class="form-label">Pilih Bulan</label>
+                                            <select name="bulan" id="bulan" class="form-control">
+                                                <option value="">-- Semua Bulan --</option>
+                                                @for($m = 1; $m <= 12; $m++)
+                                                    <option value="{{ $m }}" {{ request('bulan') == $m ? 'selected' : '' }}>
+                                                        {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}
+                                                    </option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                        
+                                        <div class="form-group">
+                                            <label for="tahun" class="form-label">Pilih Tahun</label>
+                                            <select name="tahun" id="tahun" class="form-control">
+                                                <option value="">-- Semua Tahun --</option>
+                                                @for($y = now()->year; $y >= now()->year - 5; $y--)
+                                                    <option value="{{ $y }}" {{ request('tahun') == $y ? 'selected' : '' }}>
+                                                        {{ $y }}
+                                                    </option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                        
+                                        <button type="submit" class="btn btn-primary"><i class="bi bi-filter"></i>
+                                        </button>
+                                    </form>
+                        
+                                    <a href="{{ route('laporan_PO', ['bulan' => request('bulan'), 'tahun' => request('tahun')]) }}" 
+                                        class="btn btn-success " target="_blank">
+                                        <i class="bi bi-printer"></i> Cetak
+                                    </a>
                                 </div>
-                            </form><a href="{{ route('laporan_PO', ['bulan' => request('bulan'), 'tahun' => request('tahun')]) }}" 
-                                class="btn btn-primary" 
-                                target="_blank">
-                                Cetak
-                             </a> 
-                        </div>
+                            </div>
+             
 
                         <div class="table-responsive">
                             <table class="table table-bordered">
