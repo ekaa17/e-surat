@@ -112,6 +112,41 @@
           </ul>
         </li>
         <li class="sidebar-item">
+          <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+            <span>
+              <i class="bi bi-folder"></i>
+            </span>
+            <span class="hide-menu">Report E-Surat</span>
+          </a>
+          <ul aria-expanded="false" class="collapse first-level">
+            <li class="sidebar-item">
+              <a href="/report_PO" class="sidebar-link">
+                <span>
+                  <i class="bi bi-file-earmark"></i>
+                </span>
+                <span class="hide-menu">Report Purchase Order</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="./laporan_PH" class="sidebar-link">
+                <span>
+                  <i class="bi bi-file-earmark"></i>
+                </span>
+                <span class="hide-menu">Report Penawaran Harga</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="./laporan_PH" class="sidebar-link">
+                <span>
+                  <i class="bi bi-file-earmark"></i>
+                </span>
+                <span class="hide-menu">Report Invoice</span>
+              </a>
+            </li>
+          
+          </ul>
+        </li>
+        <li class="sidebar-item">
           <a href="./data-setting" class="sidebar-link">
             <span>
               <i class="bi bi-gear"></i>

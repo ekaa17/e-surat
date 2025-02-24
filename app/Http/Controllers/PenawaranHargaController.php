@@ -118,4 +118,7 @@ class PenawaranHargaController extends Controller
         $direktur = Staff::where('role', 'Karyawan')->first();
         return view('pages.surat.surat_penawaran_harga', compact('no', 'data','penawaran', 'detail_data', 'total', 'informasi_perusahaan', 'direktur'));
     }
+
+
+    
 }

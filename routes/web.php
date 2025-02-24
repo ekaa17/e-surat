@@ -7,6 +7,7 @@ use App\Http\Controllers\DetailPesananController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KwitansiController;
+use App\Http\Controllers\laporan_PHController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PemesanController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\PenawaranHargaController;
 use App\Http\Controllers\PenawaranOrderController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\reportPOController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StaffController;
 use App\Models\Invoice;
@@ -61,12 +63,15 @@ Route::group(['middleware' => 'cekrole:Admin,Karyawan'], function() {
     Route::resource('/detail-data', DetailPesananController::class)->names('detail-data');
     Route::resource('/detail-order', DetailOrderController::class)->names('detail-order');
     Route::resource('/detail-invoice', DetailinvoiceController::class)->names('detail-invoice');
-    Route::resource('/detail-kwitansi', detailkwitansiController::class)->names('detail-kwitansi');
     Route::resource('/data-perusahaan', PerusahaanController::class)->names('data-perusahaan');
     Route::resource('/data-produk', ProdukController::class)->names('data-produk');
     Route::resource('/data-pemesan', PemesanController::class)->names('data-pemesan');
     Route::resource('/data-setting', SettingController::class)->names('data-setting');
     Route::resource('/data-jabatan', JabatanController::class)->names('data-jabatan');
+    Route::resource('/report_PO', reportPOController::class)->names('report_PO');
+    Route::get('/surat_report_PO/{id}', [reportPOController::class, 'surat_report_PO']);
+    Route::resource('/laporan_PH', laporan_PHController::class)->names('laporan_PH');
+    Route::get('/surat_report_PH', [laporan_PHController::class, 'Laporan_PH']);
     
 });
 Route::group(['middleware' => 'cekrole:Karyawan'], function() {
