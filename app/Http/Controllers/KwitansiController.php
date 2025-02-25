@@ -82,7 +82,16 @@ class KwitansiController extends Controller
 
 
 
+    public function setujui($id) {
+        $kwitansis = Kwitansi::findOrFail($id);
+        $kwitansis->status_pengajuan = 'Disetujui';
 
+        if ($kwitansis->save()){
+            return redirect()->back()->with('success', 'Surat terkait berhasil Disetujui!');
+        } else {
+            return redirect()->back()->with('error', 'Gagal menyetujui surat');
+        }
+    }
 
 
 

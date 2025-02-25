@@ -114,7 +114,7 @@
         <li class="sidebar-item">
           <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
             <span>
-              <i class="bi bi-folder"></i>
+              <i class="bi bi-file-earmark-bar-graph"></i>
             </span>
             <span class="hide-menu">Report E-Surat</span>
           </a>
@@ -137,7 +137,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="./laporan_PH" class="sidebar-link">
+              <a href="./laporan_Invoice" class="sidebar-link">
                 <span>
                   <i class="bi bi-file-earmark"></i>
                 </span>

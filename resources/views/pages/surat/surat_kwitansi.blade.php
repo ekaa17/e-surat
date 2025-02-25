@@ -116,7 +116,7 @@
         <div class="signature">
             <p>Ciwandan, {{ date('d M Y') }}</p>
             <br><br>
-            @if ($direktur->tandatangan && $invoice->status_pengajuan == 'Disetujui')
+            @if ($direktur->tandatangan && $kwitansis->status_pengajuan == 'Disetujui')
             <img src="{{ asset('assets/img/tandatangan/' . $direktur->tandatangan) }}" alt="Tanda Tangan" class="img-fluid mb-2" style="max-width: 100px; height: auto;">
             @else
                 <p class="text-muted">Tanda tangan belum tersedia.</p>

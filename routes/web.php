@@ -7,6 +7,7 @@ use App\Http\Controllers\DetailPesananController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KwitansiController;
+use App\Http\Controllers\laporan_InvoiceController;
 use App\Http\Controllers\laporan_PHController;
 use App\Http\Controllers\laporan_POController;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +54,7 @@ Route::group(['middleware' => 'cekrole:Admin,Karyawan'], function() {
     Route::resource('/data-invoice', InvoiceController::class)->names('data-invoice');
     Route::resource('/data-PH', PenawaranHargaController::class)->names('data-PH');
     Route::resource('/data-kwitansi', KwitansiController::class)->names('data-kwitansi');
+    Route::get('/setujui-surat-kwitansi/{id}', [KwitansiController::class, 'setujui']);
     Route::get('/setujui-surat-ph/{id}', [PenawaranHargaController::class, 'setujui']);
     Route::get('/setujui-surat-po/{id}', [PenawaranOrderController::class, 'setujui']);
     Route::get('/setujui-surat-invoice/{id}', [InvoiceController::class, 'setujui']);
@@ -74,6 +76,8 @@ Route::group(['middleware' => 'cekrole:Admin,Karyawan'], function() {
     Route::resource('/laporan_PO', laporan_POController::class)->names('laporan_PO');
     // Route::get('/surat_report_PO', [laporan_POController::class, 'Laporan_PO']);
     Route::get('/surat_report_PO', [laporan_POController::class, 'laporan_PO'])->name('laporan_PO');
+    Route::resource('/laporan_Invoice', laporan_InvoiceController::class)->names('laporan_Invoice');
+    Route::get('/surat_report_Invoice', [laporan_InvoiceController::class, 'laporan_Invoice'])->name('laporan_Invoice');
 
     
     
