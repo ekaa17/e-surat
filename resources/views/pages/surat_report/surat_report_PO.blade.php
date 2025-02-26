@@ -100,30 +100,6 @@
     </table>
     
     </div>
-
-    <br>
-
-   
-    
-    <table style="font-size: 10px; text-align: left; text-align: center;" class="d-flex justify-content-end">
-      <tr>
-          <td>
-              Dipersiapkan Oleh
-              <br>
-              {{ optional($informasi_perusahaan)->nama_perusahaan ?? 'Nama Perusahaan Tidak Tersedia' }}
-              <br><br>
-              {{-- @if ($direktur->tandatangan && $invoice->status_pengajuan == 'Disetujui') --}}
-              <img src="{{ asset('assets/img/tandatangan/' . $direktur->tandatangan) }}" alt="Tanda Tangan" class="img-fluid mb-2" style="max-width: 100px; height: auto;">
-              {{-- @else --}}
-                  <p class="text-muted">Tanda tangan belum tersedia.</p>
-              {{-- @endif --}}
-              <br><br>
-  
-              <u> {{ optional($direktur)->name ?? 'Nama Direktur Tidak Tersedia' }} </u> <br>
-              {{ optional($direktur->jabatan)->nama_jabatan ?? 'Nama Direktur Tidak Tersedia' }}
-          </td>
-      </tr>
-  </table>
   </div>
 
   <script type="text/javascript">

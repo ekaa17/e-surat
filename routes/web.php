@@ -77,7 +77,7 @@ Route::group(['middleware' => 'cekrole:Admin,Karyawan'], function() {
     // Route::get('/surat_report_PO', [laporan_POController::class, 'Laporan_PO']);
     Route::get('/surat_report_PO', [laporan_POController::class, 'laporan_PO'])->name('laporan_PO');
     Route::resource('/laporan_Invoice', laporan_InvoiceController::class)->names('laporan_Invoice');
-    Route::get('/surat_report_Invoice', [laporan_InvoiceController::class, 'laporan_Invoice'])->name('laporan_Invoice');
+   
 
     
     

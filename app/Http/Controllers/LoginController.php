@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Staff;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Pemesan;
+use App\Models\Kwitansi;
+use App\Models\Perusahaan;
+use Illuminate\Http\Request;
 use App\Models\PenawaranHarga;
 use App\Models\PenawaranOrder;
-use App\Models\Perusahaan;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -27,8 +28,9 @@ class LoginController extends Controller
         $total_pemesan = Pemesan::count();
         $total_perusahaan = Perusahaan::count();
         $total_invoice = Invoice::count();
+        $kwitansicount = Kwitansi::count();
         // Your logic here, e.g., returning a view
-        return view('pages.dashboard', compact('total_staff','total_PO','total_PH','total_invoice','total_pemesan','total_perusahaan'));
+        return view('pages.dashboard', compact('total_staff','kwitansicount','total_PO','total_PH','total_invoice','total_pemesan','total_perusahaan'));
     }
 
     public function login(Request $request) {

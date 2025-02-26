@@ -1,15 +1,11 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="pagetitle">
-        <h1>Data report Invoice</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active">Data report Invoice</li>
-            </ol>
-        </nav>
-    </div>
+
+<div class="pagetitle text-center">
+    <h1 class="text-xl font-bold montserreat">Surat Report Invoice</h1>
+</div>
+
 
     <section class="section profile">
         <div class="row">
@@ -33,7 +29,7 @@
                 <div class="card">
                         <div class="card-body pt-3">
                             <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
-                                <h5 class="card-title">Total: Surat report Invoice</h5>
+                                <h5 class="card-title">Report Invoice </h5>
                                 
                                 <div class="d-flex flex-wrap gap-2 align-items-end">
                                     <form action="/laporan_Invoice" method="GET" class="d-flex flex-wrap align-items-end gap-2">

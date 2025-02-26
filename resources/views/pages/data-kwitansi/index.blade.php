@@ -33,7 +33,7 @@
                 <div class="card">
                     <div class="card-body pt-3">
                         <div class="d-flex align-items-center justify-content-between m-3">
-                            <h5 class="card-title">Total:  Surat kwitansi</h5>
+                            <h5 class="card-title">Total: {{$kwitansicount}} Surat kwitansi</h5>
                             @if (auth()->user()->role == 'Admin')
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
                                     <i class="bi bi-plus"></i> Data Baru

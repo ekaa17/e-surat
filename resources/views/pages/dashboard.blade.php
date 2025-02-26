@@ -58,6 +58,17 @@
               <div class="card border-0 zoom-in bg-light-info shadow-none">
                 <div class="card-body">
                   <div class="text-center">
+                    <img src="../../dist/images/svgs/icon-credit-card.svg" width="50" height="50" class="mb-3" alt="" />
+                    <p class="fw-semibold fs-3 text-info mb-1">Surat Kwitansi</p>
+                    <h5 class="fw-semibold text-info mb-0">{{$kwitansicount}}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="card border-0 zoom-in bg-light-info shadow-none">
+                <div class="card-body">
+                  <div class="text-center">
                     <img src="../../dist/images/svgs/icon-office-bag-2.svg" width="50" height="50" class="mb-3" alt="" />
                     <p class="fw-semibold fs-3 text-info mb-1">Surat PH</p>
                     <h5 class="fw-semibold text-info mb-0">{{$total_PH}}</h5>
@@ -70,7 +81,7 @@
                   <div class="card-body">
                     <div class="text-center">
                       <img src="../../dist/images/svgs/icon-briefcase.svg" width="50" height="50" class="mb-3" alt="" />
-                      <p class="fw-semibold fs-3 text-warning mb-1">Pemesan</p>
+                      <p class="fw-semibold fs-3 text-warning mb-1">Klien</p>
                       <h5 class="fw-semibold text-warning mb-0">{{ $total_pemesan }}</h5>
                     </div>
                   </div>
@@ -81,7 +92,7 @@
                   <div class="card-body">
                     <div class="text-center">
                       <img src="../../dist/images/svgs/icon-mailbox.svg" width="50" height="50" class="mb-3" alt="" />
-                      <p class="fw-semibold fs-3 text-info mb-1">Perusahaan</p>
+                      <p class="fw-semibold fs-3 text-info mb-1">Supplier</p>
                       <h5 class="fw-semibold text-info mb-0">{{$total_perusahaan}}</h5>
                     </div>
                   </div>

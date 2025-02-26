@@ -6,11 +6,7 @@
           <i class="ti ti-menu-2"></i>
         </a>
       </li>
-      <li class="nav-item d-none d-lg-block">
-        <a class="nav-link nav-icon-hover" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          <i class="ti ti-search"></i>
-        </a>
-      </li>
+     
     </ul>
     <button class="navbar-toggler p-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="p-2">

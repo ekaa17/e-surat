@@ -18,7 +18,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <!-- Owl Carousel  -->
   <link rel="stylesheet" href="../../dist/libs/owl.carousel/dist/assets/owl.carousel.min.css">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <!-- Core Css -->
   <link  id="themeColors"  rel="stylesheet" href="../../dist/css/style.min.css" />
 </head>

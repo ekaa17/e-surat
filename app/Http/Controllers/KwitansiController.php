@@ -18,7 +18,9 @@ class KwitansiController extends Controller
         $kwitansis = Kwitansi::all();
         $detail_invoice = DetailInvoice::all();
         $invoice = Invoice::all(); 
-        return view('pages.data-kwitansi.index', compact('kwitansis','invoice','detail_invoice'));
+        $kwitansicount = Kwitansi::count();
+
+        return view('pages.data-kwitansi.index', compact('kwitansis','kwitansicount','invoice','detail_invoice'));
     }
 
     public function create()
