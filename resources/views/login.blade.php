@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Favicons -->
-    <link href="{{ asset('model/img/logo.jpg') }}" rel="icon" class="rounded-circle">
-    <link href="{{ asset('model/img/logo.jpg') }}" rel="apple-touch-icon" class="rounded-circle">
+    <link href="{{ asset('assets/img/profile/Logo.jpg') }}" rel="icon" class="rounded-circle">
+    <link href="{{ asset('assets/img/profile/Logo.jpg') }}" rel="apple-touch-icon" class="rounded-circle">
 
     <link rel="stylesheet" href="{{ asset('model/css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('model/vendor/bootstrap/css/bootstrap.min.css') }}">

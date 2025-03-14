@@ -12,6 +12,7 @@ use App\Http\Controllers\laporan_PHController;
 use App\Http\Controllers\laporan_POController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PemesanController;
 use App\Http\Controllers\PenawaranHargaController;
 use App\Http\Controllers\PenawaranOrderController;
@@ -50,6 +51,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::group(['middleware' => 'cekrole:Admin,Karyawan'], function() {
     Route::get('/dashboard', [LoginController::class, 'dashboard']);
     Route::resource('/data-staff', StaffController::class)->names('data-staff');
+    Route::resource('/data-pegawai', PegawaiController::class)->names('data-pegawai');
     Route::resource('/data-PO', PenawaranOrderController::class)->names('data-PO');
     Route::resource('/data-invoice', InvoiceController::class)->names('data-invoice');
     Route::resource('/data-PH', PenawaranHargaController::class)->names('data-PH');
@@ -77,6 +79,8 @@ Route::group(['middleware' => 'cekrole:Admin,Karyawan'], function() {
     // Route::get('/surat_report_PO', [laporan_POController::class, 'Laporan_PO']);
     Route::get('/surat_report_PO', [laporan_POController::class, 'laporan_PO'])->name('laporan_PO');
     Route::resource('/laporan_Invoice', laporan_InvoiceController::class)->names('laporan_Invoice');
+    Route::get('/surat_report_Invoice', [laporan_InvoiceController::class, 'laporan_Invoice'])->name('laporan_Invoice');
+
    
 
     

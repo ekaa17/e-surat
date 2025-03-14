@@ -44,6 +44,14 @@
           </a>
         </li>
         <li class="sidebar-item">
+          <a class="sidebar-link" href="./data-pegawai" aria-expanded="false">
+            <span>
+              <i class="bi bi-people"></i>
+            </span>
+            <span class="hide-menu">Data Pegawai</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
           <a class="sidebar-link" href="./data-perusahaan" aria-expanded="false">
             <span>
               <i class="bi-building"></i>
