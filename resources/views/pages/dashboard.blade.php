@@ -81,7 +81,7 @@
                   <div class="card-body">
                     <div class="text-center">
                       <img src="../../dist/images/svgs/icon-briefcase.svg" width="50" height="50" class="mb-3" alt="" />
-                      <p class="fw-semibold fs-3 text-warning mb-1">Klien</p>
+                      <p class="fw-semibold fs-3 text-warning mb-1">Client</p>
                       <h5 class="fw-semibold text-warning mb-0">{{ $total_pemesan }}</h5>
                     </div>
                   </div>

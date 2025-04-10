@@ -72,7 +72,7 @@
             <span>
               <i class="bi-person-fill"></i>
             </span>
-            <span class="hide-menu">Data Klien</span>
+            <span class="hide-menu">Data Client</span>
           </a>
         </li>
         @else

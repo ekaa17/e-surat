@@ -18,6 +18,7 @@ class laporan_PHController extends Controller
         $no = 1;
         $data_Harga = PenawaranHarga::with('pemesan')->get();
         $pemesan = Pemesan::all(); 
+        $penawaran = PenawaranHarga::all(); 
         $detail_pemesanan = DetailPenawaran::all();
         $query = PenawaranHarga::query();
 
@@ -65,5 +66,17 @@ class laporan_PHController extends Controller
     
         
         return view('pages.surat_report.surat_report_PH', compact('no', 'data','data_show','data_Harga',  'informasi_perusahaan', 'direktur'));
+    }
+
+
+   
+
+    public function surat_ph($id) {
+        $no = 1;
+        $penawaran = PenawaranHarga::all();
+        $data = PenawaranHarga::all();
+        $informasi_perusahaan = Setting::where('id', 1)->first();
+        $direktur = Staff::where('role', 'Karyawan')->first();
+        return view('pages.laporan.laporan_PH', compact('no', 'data','penawaran','informasi_perusahaan', 'direktur'));
     }
 }

@@ -44,8 +44,8 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Nama Perusahaan</th>
-                                        <th>Alamat Perusahaan</th>
+                                        <th>Nama Supplier</th>
+                                        <th>Alamat Supplier</th>
                                         <th>No Telpon</th>
                                         <th>Aksi</th>
                                     </tr>

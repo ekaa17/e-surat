@@ -44,11 +44,11 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Nama Pemesan</th>
-                                        <th>Asal Pemesan</th>
+                                        <th>Nama Client</th>
+                                        <th>Asal Client</th>
                                         <th>Alamat Perusahaan</th>
-                                        <th>Nomor PO</th>
-                                        <th>Tanggal Pemesan</th>
+                                        <th>Nomor PO Client</th>
+                                        <th>Tanggal Pesanan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
